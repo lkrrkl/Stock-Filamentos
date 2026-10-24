@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<link rel="icon" type="image/png" href="https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/120x120/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png">
+<link rel="apple-touch-icon" href="https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/120x120/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png">
+<title>Stock de Filamento · Registro de colores</title>
+<style>
+  :root{
+    --bg:#0d1117;
+    --panel:#161b22;
+    --panel-2:#1c2330;
+    --border:#2a3342;
+    --text:#e6edf3;
+    --muted:#8b98a9;
+    --accent:#4f9cf9;
+    --danger:#f2555a;
+    --radius:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:radial-gradient(1200px 620px at 15% -10%, #16243a 0%, #0d1117 55%) fixed;
+    color:var(--text);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:1220px;margin:0 auto;padding:0 20px 80px}
+
+  /* ---------- Header ---------- */
+  header{
+    display:flex;align-items:center;gap:16px;
+    padding:30px 0 20px;flex-wrap:wrap;
+  }
+  .logo{
+    width:48px;height:48px;border-radius:14px;flex:0 0 auto;
+    overflow:hidden;background:#0e141c;
+    border:1px solid var(--border);
+    box-shadow:0 8px 24px -8px rgba(79,156,249,.55);
+  }
+  .logo img{width:100%;height:100%;object-fit:cover;display:block}
+  header h1{margin:0;font-size:22px;letter-spacing:-.02em}
+  header p{margin:3px 0 0;font-size:13px;color:var(--muted)}
+  .head-actions{margin-left:auto;display:flex;gap:10px}
+
+  /* ---------- Botones ---------- */
+  .btn{
+    appearance:none;border:1px solid var(--border);background:var(--panel-2);
+    color:var(--text);font:inherit;font-size:14px;font-weight:600;
+    padding:10px 16px;border-radius:12px;cursor:pointer;
+    transition:.16s ease;white-space:nowrap;
+  }
+  .btn:hover{background:#232e3f;border-color:#3a4658;transform:translateY(-1px)}
+  .btn:active{transform:translateY(0)}
+  .btn.primary{background:linear-gradient(180deg,#4f9cf9,#3b82f6);border-color:#3b82f6;color:#fff}
+  .btn.primary:hover{background:linear-gradient(180deg,#61a8fa,#4f8ef7)}
+  .btn.ghost{background:transparent;color:var(--muted)}
+  .btn.ghost:hover{color:var(--text);background:var(--panel-2)}
+  .btn.danger{background:transparent;border-color:#5b2a2d;color:var(--danger)}
+  .btn.danger:hover{background:#2a1416;border-color:#7a3438}
+  .btn:disabled{opacity:.55;cursor:wait;transform:none}
+
+  /* ---------- Stats ---------- */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+  .stat{
+    background:linear-gradient(180deg,#171e28,#12171f);
+    border:1px solid var(--border);border-radius:14px;padding:14px 18px;
+    display:flex;flex-direction:column;gap:4px;
+  }
+  .stat-label{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:700}
+  .stat-value{font-size:22px;font-weight:750;letter-spacing:-.02em}
+
+  /* ---------- Toolbar ---------- */
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+  .toolbar .spacer{flex:1}
+  .search{flex:1 1 220px;min-width:180px}
+  .search input, .toolbar select{
+    width:100%;background:#0e141c;border:1px solid var(--border);color:var(--text);
+    border-radius:12px;padding:11px 14px;font:inherit;font-size:14px;outline:none;
+    transition:.15s;
+  }
+  .search input::placeholder{color:#5d6b7d}
+  .search input:focus, .toolbar select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,156,249,.16)}
+  .toolbar select{flex:0 1 190px;cursor:pointer}
+
+  /* ---------- Barra de colores ---------- */
+  .color-bar{
+    display:flex;gap:16px;flex-wrap:wrap;align-items:center;
+    margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border);
+  }
+  .color-bar .spacer{flex:1}
+  .chips{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+
+  .chip{
+    width:26px;height:26px;border-radius:50%;padding:0;flex:0 0 auto;
+    border:2px solid transparent;cursor:pointer;outline:none;
+    transition:transform .18s ease, border-color .15s ease, box-shadow .15s ease, opacity .18s;
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,.16),
+      inset 0 -6px 12px -6px rgba(0,0,0,.55);
+  }
+  .chip:hover{transform:scale(1.18)}
+  .chip:focus-visible{box-shadow:0 0 0 3px rgba(79,156,249,.5)}
+  .chip.active{
+    border-color:var(--accent);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,.14),
+      0 0 0 4px rgba(79,156,249,.22),
+      inset 0 -6px 12px -6px rgba(0,0,0,.55);
+  }
+  .chip.empty{transform:scale(1.22);opacity:.35}
+  .chip.active.empty{opacity:.7}
+  .chip.empty:hover{transform:scale(1.32);opacity:.8}
+  .chip.multi-chip{
+    background:conic-gradient(#e63946,#f5b301,#84cc16,#06b6d4,#2563eb,#a855f7,#d946ef,#e63946);
+    box-shadow:0 0 0 1px rgba(255,255,255,.22), inset 0 0 0 3px #0d1117;
+  }
+  .chip.multi-chip.active{
+    box-shadow:0 0 0 2px var(--accent), inset 0 0 0 3px #0d1117;
+  }
+
+  .similar{
+    display:flex;align-items:center;gap:8px;
+    font-size:12px;font-weight:650;color:var(--muted);
+  }
+  .similar input[type=color]{
+    width:36px;height:32px;padding:0;border:1px solid var(--border);
+    border-radius:9px;background:#0e141c;cursor:pointer;flex:0 0 auto;
+  }
+  .similar input[type=color]::-webkit-color-swatch-wrapper{padding:3px}
+  .similar input[type=color]::-webkit-color-swatch{border:none;border-radius:6px}
+  .similar input[type=color]::-moz-color-swatch{border:none;border-radius:6px}
+  .similar.active input[type=color]{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,156,249,.18)}
+  .chip-clear{
+    width:22px;height:22px;border-radius:50%;border:1px solid var(--border);
+    background:var(--panel-2);color:var(--muted);font-size:10px;
+    cursor:pointer;display:grid;place-items:center;padding:0;transition:.15s;
+  }
+  .chip-clear:hover{color:var(--danger);border-color:#5b2a2d;background:#2a1416}
+
+  /* ---------- Grid ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:16px}
+
+  .card{
+    background:linear-gradient(180deg,#171e28,#12171f);
+    border:1px solid var(--border);border-radius:var(--radius);
+    overflow:hidden;cursor:pointer;position:relative;
+    transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+    outline:none;
+  }
+  .card:hover,.card:focus-visible{
+    transform:translateY(-4px);border-color:#3a4658;
+    box-shadow:0 18px 34px -18px rgba(0,0,0,.9);
+  }
+  .card:focus-visible{box-shadow:0 0 0 3px rgba(79,156,249,.35)}
+  .card-band{height:54px;position:relative}
+  .card-band::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(0,0,0,.32));
+  }
+  .card-body{
+    padding:14px 15px 16px;
+    display:grid;grid-template-columns:1fr auto;grid-template-areas:"text ring" "weight ring";
+    gap:6px 10px;align-items:center;
+  }
+  .card-text{grid-area:text;min-width:0}
+  .card-name{
+    margin:0;font-size:14.5px;font-weight:700;letter-spacing:-.01em;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .card-brand{
+    display:block;font-size:11.5px;color:var(--muted);margin-top:2px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .card-brand .multi-tag{
+    display:inline-block;margin-left:4px;padding:1px 6px;border-radius:99px;
+    background:rgba(79,156,249,.16);color:#8fc0ff;font-size:10px;font-weight:700;
+    border:1px solid rgba(79,156,249,.35);vertical-align:middle;
+  }
+  .card-brand .material-tag{
+    display:inline-block;margin-left:4px;padding:1px 6px;border-radius:5px;
+    background:rgba(245,183,1,.14);color:#e8c76a;font-size:10px;font-weight:800;
+    border:1px solid rgba(245,183,1,.32);vertical-align:middle;
+    letter-spacing:.05em;text-transform:uppercase;
+  }
+  .card-weight{grid-area:weight;font-size:19px;font-weight:750;letter-spacing:-.02em}
+  .card-weight span{font-size:12px;font-weight:600;color:var(--muted);margin-left:3px}
+  .ring-wrap{grid-area:ring;width:72px;height:72px;flex:0 0 auto}
+  .ring{width:100%;height:100%;display:block}
+  .ring-bg{fill:none;stroke:#222b38}
+  .ring-fill{fill:none;stroke-linecap:round}
+  .ring-text{fill:var(--text);font-size:15px;font-weight:750;font-family:inherit}
+
+  /* ---------- Empty ---------- */
+  .empty{
+    text-align:center;padding:70px 20px;color:var(--muted);
+    border:1px dashed var(--border);border-radius:var(--radius);background:rgba(22,27,34,.4);
+  }
+  .empty-icon{font-size:40px;margin-bottom:10px}
+  .empty h3{margin:0 0 6px;color:var(--text);font-size:17px}
+  .empty p{margin:0;font-size:14px}
+
+  /* ---------- Overlay + Drawer ---------- */
+  .overlay{
+    position:fixed;inset:0;background:rgba(3,6,12,.66);backdrop-filter:blur(3px);
+    opacity:0;pointer-events:none;transition:opacity .25s;z-index:40;
+  }
+  .overlay.open{opacity:1;pointer-events:auto}
+
+  .drawer{
+    position:fixed;top:0;right:0;height:100dvh;width:min(470px,100%);
+    background:var(--panel);border-left:1px solid var(--border);
+    transform:translateX(105%);transition:transform .32s cubic-bezier(.4,0,.2,1);
+    z-index:50;display:flex;flex-direction:column;
+    box-shadow:-24px 0 70px rgba(0,0,0,.55);
+  }
+  .drawer.open{transform:translateX(0)}
+  #form{display:flex;flex-direction:column;height:100%}
+  .drawer-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 20px;border-bottom:1px solid var(--border);flex:0 0 auto;
+  }
+  .drawer-head h2{margin:0;font-size:16px;font-weight:700}
+  .icon-btn{
+    width:34px;height:34px;border-radius:10px;border:1px solid var(--border);
+    background:transparent;color:var(--muted);cursor:pointer;font-size:15px;
+    display:grid;place-items:center;transition:.15s;
+  }
+  .icon-btn:hover{background:var(--panel-2);color:var(--text)}
+  .drawer-body{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:18px}
+  .drawer-foot{
+    padding:16px 20px;border-top:1px solid var(--border);
+    display:flex;gap:10px;align-items:center;flex:0 0 auto;background:#131922;
+  }
+  .drawer-foot .spacer{flex:1}
+
+  /* ---------- Preview ---------- */
+  .preview{
+    display:flex;align-items:center;gap:18px;
+    background:#0e141c;border:1px solid var(--border);border-radius:16px;padding:16px;
+  }
+  .swatch-big{
+    width:66px;height:66px;border-radius:16px;flex:0 0 auto;
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:inset 0 -20px 30px -20px rgba(0,0,0,.9);
+  }
+  .preview-info{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .preview-total{font-size:26px;font-weight:750;letter-spacing:-.03em}
+  .preview-total span{font-size:13px;color:var(--muted);font-weight:600;margin-left:4px}
+  .preview-sub{font-size:12.5px;color:var(--muted)}
+  .preview .ring-wrap{width:78px;height:78px;margin-left:auto}
+
+  /* ---------- Campos ---------- */
+  .field{display:flex;flex-direction:column;gap:7px}
+  .field > span{
+    font-size:11px;text-transform:uppercase;letter-spacing:.09em;
+    color:var(--muted);font-weight:700;
+  }
+  input[type=text],input[type=number],input[type=search],textarea,select{
+    font-family:inherit;
+  }
+  .field input[type=text],.field input[type=number],.field textarea{
+    background:#0e141c;border:1px solid var(--border);color:var(--text);
+    border-radius:11px;padding:11px 13px;font-size:14px;width:100%;
+    outline:none;transition:.15s;resize:vertical;
+  }
+  .field input:focus,.field textarea:focus{
+    border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,156,249,.16);
+  }
+  .field-hint{
+    font-size:11.5px;color:var(--muted);margin-top:-2px;
+  }
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+  /* ---------- Editor de paleta (multicolor) ---------- */
+  .palette-editor{display:flex;flex-direction:column;gap:8px}
+  .palette-row{
+    display:flex;align-items:center;gap:8px;
+    background:#0e141c;border:1px solid var(--border);border-radius:11px;padding:6px;
+    transition:border-color .15s;
+  }
+  .palette-row:focus-within{border-color:var(--accent)}
+  .palette-row input[type=color]{
+    width:42px;height:36px;padding:0;border:1px solid var(--border);
+    border-radius:8px;background:#0e141c;cursor:pointer;flex:0 0 auto;
+  }
+  .palette-row input[type=color]::-webkit-color-swatch-wrapper{padding:3px}
+  .palette-row input[type=color]::-webkit-color-swatch{border:none;border-radius:5px}
+  .palette-row input[type=color]::-moz-color-swatch{border:none;border-radius:5px}
+  .palette-row .pal-hex{
+    flex:1;background:transparent;border:none;color:var(--text);
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:13px;padding:8px 4px;outline:none;min-width:0;
+  }
+  .pal-remove{
+    width:30px;height:30px;border-radius:8px;border:1px solid var(--border);
+    background:var(--panel-2);color:var(--muted);cursor:pointer;font-size:12px;
+    display:grid;place-items:center;transition:.15s;flex:0 0 auto;
+  }
+  .pal-remove:hover{color:var(--danger);border-color:#5b2a2d;background:#2a1416}
+  .pal-tag{
+    font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+    color:var(--muted);padding:0 9px;flex:0 0 auto;
+  }
+  .add-color-btn{
+    width:100%;padding:10px;font-size:13px;margin-top:2px;
+    border-style:dashed;color:var(--muted);background:transparent;
+  }
+  .add-color-btn:hover{color:var(--text);border-style:dashed;border-color:#3a4658;background:var(--panel-2)}
+  .palette-hint{font-size:11.5px;color:var(--muted);padding-top:2px;display:flex;align-items:center;gap:6px}
+  .palette-hint.multi{color:var(--accent)}
+  .palette-hint .badge{
+    display:inline-block;padding:2px 8px;border-radius:99px;
+    background:rgba(79,156,249,.16);color:#8fc0ff;font-size:10px;font-weight:700;
+    border:1px solid rgba(79,156,249,.35);text-transform:uppercase;letter-spacing:.06em;
+  }
+
+  /* ---------- Cantidad ---------- */
+  .qty{display:grid;grid-template-columns:1fr;gap:16px;
+       background:#0e141c;border:1px solid var(--border);border-radius:14px;padding:16px}
+  .qty-part{display:flex;flex-direction:column;gap:9px}
+  .qty-part > label{font-size:12px;color:var(--muted);font-weight:650}
+  .stepper{display:flex;align-items:center;gap:8px}
+  .stepper button{
+    width:38px;height:38px;border-radius:11px;flex:0 0 auto;
+    background:var(--panel-2);border:1px solid var(--border);color:var(--text);
+    font-size:18px;line-height:1;cursor:pointer;transition:.15s;
+  }
+  .stepper button:hover{background:#273142;border-color:#3a4658}
+  .stepper input{
+    text-align:center;font-size:16px;font-weight:700;
+    background:#0e141c;border:1px solid var(--border);color:var(--text);
+    border-radius:11px;padding:9px;width:100%;outline:none;
+  }
+  .stepper input:focus{border-color:var(--accent)}
+  .stepper input::-webkit-outer-spin-button,
+  .stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .stepper input[type=number]{-moz-appearance:textfield}
+
+  .pct-row{display:flex;align-items:center;gap:14px}
+  input[type=range]{
+    -webkit-appearance:none;appearance:none;flex:1;height:26px;
+    background:transparent;cursor:pointer;margin:0;
+  }
+  input[type=range]::-webkit-slider-runnable-track{
+    height:9px;border-radius:99px;background:#1a2330;border:1px solid var(--border);
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;width:21px;height:21px;border-radius:50%;
+    background:var(--sl,var(--accent));border:2px solid #0d1117;margin-top:-7px;
+    box-shadow:0 0 0 4px rgba(255,255,255,.05);
+  }
+  input[type=range]::-moz-range-track{
+    height:9px;border-radius:99px;background:#1a2330;border:1px solid var(--border);
+  }
+  input[type=range]::-moz-range-thumb{
+    width:19px;height:19px;border:2px solid #0d1117;border-radius:50%;
+    background:var(--sl,var(--accent));
+  }
+  #f-pct-out{
+    min-width:56px;text-align:right;font-size:15px;font-weight:750;
+    font-variant-numeric:tabular-nums;
+  }
+
+  @media (max-width:560px){
+    .wrap{padding:0 14px 70px}
+    header{padding:20px 0 16px}
+    header h1{font-size:19px}
+    .head-actions{margin-left:0;width:100%}
+    .head-actions .btn{flex:1}
+    .stats{grid-template-columns:1fr 1fr;}
+    .stats .stat:last-child{grid-column:span 2}
+    .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+    .ring-wrap{width:62px;height:62px}
+    .card-weight{font-size:17px}
+    .toolbar select{flex:1 1 140px}
+    .chips{gap:10px}
+    .chip{width:24px;height:24px}
+    .btn{padding:9px 12px;font-size:13px}
+    .field-row{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="logo">
+      <img src="https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/120x120/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png" alt="Logo">
+    </div>
+    <div>
+      <h1>Stock de Filamento</h1>
+      <p>Espectro visible · Multicolor · 100 % de la rueda = 1 kg</p>
+    </div>
+    <div class="head-actions">
+      <button class="btn primary" id="btn-add">+ Nuevo color</button>
+    </div>
+  </header>
+
+  <section class="stats">
+    <div class="stat"><span class="stat-label">Colores</span><span class="stat-value" id="st-colors">0</span></div>
+    <div class="stat"><span class="stat-label">Total en stock</span><span class="stat-value" id="st-total">0 kg</span></div>
+    <div class="stat"><span class="stat-label">Marcas</span><span class="stat-value" id="st-brands">0</span></div>
+  </section>
+
+  <!-- Fila 1: búsqueda / marca / orden / PDF -->
+  <section class="toolbar">
+    <div class="search">
+      <input type="search" id="search" placeholder="Buscar por nombre, marca, material o nota…" autocomplete="off">
+    </div>
+    <select id="brand-filter"><option value="all">Todas las marcas</option></select>
+    <select id="sort">
+      <option value="spectrum">🌈 Espectro visible</option>
+      <option value="recent">Más recientes</option>
+      <option value="name">Nombre (A–Z)</option>
+      <option value="brand">Marca (A–Z)</option>
+      <option value="weight">Más cantidad</option>
+    </select>
+    <div class="spacer"></div>
+    <button class="btn" id="btn-pdf" title="Descargar catálogo en PDF" style="border-color:#3b82f6;color:#7cb8ff">📄 PDF</button>
+  </section>
+
+  <!-- Fila 2: filtro POR COLOR (solo puntos) -->
+  <section class="color-bar">
+    <div class="chips" id="chips"></div>
+    <div class="spacer"></div>
+    <div class="similar" id="similar-box">
+      <span>Similar a</span>
+      <input type="color" id="f-similar" value="#e63946" title="Elegir un color de referencia">
+      <button type="button" class="chip-clear" id="btn-similar-clear" hidden title="Quitar filtro de color similar">✕</button>
+    </div>
+  </section>
+
+  <main id="grid" class="grid"></main>
+  <div id="empty" class="empty" hidden></div>
+</div>
+
+<!-- ================= Drawer de edición ================= -->
+<div class="overlay" id="overlay"></div>
+
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <form id="form" autocomplete="off">
+    <div class="drawer-head">
+      <h2 id="drawer-title">Nuevo color</h2>
+      <button type="button" class="icon-btn" id="btn-close" aria-label="Cerrar">✕</button>
+    </div>
+
+    <div class="drawer-body">
+
+      <div class="preview">
+        <div class="swatch-big" id="pv-swatch"></div>
+        <div class="preview-info">
+          <div class="preview-total" id="pv-total">1<span>kg</span></div>
+          <div class="preview-sub" id="pv-sub">1 kg + 0 %</div>
+        </div>
+        <div class="ring-wrap" id="pv-ring"></div>
+      </div>
+
+      <label class="field">
+        <span>Nombre del color</span>
+        <input type="text" id="f-name" placeholder="Ej: Rojo Carmesí / Arcoíris Silk" required>
+      </label>
+
+      <div class="field-row">
+        <label class="field">
+          <span>Marca</span>
+          <input type="text" id="f-brand" list="brand-list" placeholder="Ej: Bambu Lab…">
+          <datalist id="brand-list"></datalist>
+        </label>
+
+        <label class="field">
+          <span>Material / tipo</span>
+          <input type="text" id="f-material" list="material-list" placeholder="PLA, PETG, ABS, ASA…" maxlength="24">
+          <datalist id="material-list"></datalist>
+        </label>
+      </div>
+
+      <!-- Editor de paleta: 1 color = sólido, 2+ = multicolor -->
+      <div class="field">
+        <span>Colores del filamento</span>
+        <div class="palette-editor" id="palette-editor"></div>
+        <button type="button" class="btn add-color-btn" id="btn-add-color">+ Añadir color (bicolor, tricolor…)</button>
+        <div class="palette-hint" id="palette-hint">Filamento sólido · 1 color</div>
+      </div>
+
+      <div class="field">
+        <span>Cantidad en stock</span>
+        <div class="qty">
+          <div class="qty-part">
+            <label>Kilos completos</label>
+            <div class="stepper">
+              <button type="button" data-step="-1" aria-label="Restar kilo">−</button>
+              <input type="number" id="f-kg" min="0" max="999" step="1" value="0">
+              <button type="button" data-step="1" aria-label="Sumar kilo">+</button>
+            </div>
+          </div>
+          <div class="qty-part">
+            <label>Porcentaje del kilo (0 – 100 %)</label>
+            <div class="pct-row">
+              <input type="range" id="f-pct" min="0" max="100" step="1" value="0">
+              <output id="f-pct-out">0 %</output>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <label class="field">
+        <span>Notas (opcional)</span>
+        <textarea id="f-notes" rows="2" placeholder="Ej: comprado en oferta, lote 2024…"></textarea>
+      </label>
+
+    </div>
+
+    <div class="drawer-foot">
+      <button type="button" class="btn danger" id="btn-delete">Eliminar</button>
+      <div class="spacer"></div>
+      <button type="button" class="btn" id="btn-cancel">Cancelar</button>
+      <button type="submit" class="btn primary">Guardar</button>
+    </div>
+  </form>
+</aside>
+
+<!-- jsPDF para generar el catálogo en PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+/* =========================================================
+   Utilidades
+   ========================================================= */
+const KEY = 'filamento-stock-v1';
+const $  = (s, r = document) => r.querySelector(s);
+const clamp = (n, a, b) => Math.min(b, Math.max(a, n));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, m => (
+  { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[m]
+));
+
+function normalizeHex(h) {
+  h = String(h || '').trim();
+  if (!h) return null;
+  if (!h.startsWith('#')) h = '#' + h;
+  return /^#[0-9a-fA-F]{6}$/.test(h) ? h.toLowerCase() : null;
+}
+
+function fmtKg(grams) {
+  const kg = grams / 1000;
+  return kg.toFixed(2).replace(/\.?0+$/, '') || '0';
+}
+
+/* ---------- Conversión de color ---------- */
+function hexToRgb(hex) {
+  const h = String(hex).replace('#', '');
+  return {
+    r: parseInt(h.slice(0, 2), 16),
+    g: parseInt(h.slice(2, 4), 16),
+    b: parseInt(h.slice(4, 6), 16)
+  };
+}
+
+function rgbToHsl(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  const l = (max + min) / 2;
+  let h = 0, s = 0;
+  const d = max - min;
+  if (d > 0) {
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      default: h = (r - g) / d + 4; break;
+    }
+    h *= 60;
+  }
+  return { h, s, l };
+}
+
+function hslOf(hex) {
+  const { r, g, b } = hexToRgb(hex);
+  return rgbToHsl(r, g, b);
+}
+
+function isNeutral(hex) {
+  const { r, g, b } = hexToRgb(hex);
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  const chroma = (max - min) / 255;
+  const l = (max + min) / 510;
+  return chroma < 0.10 || l < 0.10 || l > 0.95;
+}
+
+function colorFamily(hex) {
+  if (isNeutral(hex)) return 'neutro';
+  const { h } = hslOf(hex);
+  if (h < 15 || h >= 345) return 'rojo';
+  if (h < 45)  return 'naranja';
+  if (h < 70)  return 'amarillo';
+  if (h < 165) return 'verde';
+  if (h < 195) return 'cian';
+  if (h < 255) return 'azul';
+  if (h < 300) return 'violeta';
+  return 'magenta';
+}
+
+function colorDistance(hexA, hexB) {
+  const A = hslOf(hexA), B = hslOf(hexB);
+  const na = isNeutral(hexA), nb = isNeutral(hexB);
+  if (na && nb) return Math.abs(A.l - B.l) * 1.6;
+  if (na !== nb) return 1.2;
+  let dh = Math.abs(A.h - B.h);
+  if (dh > 180) dh = 360 - dh;
+  const hs = (dh / 180) * 0.9;
+  const ss = Math.abs(A.s - B.s) * 0.6;
+  const ls = Math.abs(A.l - B.l) * 0.7;
+  return Math.sqrt(hs * hs + ss * ss + ls * ls);
+}
+
+/* ---------- Multicolor helpers ---------- */
+function fullPalette(c) {
+  return [c.hex].concat(c.palette || []);
+}
+function isMulti(c) {
+  return Array.isArray(c.palette) && c.palette.length >= 1;
+}
+function getFamily(c) {
+  return isMulti(c) ? 'multicolor' : colorFamily(c.hex);
+}
+function multiLabel(n) {
+  if (n <= 1) return 'Sólido';
+  if (n === 2) return 'Bicolor';
+  if (n === 3) return 'Tricolor';
+  if (n === 4) return 'Cuatricolor';
+  return `Multicolor (${n})`;
+}
+
+/* ---------- Orden por espectro visible ---------- */
+function compareSpectrum(a, b) {
+  const ma = isMulti(a), mb = isMulti(b);
+  const na = isNeutral(a.hex), nb = isNeutral(b.hex);
+  const gA = ma ? 1 : (na ? 2 : 0);
+  const gB = mb ? 1 : (nb ? 2 : 0);
+  if (gA !== gB) return gA - gB;
+
+  const A = hslOf(a.hex), B = hslOf(b.hex);
+
+  if (ma && mb) {
+    if (Math.abs(A.h - B.h) > 0.5) return A.h - B.h;
+    return a.name.localeCompare(b.name, 'es');
+  }
+  if (na && nb) {
+    if (Math.abs(A.l - B.l) > 0.015) return B.l - A.l;
+    return A.s - B.s;
+  }
+  if (Math.abs(A.h - B.h) > 0.5) return A.h - B.h;
+  if (Math.abs(A.s - B.s) > 0.02) return B.s - A.s;
+  return B.l - A.l;
+}
+
+/* =========================================================
+   Logo (para el PDF)
+   ========================================================= */
+const LOGO_URL = 'https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/120x120/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png';
+let logoDataUrl = null;
+let logoPromise = null;
+
+function loadLogoDataURL() {
+  if (logoPromise) return logoPromise;
+  logoPromise = (async () => {
+    try {
+      const resp = await fetch(LOGO_URL, { mode: 'cors', cache: 'force-cache' });
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      const blob = await resp.blob();
+      const url = URL.createObjectURL(blob);
+      const img = await new Promise((res, rej) => {
+        const im = new Image();
+        im.onload = () => res(im);
+        im.onerror = () => rej(new Error('No se pudo decodificar la imagen'));
+        im.src = url;
+      });
+      const size = 200;
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      canvas.getContext('2d').drawImage(img, 0, 0, size, size);
+      URL.revokeObjectURL(url);
+      logoDataUrl = canvas.toDataURL('image/png');
+      return logoDataUrl;
+    } catch (err) {
+      console.warn('Logo para PDF no disponible:', err);
+      return null;
+    }
+  })();
+  return logoPromise;
+}
+
+/* =========================================================
+   Anillo de progreso (soporta gradiente multicolor)
+   ========================================================= */
+function ringHTML(frac, colorOrColors, label, id) {
+  const colors = Array.isArray(colorOrColors) ? colorOrColors : [colorOrColors];
+  const R = 34;
+  const C = 2 * Math.PI * R;
+  const f = clamp(frac, 0, 1);
+  const offset = C * (1 - f);
+
+  let stroke, defs = '';
+  if (colors.length === 1) {
+    stroke = colors[0];
+  } else {
+    const gradId = 'gr-' + (id || Math.random().toString(36).slice(2, 8));
+    const stops = colors.map((c, i) =>
+      `<stop offset="${((i / (colors.length - 1)) * 100).toFixed(2)}%" stop-color="${c}"/>`
+    ).join('');
+    defs = `<defs><linearGradient id="${gradId}" x1="0%" y1="0%" x2="100%" y2="100%">${stops}</linearGradient></defs>`;
+    stroke = `url(#${gradId})`;
+  }
+
+  return `<svg class="ring" viewBox="0 0 80 80" aria-hidden="true">
+    ${defs}
+    <circle class="ring-bg" cx="40" cy="40" r="${R}" stroke-width="7"/>
+    <circle class="ring-fill" cx="40" cy="40" r="${R}" stroke-width="7"
+      stroke="${stroke}"
+      stroke-dasharray="${C.toFixed(2)}"
+      stroke-dashoffset="${offset.toFixed(2)}"
+      transform="rotate(-90 40 40)"/>
+    <text x="40" y="41" class="ring-text" text-anchor="middle" dominant-baseline="middle">${label}</text>
+  </svg>`;
+}
+
+/* =========================================================
+   Estado
+   ========================================================= */
+const SEED = [
+  { name: 'Rojo Carmesí',   brand: 'Bambu Lab',  material: 'PLA',  hex: '#e63946', grams: 1000 },
+  { name: 'Azul Eléctrico', brand: 'Prusament',  material: 'PETG', hex: '#2563eb', grams: 640  },
+  { name: 'Amarillo Sol',   brand: 'Sunlu',      material: 'PLA',  hex: '#f5b301', grams: 250  },
+  { name: 'Negro Mate',     brand: 'eSun',       material: 'ABS',  hex: '#20242b', grams: 2000 },
+  { name: 'Blanco Nieve',   brand: 'Bambu Lab',  material: 'PLA',  hex: '#f1f5f9', grams: 1300 },
+  { name: 'Verde Lima',     brand: 'Sunlu',      material: 'PETG', hex: '#84cc16', grams: 430  },
+  { name: 'Naranja Fuego',  brand: 'Prusament',  material: 'ASA',  hex: '#f97316', grams: 900  },
+  { name: 'Violeta Neblina',brand: 'eSun',       material: 'PLA',  hex: '#8b5cf6', grams: 700  },
+  { name: 'Gris Grafito',   brand: 'Bambu Lab',  material: 'PLA',  hex: '#6b7280', grams: 320  },
+  { name: 'Cian Eléctrico', brand: 'Sunlu',      material: 'TPU',  hex: '#06b6d4', grams: 800  },
+  { name: 'Silk Bicolor Fuego', brand: 'Prusament', material: 'PLA', hex: '#f97316', palette: ['#e63946'], grams: 500 },
+  { name: 'Arcoíris Mágico',    brand: 'Bambu Lab', material: 'PLA Silk', hex: '#e63946', palette: ['#f5b301','#22c55e','#2563eb','#a855f7'], grams: 750 }
+];
+
+const FAMILIES = [
+  { id: 'all',        label: 'Todos',      dot: 'conic-gradient(#e63946,#f5b301,#84cc16,#06b6d4,#2563eb,#a855f7,#e63946)' },
+  { id: 'rojo',       label: 'Rojos',      dot: '#e63946' },
+  { id: 'naranja',    label: 'Naranjas',   dot: '#f97316' },
+  { id: 'amarillo',   label: 'Amarillos',  dot: '#f5b301' },
+  { id: 'verde',      label: 'Verdes',     dot: '#22c55e' },
+  { id: 'cian',       label: 'Cianes',     dot: '#06b6d4' },
+  { id: 'azul',       label: 'Azules',     dot: '#2563eb' },
+  { id: 'violeta',    label: 'Violetas',   dot: '#8b5cf6' },
+  { id: 'magenta',    label: 'Magentas',   dot: '#d946ef' },
+  { id: 'multicolor', label: 'Multicolor', dot: 'conic-gradient(#e63946,#f5b301,#84cc16,#06b6d4,#2563eb,#a855f7,#d946ef,#e63946)', multi: true },
+  { id: 'neutro',     label: 'Neutros',    dot: 'linear-gradient(135deg,#ffffff,#9ca3af,#111111)' }
+];
+
+let colors = [];
+let filter = { text: '', brand: 'all', sort: 'spectrum', family: 'all', similar: null };
+let editingId = null;
+let draftPalette = ['#4f9cf9'];
+
+function fixColor(c) {
+  const palette = Array.isArray(c.palette)
+    ? c.palette.map(h => normalizeHex(h)).filter(Boolean)
+    : [];
+  return {
+    id: c.id || uid(),
+    name: c.name || 'Sin nombre',
+    brand: c.brand || '',
+    material: (c.material || '').trim(),
+    hex: normalizeHex(c.hex) || '#888888',
+    palette,
+    grams: clamp(Math.round(Number(c.grams) || 0), 0, 999000),
+    notes: c.notes || '',
+    created: Number(c.created) || Date.now()
+  };
+}
+
+function loadColors() {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw) {
+      const data = JSON.parse(raw);
+      if (Array.isArray(data)) return data.map(fixColor);
+    }
+  } catch (e) { console.warn('No se pudo leer el almacenamiento', e); }
+  return SEED.map((s, i) => fixColor({ ...s, id: uid() + i, created: Date.now() - i * 1000 }));
+}
+
+function persist() {
+  try { localStorage.setItem(KEY, JSON.stringify(colors)); }
+  catch (e) { console.warn('No se pudo guardar', e); }
+}
+
+/* =========================================================
+   Render
+   ========================================================= */
+const grid = $('#grid');
+const emptyEl = $('#empty');
+
+function gradientCSS(pal, angle = 135) {
+  if (pal.length === 1) return pal[0];
+  return `linear-gradient(${angle}deg, ${pal.map((h, i) =>
+    `${h} ${((i / (pal.length - 1)) * 100).toFixed(1)}%`).join(', ')})`;
+}
+
+function cardHTML(c) {
+  const pal = fullPalette(c);
+  const multi = pal.length >= 2;
+  const frac = (c.grams % 1000) / 1000;
+  const pct = Math.round(frac * 100);
+
+  const materialTag = c.material
+    ? `<span class="material-tag" title="Material">${esc(c.material)}</span>`
+    : '';
+  const multiTag = multi
+    ? `<span class="multi-tag">${multiLabel(pal.length)}</span>`
+    : '';
+
+  return `
+  <article class="card" data-id="${c.id}" tabindex="0" role="button"
+           aria-label="Editar ${esc(c.name)}">
+    <div class="card-band" style="background:${gradientCSS(pal)}"></div>
+    <div class="card-body">
+      <div class="card-text">
+        <h3 class="card-name">${esc(c.name)}</h3>
+        <span class="card-brand">${esc(c.brand || 'Sin marca')}${materialTag}${multiTag}</span>
+      </div>
+      <div class="ring-wrap">${ringHTML(frac, pal, pct + '%', 'card-' + c.id)}</div>
+      <div class="card-weight">${fmtKg(c.grams)}<span>kg</span></div>
+    </div>
+  </article>`;
+}
+
+function renderChips() {
+  const counts = {};
+  FAMILIES.forEach(f => counts[f.id] = 0);
+  counts.all = colors.length;
+  colors.forEach(c => {
+    const fam = getFamily(c);
+    if (counts[fam] !== undefined) counts[fam]++;
+  });
+
+  $('#chips').innerHTML = FAMILIES.map(f => {
+    const n = counts[f.id] || 0;
+    const active = filter.family === f.id;
+    const isEmpty = n === 0 && f.id !== 'all' ? ' empty' : '';
+    const multiCls = f.multi ? ' multi-chip' : '';
+    const title = `${f.label} (${n})`;
+    return `<button type="button"
+              class="chip${active ? ' active' : ''}${isEmpty}${multiCls}"
+              data-fam="${f.id}" title="${title}" aria-label="${title}"
+              aria-pressed="${active}"
+              style="${f.multi ? '' : `background:${f.dot}`}"></button>`;
+  }).join('');
+}
+
+function getList() {
+  let list = colors.slice();
+  const q = filter.text.trim().toLowerCase();
+  if (q) {
+    list = list.filter(c =>
+      (c.name + ' ' + c.brand + ' ' + c.material + ' ' + c.notes).toLowerCase().includes(q)
+    );
+  }
+  if (filter.brand !== 'all') list = list.filter(c => c.brand === filter.brand);
+  if (filter.family !== 'all') list = list.filter(c => getFamily(c) === filter.family);
+  if (filter.similar) list = list.filter(c => colorDistance(c.hex, filter.similar) <= 0.5);
+
+  switch (filter.sort) {
+    case 'name':   list.sort((a, b) => a.name.localeCompare(b.name, 'es')); break;
+    case 'brand':  list.sort((a, b) => (a.brand || '').localeCompare(b.brand || '', 'es')); break;
+    case 'weight': list.sort((a, b) => b.grams - a.grams); break;
+    case 'recent': list.sort((a, b) => b.created - a.created); break;
+    case 'spectrum':
+    default:       list.sort(compareSpectrum); break;
+  }
+  return list;
+}
+
+function render() {
+  const brands = [...new Set(colors.map(c => c.brand).filter(Boolean))]
+    .sort((a, b) => a.localeCompare(b, 'es'));
+  if (filter.brand !== 'all' && !brands.includes(filter.brand)) filter.brand = 'all';
+
+  const bf = $('#brand-filter');
+  bf.innerHTML =
+    `<option value="all">Todas las marcas (${colors.length})</option>` +
+    brands.map(b => `<option value="${esc(b)}">${esc(b)}</option>`).join('');
+  bf.value = filter.brand;
+
+  $('#brand-list').innerHTML = brands.map(b => `<option value="${esc(b)}">`).join('');
+
+  // Datalist de materiales alimentado por lo que ya usa el usuario
+  const materials = [...new Set(colors.map(c => c.material).filter(Boolean))]
+    .sort((a, b) => a.localeCompare(b, 'es'));
+  $('#material-list').innerHTML = materials.map(m => `<option value="${esc(m)}">`).join('');
+
+  const totalG = colors.reduce((s, c) => s + c.grams, 0);
+  $('#st-colors').textContent = colors.length;
+  $('#st-total').textContent  = fmtKg(totalG) + ' kg';
+  $('#st-brands').textContent = brands.length;
+
+  renderChips();
+
+  $('#similar-box').classList.toggle('active', !!filter.similar);
+  $('#btn-similar-clear').hidden = !filter.similar;
+
+  const list = getList();
+
+  if (colors.length === 0) {
+    grid.innerHTML = '';
+    emptyEl.hidden = false;
+    emptyEl.innerHTML = `<div class="empty-icon">🎨</div>
+      <h3>Aún no tienes colores</h3>
+      <p>Pulsa «Nuevo color» para registrar tu primer filamento.</p>`;
+  } else if (list.length === 0) {
+    grid.innerHTML = '';
+    emptyEl.hidden = false;
+    emptyEl.innerHTML = `<div class="empty-icon">🔍</div>
+      <h3>Sin resultados</h3>
+      <p>Prueba con otra familia de color, otra marca o quita el filtro de color similar.</p>`;
+  } else {
+    emptyEl.hidden = true;
+    grid.innerHTML = list.map(cardHTML).join('');
+  }
+}
+
+/* =========================================================
+   Drawer (panel de edición)
+   ========================================================= */
+const overlay = $('#overlay');
+const drawer  = $('#drawer');
+const form    = $('#form');
+
+function readQty() {
+  const kg  = clamp(parseInt($('#f-kg').value, 10)  || 0, 0, 999);
+  const pct = clamp(parseInt($('#f-pct').value, 10) || 0, 0, 100);
+  return { kg, pct, grams: kg * 1000 + pct * 10 };
+}
+
+function pickNextColor(existing) {
+  const defaults = ['#e63946','#f5b301','#84cc16','#06b6d4','#2563eb','#8b5cf6','#d946ef','#f97316','#14b8a6','#ef4444'];
+  for (const d of defaults) {
+    if (!existing.some(h => h.toLowerCase() === d)) return d;
+  }
+  return '#888888';
+}
+
+function renderPaletteEditor() {
+  const ed = $('#palette-editor');
+  const n = draftPalette.length;
+  ed.innerHTML = draftPalette.map((hex, i) => `
+    <div class="palette-row" data-idx="${i}">
+      <input type="color" class="pal-color" value="${hex}">
+      <input type="text" class="pal-hex" value="${hex}" maxlength="7" spellcheck="false">
+      ${n > 1
+        ? `<button type="button" class="pal-remove" title="Quitar este color">✕</button>`
+        : `<span class="pal-tag">Base</span>`}
+    </div>
+  `).join('');
+
+  const hint = $('#palette-hint');
+  if (n === 1) {
+    hint.innerHTML = 'Filamento sólido · 1 color';
+    hint.classList.remove('multi');
+  } else {
+    hint.innerHTML = `<span class="badge">${multiLabel(n)}</span> ${n} colores en el degradado`;
+    hint.classList.add('multi');
+  }
+}
+
+function updatePreview() {
+  const { kg, pct, grams } = readQty();
+  const pal = draftPalette.length ? draftPalette.slice() : ['#888888'];
+  const frac = pct / 100;
+  const multi = pal.length >= 2;
+
+  $('#f-pct').style.setProperty('--sl', pal[0]);
+  $('#f-pct-out').textContent = pct + ' %';
+
+  $('#pv-swatch').style.background = gradientCSS(pal);
+
+  let text;
+  if (kg > 0 && pct > 0) text = `${kg} kg + ${pct} %`;
+  else if (kg > 0)       text = `${kg} kg completos`;
+  else if (pct > 0)      text = `${pct} % de 1 kg`;
+  else                   text = 'Sin stock';
+
+  if (multi) text += ` · ${multiLabel(pal.length)}`;
+
+  $('#pv-total').innerHTML = `${fmtKg(grams)}<span>kg</span>`;
+  $('#pv-sub').textContent = text;
+  $('#pv-ring').innerHTML = ringHTML(frac, pal, pct + '%', 'preview-ring');
+}
+
+function openDrawer(id = null) {
+  editingId = id;
+  const c = id ? colors.find(x => x.id === id) : null;
+
+  $('#drawer-title').textContent = c ? 'Editar color' : 'Nuevo color';
+  $('#f-name').value     = c ? c.name     : '';
+  $('#f-brand').value    = c ? c.brand    : '';
+  $('#f-material').value = c ? c.material : '';
+  $('#f-notes').value    = c ? c.notes    : '';
+
+  draftPalette = c ? fullPalette(c) : ['#4f9cf9'];
+  renderPaletteEditor();
+
+  const grams = c ? c.grams : 1000;
+  $('#f-kg').value  = Math.floor(grams / 1000);
+  $('#f-pct').value = Math.round((grams % 1000) / 10);
+
+  $('#btn-delete').style.display = c ? '' : 'none';
+
+  updatePreview();
+  overlay.classList.add('open');
+  drawer.classList.add('open');
+  drawer.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => $('#f-name').focus(), 260);
+}
+
+function closeDrawer() {
+  overlay.classList.remove('open');
+  drawer.classList.remove('open');
+  drawer.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  editingId = null;
+}
+
+/* =========================================================
+   Eventos
+   ========================================================= */
+$('#btn-add').addEventListener('click', () => openDrawer());
+$('#btn-close').addEventListener('click', closeDrawer);
+$('#btn-cancel').addEventListener('click', closeDrawer);
+overlay.addEventListener('click', closeDrawer);
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+});
+
+grid.addEventListener('click', e => {
+  const card = e.target.closest('.card');
+  if (card) openDrawer(card.dataset.id);
+});
+grid.addEventListener('keydown', e => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const card = e.target.closest('.card');
+  if (card) { e.preventDefault(); openDrawer(card.dataset.id); }
+});
+
+$('#chips').addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  filter.family = chip.dataset.fam;
+  render();
+});
+
+$('#f-similar').addEventListener('input', e => {
+  filter.similar = normalizeHex(e.target.value) || null;
+  render();
+});
+$('#btn-similar-clear').addEventListener('click', () => {
+  filter.similar = null;
+  render();
+});
+
+/* --- Editor de paleta (delegado) --- */
+$('#palette-editor').addEventListener('input', e => {
+  const row = e.target.closest('.palette-row');
+  if (!row) return;
+  const idx = parseInt(row.dataset.idx, 10);
+
+  if (e.target.classList.contains('pal-color')) {
+    draftPalette[idx] = e.target.value;
+    row.querySelector('.pal-hex').value = e.target.value;
+    updatePreview();
+  } else if (e.target.classList.contains('pal-hex')) {
+    const h = normalizeHex(e.target.value);
+    if (h) {
+      draftPalette[idx] = h;
+      row.querySelector('.pal-color').value = h;
+      updatePreview();
+    }
+  }
+});
+
+$('#palette-editor').addEventListener('blur', e => {
+  if (!e.target.classList.contains('pal-hex')) return;
+  const row = e.target.closest('.palette-row');
+  const idx = parseInt(row.dataset.idx, 10);
+  const h = normalizeHex(e.target.value);
+  e.target.value = h || draftPalette[idx];
+}, true);
+
+$('#palette-editor').addEventListener('click', e => {
+  const btn = e.target.closest('.pal-remove');
+  if (!btn) return;
+  const row = btn.closest('.palette-row');
+  const idx = parseInt(row.dataset.idx, 10);
+  if (draftPalette.length <= 1) return;
+  draftPalette.splice(idx, 1);
+  renderPaletteEditor();
+  updatePreview();
+});
+
+$('#btn-add-color').addEventListener('click', () => {
+  if (draftPalette.length >= 10) return;
+  const next = pickNextColor(draftPalette);
+  draftPalette.push(next);
+  renderPaletteEditor();
+  updatePreview();
+  const ed = $('#palette-editor');
+  ed.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+
+/* --- Cantidad --- */
+document.querySelectorAll('.stepper button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const input = $('#f-kg');
+    const step = parseInt(btn.dataset.step, 10);
+    input.value = clamp((parseInt(input.value, 10) || 0) + step, 0, 999);
+    updatePreview();
+  });
+});
+
+$('#f-kg').addEventListener('input', updatePreview);
+$('#f-pct').addEventListener('input', updatePreview);
+
+/* --- Guardar --- */
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const { grams } = readQty();
+  const hex = draftPalette[0] || '#888888';
+  const palette = draftPalette.slice(1);
+
+  const data = {
+    name:     $('#f-name').value.trim() || 'Sin nombre',
+    brand:    $('#f-brand').value.trim(),
+    material: $('#f-material').value.trim().slice(0, 24),
+    hex,
+    palette,
+    notes:    $('#f-notes').value.trim(),
+    grams
+  };
+
+  if (editingId) {
+    const c = colors.find(x => x.id === editingId);
+    if (c) Object.assign(c, data);
+  } else {
+    colors.unshift(fixColor({ ...data, id: uid(), created: Date.now() }));
+  }
+
+  persist();
+  closeDrawer();
+  render();
+});
+
+/* --- Eliminar --- */
+$('#btn-delete').addEventListener('click', () => {
+  if (!editingId) return;
+  const c = colors.find(x => x.id === editingId);
+  if (!c) return;
+  if (!confirm(`¿Eliminar «${c.name}» del inventario?`)) return;
+  colors = colors.filter(x => x.id !== editingId);
+  persist();
+  closeDrawer();
+  render();
+});
+
+/* --- Buscar / filtrar / ordenar --- */
+let searchTimer;
+$('#search').addEventListener('input', e => {
+  clearTimeout(searchTimer);
+  const v = e.target.value;
+  searchTimer = setTimeout(() => { filter.text = v; render(); }, 140);
+});
+$('#brand-filter').addEventListener('change', e => { filter.brand = e.target.value; render(); });
+$('#sort').addEventListener('change', e => { filter.sort = e.target.value; render(); });
+
+/* =========================================================
+   EXPORTAR PDF (con logo, material y multicolor)
+   ========================================================= */
+function truncateText(doc, text, maxWidth) {
+  if (!text) return '';
+  if (doc.getTextWidth(text) <= maxWidth) return text;
+  let t = text;
+  while (t.length > 0 && doc.getTextWidth(t + '…') > maxWidth) {
+    t = t.slice(0, -1);
+  }
+  return (t || '…') + '…';
+}
+
+function drawSwatch(doc, x, y, w, h, pal) {
+  if (pal.length === 1) {
+    const { r, g, b } = hexToRgb(pal[0]);
+    doc.setFillColor(r, g, b);
+    doc.roundedRect(x, y, w, h, 1.5, 1.5, 'F');
+  } else {
+    const segW = w / pal.length;
+    pal.forEach((hex, i) => {
+      const { r, g, b } = hexToRgb(hex);
+      doc.setFillColor(r, g, b);
+      doc.rect(x + i * segW, y, segW + 0.05, h, 'F');
+    });
+  }
+  doc.setDrawColor(205, 210, 220);
+  doc.setLineWidth(0.2);
+  doc.roundedRect(x, y, w, h, 1.5, 1.5, 'S');
+}
+
+function generatePDF() {
+  if (!window.jspdf || !window.jspdf.jsPDF) {
+    alert('La librería PDF no se ha cargado todavía. Revisa tu conexión a internet y vuelve a intentarlo.');
+    return;
+  }
+
+  const list = getList();
+  if (list.length === 0) {
+    alert('No hay colores para exportar con los filtros actuales.');
+    return;
+  }
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+
+  const pageW = doc.internal.pageSize.getWidth();
+  const pageH = doc.internal.pageSize.getHeight();
+  const margin = 16;
+  const contentW = pageW - margin * 2;
+
+  const totalG = list.reduce((s, c) => s + c.grams, 0);
+  const totalAllG = colors.reduce((s, c) => s + c.grams, 0);
+  const dateStr = new Date().toLocaleDateString('es-ES', {
+    day: 'numeric', month: 'long', year: 'numeric'
+  });
+
+  let y = margin;
+
+  function drawHeader() {
+    doc.setFillColor(79, 156, 249);
+    doc.rect(margin, y, contentW, 1.4, 'F');
+    y += 8;
+
+    const logoSize = 14;
+    let textX = margin;
+    if (logoDataUrl) {
+      try {
+        doc.addImage(logoDataUrl, 'PNG', margin, y, logoSize, logoSize);
+        textX = margin + logoSize + 5;
+      } catch (e) {
+        console.warn('No se pudo insertar el logo en el PDF:', e);
+      }
+    }
+
+    doc.setFontSize(20);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(20, 25, 35);
+    doc.text('Inventario de Filamento', textX, y + 7);
+
+    doc.setFontSize(9.5);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(120, 128, 140);
+    const summary = `${dateStr}  ·  ${list.length} color${list.length === 1 ? '' : 'es'}  ·  ${fmtKg(totalG)} kg`;
+    doc.text(summary, textX, y + 13);
+
+    y += Math.max(logoSize, 16) + 4;
+  }
+
+  const swatchSize = 9;
+  const gap = 5;
+  const nameX = margin + swatchSize + gap;
+  const qtyW = 36;
+  const qtyRight = pageW - margin;
+  const nameMaxW = contentW - swatchSize - gap - qtyW - 4;
+
+  function drawTableHeader() {
+    doc.setFillColor(240, 244, 250);
+    doc.rect(margin, y, contentW, 8, 'F');
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(100, 110, 125);
+    doc.text('COLOR', nameX, y + 5.2);
+    doc.text('CANTIDAD', qtyRight, y + 5.2, { align: 'right' });
+    y += 8;
+  }
+
+  function drawFooter(pn, total) {
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(150, 155, 165);
+    doc.text(`Página ${pn} de ${total}`, pageW / 2, pageH - 8, { align: 'center' });
+  }
+
+  drawHeader();
+  drawTableHeader();
+
+  const rowH = 13;
+  const bottomLimit = pageH - 20;
+
+  list.forEach((c, i) => {
+    if (y + rowH > bottomLimit) {
+      doc.addPage();
+      y = margin;
+      drawHeader();
+      drawTableHeader();
+    }
+
+    if (i % 2 === 0) {
+      doc.setFillColor(250, 251, 253);
+      doc.rect(margin, y, contentW, rowH, 'F');
+    }
+
+    const pal = fullPalette(c);
+    const multi = pal.length >= 2;
+
+    drawSwatch(doc, margin, y + 2, swatchSize, swatchSize, pal);
+
+    // Nombre
+    doc.setFontSize(10.5);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(25, 30, 40);
+    doc.text(truncateText(doc, c.name, nameMaxW), nameX, y + 6);
+
+    // Marca · Material · Multicolor
+    const parts = [c.brand || 'Sin marca'];
+    if (c.material) parts.push(c.material);
+    if (multi) parts.push(multiLabel(pal.length));
+    const metaText = parts.join('  ·  ');
+
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(120, 128, 140);
+    doc.text(truncateText(doc, metaText, nameMaxW), nameX, y + 10.5);
+
+    // Cantidad
+    doc.setFontSize(10.5);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(25, 30, 40);
+    doc.text(`${fmtKg(c.grams)} kg`, qtyRight, y + 6, { align: 'right' });
+
+    // Porcentaje del último kilo
+    const frac = (c.grams % 1000) / 1000;
+    const pct = Math.round(frac * 100);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(120, 128, 140);
+    doc.text(`${pct}% del último kg`, qtyRight, y + 10.5, { align: 'right' });
+
+    y += rowH;
+  });
+
+  // Totales
+  y += 4;
+  doc.setDrawColor(220, 226, 235);
+  doc.setLineWidth(0.3);
+  doc.line(margin, y, pageW - margin, y);
+  y += 6;
+
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(25, 30, 40);
+  doc.text(`Total: ${list.length} color${list.length === 1 ? '' : 'es'}`, margin, y);
+  doc.text(`${fmtKg(totalG)} kg`, pageW - margin, y, { align: 'right' });
+
+  if (list.length !== colors.length) {
+    y += 5;
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(140, 148, 160);
+    doc.text(
+      `Mostrando una selección del inventario completo (${colors.length} colores · ${fmtKg(totalAllG)} kg).`,
+      margin, y
+    );
+  }
+
+  const totalPages = doc.internal.getNumberOfPages();
+  for (let p = 1; p <= totalPages; p++) {
+    doc.setPage(p);
+    drawFooter(p, totalPages);
+  }
+
+  const today = new Date().toISOString().slice(0, 10);
+  doc.save(`catalogo-filamento-${today}.pdf`);
+}
+
+$('#btn-pdf').addEventListener('click', async () => {
+  const btn = $('#btn-pdf');
+  const original = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Generando…';
+  try {
+    await loadLogoDataURL();
+    generatePDF();
+  } catch (err) {
+    console.error(err);
+    alert('Ocurrió un error al generar el PDF: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = original;
+  }
+});
+
+/* =========================================================
+   Arranque
+   ========================================================= */
+colors = loadColors();
+persist();
+render();
+loadLogoDataURL();
+</script>
+</body>
+</html>
