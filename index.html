@@ -75,7 +75,203 @@
     box-shadow:0 10px 28px -8px rgba(239,68,68,.75);
   }
 
-  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+  /* ---------- Dashboard: stats + shelf view ---------- */
+  .dashboard{
+    display:grid;
+    grid-template-columns:minmax(190px, 1fr) 1.55fr;
+    gap:14px;
+    margin-bottom:18px;
+  }
+  .stats-left{
+    display:grid;
+    grid-template-rows:repeat(3, 1fr);
+    gap:12px;
+  }
+  .stats-left .stat{
+    padding:16px 20px;
+    justify-content:center;
+  }
+  .stats-left .stat-value{
+    font-size:28px;
+  }
+  .stats-right{
+    background:linear-gradient(145deg, #fef9c3 0%, #fde68a 40%, #fbbf24 100%);
+    border-radius:var(--radius);
+    border:1px solid #eab308;
+    padding:12px;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    min-height:340px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.3);
+  }
+
+  /* ----- Info bar del filamento seleccionado ----- */
+  .shelf-info{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:8px 10px;
+    margin-bottom:8px;
+    background:rgba(255,255,255,0.92);
+    border-radius:10px;
+    border:1px solid rgba(71,85,105,0.18);
+    box-shadow:0 2px 8px rgba(0,0,0,0.12);
+    position:relative;
+    z-index:2;
+    animation:infoIn .2s ease;
+  }
+  @keyframes infoIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+  .shelf-info[hidden]{display:none}
+  .info-swatch{
+    width:24px;height:24px;border-radius:50%;flex:0 0 auto;
+    border:2px solid #fff;
+    box-shadow:0 1px 3px rgba(0,0,0,0.3);
+  }
+  .info-text{
+    flex:1;min-width:0;
+    display:flex;flex-direction:column;gap:1px;
+    font-size:12px;color:#1e293b;
+  }
+  .info-text strong{
+    font-size:13px;font-weight:700;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    color:#0f172a;
+  }
+  .info-text span{
+    color:#64748b;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .info-clear{
+    width:24px;height:24px;border-radius:6px;flex:0 0 auto;
+    border:1px solid rgba(71,85,105,0.2);
+    background:rgba(255,255,255,0.6);
+    color:#64748b;cursor:pointer;font-size:11px;
+    display:grid;place-items:center;padding:0;
+    transition:.15s;
+  }
+  .info-clear:hover{background:#fee2e2;color:#ef4444;border-color:#fca5a5}
+
+  /* ----- Estantes 2.5D (5 x 20 = 100) ----- */
+  .shelf-view-wrap{
+    position:relative;z-index:1;
+    display:flex;flex-direction:column;
+    flex:1;min-height:0;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .shelf-view{
+    display:flex;flex-direction:column;
+    gap:9px;
+    flex:1;
+    padding: 2px 0;
+  }
+  .shelf{
+    position:relative;
+    height:52px;
+    border-radius:4px;
+    background:linear-gradient(180deg, #eef2f7 0%, #dfe6ee 55%, #c5cfda 100%);
+    box-shadow:
+      inset 0 1px 0 #ffffff,
+      inset 0 -2px 0 #94a3b8,
+      0 4px 8px rgba(120,53,15,0.18),
+      0 2px 3px rgba(120,53,15,0.10);
+    overflow:hidden;
+  }
+  .shelf-slots{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:2px;
+    height:100%;
+    padding:4px 6px;
+    box-sizing:border-box;
+  }
+  /* Slots flexibles: crecen hasta llenar, con max-width como tope */
+  .slot{
+    flex:1 1 0;
+    min-width:0;
+    max-width:36px;
+    aspect-ratio:1 / 1;
+    padding:0;
+    margin:0;
+    border:none;
+    background:transparent;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-sizing:border-box;
+    position:relative;
+    border-radius:50%;
+    transition:transform .15s ease;
+    line-height:0;
+  }
+  .slot > svg{
+    width:100%;
+    height:100%;
+    display:block;
+    overflow:visible;
+  }
+  /* Sombra del carrete: sigue el canal alfa → circular, nunca rectangular */
+  .slot.occupied > svg{
+    filter:drop-shadow(0 1.5px 1.2px rgba(0,0,0,0.40));
+    transition:filter .15s ease;
+  }
+  .slot.empty{
+    cursor:default;
+  }
+  .slot.occupied{
+    cursor:pointer;
+    outline:none;
+  }
+  .slot.occupied:hover{
+    transform:scale(1.14);
+    z-index:3;
+  }
+  .slot.occupied:hover > svg{
+    filter:drop-shadow(0 2.5px 2.5px rgba(0,0,0,0.55));
+  }
+  .slot.occupied:focus-visible{
+    transform:scale(1.14);
+    z-index:3;
+  }
+  .slot.occupied:focus-visible > svg{
+    filter:drop-shadow(0 2.5px 2.5px rgba(0,0,0,0.55));
+  }
+  .slot.occupied.active{
+    transform:scale(1.14);
+    z-index:3;
+  }
+  .slot.occupied.active > svg{
+    filter:drop-shadow(0 2.5px 2.5px rgba(0,0,0,0.55));
+  }
+  .slot.occupied.active::before{
+    content:"";
+    position:absolute;
+    inset:-3px;
+    border-radius:50%;
+    border:2px solid #3b82f6;
+    pointer-events:none;
+    animation:activePulse 1.6s ease-in-out infinite;
+  }
+  @keyframes activePulse{
+    0%,100%{opacity:1}
+    50%{opacity:.6}
+  }
+
+  .shelf-overflow{
+    margin-top:6px;
+    text-align:center;
+    font-size:11px;
+    font-weight:700;
+    color:#78350f;
+    padding:4px 10px;
+    background:rgba(255,255,255,0.55);
+    border-radius:99px;
+    align-self:center;
+    border:1px solid rgba(120,53,15,0.2);
+  }
+
   .stat{background:linear-gradient(180deg,#171e28,#12171f);border:1px solid var(--border);border-radius:14px;padding:14px 18px;display:flex;flex-direction:column;gap:4px}
   .stat-label{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:700}
   .stat-value{font-size:22px;font-weight:750;letter-spacing:-.02em}
@@ -238,7 +434,6 @@
   .print-select-btn .sel-label.placeholder{color:#5d6b7d}
   .print-select-btn .sel-arrow{color:var(--muted);font-size:10px;flex:0 0 auto}
 
-  /* Menú compartido en body */
   .print-select-menu{
     position:fixed;
     background:var(--panel);border:1px solid var(--border);
@@ -253,7 +448,6 @@
   .print-select-menu[hidden]{display:none}
   @keyframes menuIn{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
 
-  /* Buscador dentro del menú */
   .print-select-search-wrap{
     padding:8px;
     border-bottom:1px solid var(--border);
@@ -337,14 +531,30 @@
   .print-foot{padding:16px 22px;border-top:1px solid var(--border);display:flex;gap:10px;align-items:center;background:#131922;flex:0 0 auto;border-radius:0 0 20px 20px}
   .print-foot .spacer{flex:1}
 
+  @media (max-width:900px){
+    .slot{max-width:30px}
+  }
+  @media (max-width:760px){
+    .dashboard{grid-template-columns:1fr}
+    .stats-left{grid-template-rows:none;grid-template-columns:repeat(3,1fr)}
+    .stats-left .stat{padding:12px 14px}
+    .stats-left .stat-value{font-size:20px}
+    .stats-right{min-height:300px}
+    .shelf{height:48px}
+    .slot{max-width:28px}
+  }
   @media (max-width:560px){
     .wrap{padding:0 14px 70px}
     header{padding:20px 0 16px}
     header h1{font-size:19px}
     .head-actions{margin-left:0;width:100%}
     .head-actions .btn{flex:1}
-    .stats{grid-template-columns:1fr 1fr}
-    .stats .stat:last-child{grid-column:span 2}
+    .stats-left{grid-template-columns:1fr 1fr}
+    .stats-left .stat:last-child{grid-column:span 2}
+    .stats-right{min-height:270px;padding:10px}
+    .shelf{height:42px}
+    .shelf-slots{padding:3px 4px;gap:1px}
+    .slot{max-width:22px}
     .grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
     .spools-wrap{width:62px;height:62px}
     .preview .spools-wrap{width:66px;height:66px}
@@ -363,6 +573,9 @@
     .print-select-option .opt-swatch{width:18px;height:18px}
     .print-select-option .opt-name{font-size:12.5px}
     .print-select-search{font-size:12.5px;padding:7px 10px}
+    .shelf-info{padding:6px 8px}
+    .info-text strong{font-size:12px}
+    .info-text span{font-size:11px}
   }
 </style>
 </head>
@@ -386,10 +599,15 @@
     </div>
   </header>
 
-  <section class="stats">
-    <div class="stat"><span class="stat-label">Colores</span><span class="stat-value" id="st-colors">0</span></div>
-    <div class="stat"><span class="stat-label">Total en stock</span><span class="stat-value" id="st-total">0 kg</span></div>
-    <div class="stat"><span class="stat-label">Marcas</span><span class="stat-value" id="st-brands">0</span></div>
+  <section class="dashboard">
+    <div class="stats-left">
+      <div class="stat"><span class="stat-label">Colores</span><span class="stat-value" id="st-colors">0</span></div>
+      <div class="stat"><span class="stat-label">Total en stock</span><span class="stat-value" id="st-total">0 kg</span></div>
+      <div class="stat"><span class="stat-label">Marcas</span><span class="stat-value" id="st-brands">0</span></div>
+    </div>
+    <div class="stats-right" id="shelf-box">
+      <!-- Vista de estanterías generada por JS -->
+    </div>
   </section>
 
   <section class="toolbar">
@@ -515,7 +733,6 @@
   </div>
 </div>
 
-<!-- Menú compartido (en body para que position:fixed funcione respecto al viewport) -->
 <div class="print-select-menu" id="print-menu-shared" hidden role="listbox"></div>
 
 <!-- Librerías -->
@@ -671,7 +888,6 @@ function swatchCSS(pal) {
   return `conic-gradient(${stops.join(', ')})`;
 }
 
-/* Etiquetas de familia + variantes para búsqueda */
 function familySearchTerms(hex) {
   const fam = colorFamily(hex);
   const map = {
@@ -726,7 +942,7 @@ function loadLogoDataURL() {
 }
 
 /* =========================================================
-   Carretes
+   Carretes (gráficos de tarjeta)
    ========================================================= */
 function spoolGradient(pal) {
   if (pal.length === 1) return { fill: pal[0], defs: '' };
@@ -756,10 +972,37 @@ function spoolSVG(pal, fill) {
   </svg>`;
 }
 
+/* Carretes del estante: radio casi al máximo del viewBox para aprovechar el slot */
+function shelfSpoolSVG(pal, fill) {
+  const cx = 20, cy = 20;
+  const outerR = 19.2;
+  const holeR = 5;
+  const filamentMinR = holeR + 1.2;
+  const filamentMaxR = outerR - 1.6;
+  const f = Math.max(0, Math.min(1, fill));
+  const filamentR = filamentMinR + (filamentMaxR - filamentMinR) * f;
+  const { fill: fillColor, defs } = spoolGradient(pal);
+
+  return `<svg class="shelf-spool-svg" viewBox="0 0 40 40" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+    ${defs}
+    <circle cx="${cx}" cy="${cy}" r="${outerR}" fill="#1a2230" stroke="#2f3a4a" stroke-width="1.2"/>
+    <circle cx="${cx}" cy="${cy}" r="${filamentR}" fill="${fillColor}"/>
+    <circle cx="${cx}" cy="${cy}" r="${holeR}" fill="#0d1117" stroke="#2f3a4a" stroke-width="0.9"/>
+    <circle cx="${cx}" cy="${cy}" r="${filamentR}" fill="none" stroke="rgba(0,0,0,0.12)" stroke-width="0.4"/>
+  </svg>`;
+}
+
 function emptySpoolSVG() {
   return `<svg class="spool-svg" viewBox="0 0 40 40" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
     <circle cx="20" cy="20" r="17.5" fill="#0d1117" stroke="#2a3342" stroke-width="1.1" stroke-dasharray="2 2.5"/>
     <circle cx="20" cy="20" r="4.5" fill="none" stroke="#2a3342" stroke-width="0.8" stroke-dasharray="1.5 2"/>
+  </svg>`;
+}
+
+/* SVG para slots vacíos del estante — círculo real, tamaño casi igual al ocupado */
+function slotEmptySVG() {
+  return `<svg viewBox="0 0 40 40" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+    <circle cx="20" cy="20" r="17.5" fill="rgba(71,85,105,0.05)" stroke="rgba(71,85,105,0.22)" stroke-width="1.6" stroke-dasharray="2.2 2"/>
   </svg>`;
 }
 
@@ -801,6 +1044,105 @@ function spoolsHTML(grams, pal) {
 }
 
 /* =========================================================
+   Estanterías 2.5D (5 x 20 = 100 carretes de capacidad)
+   ========================================================= */
+const SHELVES_COUNT        = 5;
+const PER_SHELF            = 20;
+const SHELF_CAPACITY_TOTAL = SHELVES_COUNT * PER_SHELF; // 100
+
+function collectSpoolsSorted() {
+  const sorted = colors.slice().sort(compareSpectrum);
+  const spools = [];
+  sorted.forEach(c => {
+    const pal = fullPalette(c);
+    if (c.grams <= 0) {
+      spools.push({ color: c, pal, fill: 0 });
+      return;
+    }
+    const full = Math.floor(c.grams / 1000);
+    const rem  = c.grams % 1000;
+    for (let k = 0; k < full; k++) spools.push({ color: c, pal, fill: 1 });
+    if (rem > 0) spools.push({ color: c, pal, fill: rem / 1000 });
+  });
+  return spools;
+}
+
+function renderShelfView() {
+  const box = $('#shelf-box');
+  if (!box) return;
+
+  if (filter.filamentId && !colors.find(c => c.id === filter.filamentId)) {
+    filter.filamentId = null;
+  }
+
+  const allSpools = collectSpoolsSorted();
+  const visible   = allSpools.slice(0, SHELF_CAPACITY_TOTAL);
+  const overflow  = Math.max(0, allSpools.length - SHELF_CAPACITY_TOTAL);
+
+  let infoHTML = '';
+  if (filter.filamentId) {
+    const sel = colors.find(c => c.id === filter.filamentId);
+    if (sel) {
+      const pal   = fullPalette(sel);
+      const parts = [sel.brand || 'Sin marca'];
+      if (sel.material) parts.push(sel.material);
+      parts.push(`${fmtKg(sel.grams)} kg restantes`);
+      infoHTML = `
+        <div class="shelf-info">
+          <span class="info-swatch" style="background:${swatchCSS(pal)}"></span>
+          <div class="info-text">
+            <strong>${esc(sel.name)}</strong>
+            <span>${esc(parts.join(' · '))}</span>
+          </div>
+          <button type="button" class="info-clear" title="Quitar filtro" aria-label="Quitar filtro">✕</button>
+        </div>`;
+    }
+  }
+
+  let shelvesHTML = '';
+  for (let s = 0; s < SHELVES_COUNT; s++) {
+    shelvesHTML += `<div class="shelf"><div class="shelf-slots">`;
+    for (let i = 0; i < PER_SHELF; i++) {
+      const idx = s * PER_SHELF + i;
+      const spool = visible[idx];
+
+      if (spool) {
+        const c = spool.color;
+        const isActive = filter.filamentId === c.id ? ' active' : '';
+        const titleParts = [c.name];
+        if (c.brand) titleParts.push(c.brand);
+        if (c.material) titleParts.push(c.material);
+        titleParts.push(`${fmtKg(c.grams)} kg`);
+        const title = titleParts.join(' · ');
+
+        shelvesHTML += `
+          <button type="button"
+                  class="slot occupied${isActive}"
+                  data-id="${esc(c.id)}"
+                  title="${esc(title)}"
+                  aria-label="${esc(title)}">
+            ${shelfSpoolSVG(spool.pal, spool.fill)}
+          </button>`;
+      } else {
+        shelvesHTML += `<div class="slot empty" aria-hidden="true">${slotEmptySVG()}</div>`;
+      }
+    }
+    shelvesHTML += `</div></div>`;
+  }
+
+  const overflowHTML = overflow > 0
+    ? `<div class="shelf-overflow">+${overflow} carrete${overflow === 1 ? '' : 's'} fuera de vista</div>`
+    : '';
+
+  box.innerHTML = `
+    <div class="shelf-view-wrap">
+      ${infoHTML}
+      <div class="shelf-view" id="shelf-view">${shelvesHTML}</div>
+      ${overflowHTML}
+    </div>`;
+}
+
+/* =========================================================
    Estado
    ========================================================= */
 const FAMILIES = [
@@ -818,7 +1160,14 @@ const FAMILIES = [
 ];
 
 let colors = [];
-let filter = { text: '', brand: 'all', sort: 'spectrum', family: 'all', similar: null };
+let filter = {
+  text: '',
+  brand: 'all',
+  sort: 'spectrum',
+  family: 'all',
+  similar: null,
+  filamentId: null
+};
 let editingId = null;
 let draftPalette = ['#4f9cf9'];
 let lastStatusState = '';
@@ -980,6 +1329,7 @@ function getList() {
   if (filter.brand !== 'all') list = list.filter(c => c.brand === filter.brand);
   if (filter.family !== 'all') list = list.filter(c => getFamily(c) === filter.family);
   if (filter.similar) list = list.filter(c => colorDistance(c.hex, filter.similar) <= 0.5);
+  if (filter.filamentId) list = list.filter(c => c.id === filter.filamentId);
 
   switch (filter.sort) {
     case 'name':   list.sort((a, b) => a.name.localeCompare(b.name, 'es')); break;
@@ -1015,6 +1365,7 @@ function render() {
   $('#st-brands').textContent = brands.length;
 
   renderChips();
+  renderShelfView();
 
   $('#similar-box').classList.toggle('active', !!filter.similar);
   $('#btn-similar-clear').hidden = !filter.similar;
@@ -1219,7 +1570,6 @@ function renderPrintLines() {
   }).join('');
 }
 
-/* ----- Menú compartido en body CON BUSCADOR ----- */
 function openPrintMenu(idx) {
   closeAllPrintMenus();
   const line = document.querySelector(`.print-line[data-idx="${idx}"]`);
@@ -1311,7 +1661,6 @@ function openPrintMenu(idx) {
   }
 }
 
-/* Filtra las opciones del menú según el texto */
 function filterPrintOptions(query) {
   const container = $('#print-menu-options');
   if (!container) return;
@@ -1408,7 +1757,6 @@ $('#btn-print').addEventListener('click', openPrintModal);
 $('#btn-close').addEventListener('click', closeDrawer);
 $('#btn-cancel').addEventListener('click', closeDrawer);
 
-/* Escape solo cierra el menú compartido, no las ventanas */
 document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
   const menu = $('#print-menu-shared');
@@ -1423,6 +1771,28 @@ grid.addEventListener('keydown', e => {
   if (e.key !== 'Enter' && e.key !== ' ') return;
   const card = e.target.closest('.card');
   if (card) { e.preventDefault(); openDrawer(card.dataset.id); }
+});
+
+$('#shelf-box').addEventListener('click', e => {
+  if (e.target.closest('.info-clear')) {
+    filter.filamentId = null;
+    render();
+    return;
+  }
+  const slot = e.target.closest('.slot.occupied');
+  if (!slot) return;
+  const id = slot.dataset.id;
+  filter.filamentId = (filter.filamentId === id) ? null : id;
+  render();
+});
+$('#shelf-box').addEventListener('keydown', e => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const slot = e.target.closest('.slot.occupied');
+  if (!slot) return;
+  e.preventDefault();
+  const id = slot.dataset.id;
+  filter.filamentId = (filter.filamentId === id) ? null : id;
+  render();
 });
 
 $('#chips').addEventListener('click', e => {
@@ -1441,7 +1811,6 @@ $('#btn-similar-clear').addEventListener('click', () => {
   render();
 });
 
-/* Editor de paleta */
 $('#palette-editor').addEventListener('input', e => {
   const row = e.target.closest('.palette-row');
   if (!row) return;
@@ -1487,7 +1856,6 @@ $('#btn-add-color').addEventListener('click', () => {
   $('#palette-editor').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 });
 
-/* Cantidad (kg decimales) */
 document.querySelectorAll('.step-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const input = $('#f-kg');
@@ -1501,7 +1869,6 @@ document.querySelectorAll('.step-btn').forEach(btn => {
 
 $('#f-kg').addEventListener('input', updatePreview);
 
-/* Guardar */
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const { grams } = readQty();
@@ -1537,7 +1904,6 @@ form.addEventListener('submit', async (e) => {
   }
 });
 
-/* Eliminar */
 $('#btn-delete').addEventListener('click', async () => {
   if (!editingId) return;
   const c = colors.find(x => x.id === editingId);
@@ -1545,6 +1911,7 @@ $('#btn-delete').addEventListener('click', async () => {
   if (!confirm(`¿Eliminar «${c.name}» del inventario?`)) return;
 
   const id = editingId;
+  if (filter.filamentId === id) filter.filamentId = null;
   colors = colors.filter(x => x.id !== id);
   closeDrawer();
   render();
@@ -1561,7 +1928,6 @@ $('#btn-delete').addEventListener('click', async () => {
   }
 });
 
-/* Filtros */
 let searchTimer;
 $('#search').addEventListener('input', e => {
   clearTimeout(searchTimer);
@@ -1571,7 +1937,6 @@ $('#search').addEventListener('input', e => {
 $('#brand-filter').addEventListener('change', e => { filter.brand = e.target.value; render(); });
 $('#sort').addEventListener('change', e => { filter.sort = e.target.value; render(); });
 
-/* Modal Impresión: solo botones cierran */
 $('#btn-print-close').addEventListener('click', closePrintModal);
 $('#btn-print-cancel').addEventListener('click', closePrintModal);
 
@@ -1596,7 +1961,6 @@ $('#print-lines').addEventListener('input', e => {
   printLines[idx].grams = parseFloat(e.target.value) || 0;
 });
 
-/* Click en toggle o en remove */
 $('#print-lines').addEventListener('click', e => {
   const toggle = e.target.closest('.print-select-btn');
   if (toggle) {
@@ -1621,7 +1985,6 @@ $('#print-lines').addEventListener('click', e => {
   }
 });
 
-/* Selección dentro del menú compartido: stopPropagation para no cerrarlo con el handler global */
 $('#print-menu-shared').addEventListener('click', e => {
   e.stopPropagation();
   const opt = e.target.closest('.print-select-option');
@@ -1646,13 +2009,11 @@ $('#print-menu-shared').addEventListener('click', e => {
   closeAllPrintMenus();
 });
 
-/* Cierre del menú al click fuera (NO cierra el modal) */
 document.addEventListener('click', () => {
   const menu = $('#print-menu-shared');
   if (menu && !menu.hidden) closeAllPrintMenus();
 });
 
-/* Scroll: solo cerrar si ocurre FUERA del menú */
 document.addEventListener('scroll', e => {
   const menu = $('#print-menu-shared');
   if (!menu || menu.hidden) return;
@@ -1660,7 +2021,6 @@ document.addEventListener('scroll', e => {
   closeAllPrintMenus();
 }, true);
 
-/* Resize: cerrar menú */
 window.addEventListener('resize', () => {
   const menu = $('#print-menu-shared');
   if (menu && !menu.hidden) closeAllPrintMenus();
