@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
 <link rel="icon" type="image/png" href="https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/120x120/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png">
-<title>Stock de Filamento · Registro de colores</title>
+<title>GESTIÓN ito 3D · Registro de colores</title>
 <style>
   :root{
     --bg:#0d1117; --panel:#161b22; --panel-2:#1c2330; --border:#2a3342;
@@ -55,6 +55,19 @@
   .stats-left .stat{padding:16px 20px;justify-content:center}
   .stats-left .stat-value{font-size:28px}
   .stats-right{background:linear-gradient(145deg, #fef9c3 0%, #fde68a 40%, #fbbf24 100%);border-radius:var(--radius);border:1px solid #eab308;padding:12px;position:relative;display:flex;flex-direction:column;min-height:340px;box-shadow:inset 0 1px 0 rgba(255,255,255,.3)}
+
+  /* NUEVO: título "Stock de filamentos" sobre la gráfica */
+  .shelf-title{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.09em;
+    color:#78350f;
+    font-weight:800;
+    text-align:center;
+    padding:0 0 8px;
+    flex-shrink:0;
+    text-shadow:0 1px 0 rgba(255,255,255,.4);
+  }
 
   .shelf-info{display:flex;align-items:center;gap:10px;padding:8px 10px;margin-bottom:8px;background:rgba(255,255,255,0.92);border-radius:10px;border:1px solid rgba(71,85,105,0.18);box-shadow:0 2px 8px rgba(0,0,0,0.12);position:relative;z-index:2;animation:infoIn .2s ease}
   @keyframes infoIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
@@ -379,7 +392,7 @@
   .history-foot .spacer{flex:1}
   .history-foot .count{font-size:12px;color:var(--muted)}
 
-  /* DOCUMENTO DE COTIZACIÓN — CUADRADO 900x900 px */
+  /* DOCUMENTO DE COTIZACIÓN */
   .quote-doc{
     position:absolute; left:-9999px; top:0;
     width:900px; height:900px;
@@ -406,7 +419,6 @@
   .quote-doc-image-col img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:6px;display:block;background:#ffffff}
   .quote-doc-image-placeholder{color:#cbd5e1;font-size:11px;text-align:center;text-transform:uppercase;letter-spacing:.8px;font-weight:700;line-height:1.6}
 
-  /* NUEVO: Dimensiones (solo aparece si hay datos) */
   .quote-doc-dimensions{
     display:flex;
     flex-wrap:wrap;
@@ -523,7 +535,7 @@
       <img src="https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/120x120/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png" alt="Logo">
     </div>
     <div>
-      <h1>Stock de Filamento</h1>
+      <h1>GESTIÓN ito 3D</h1>
       <p>Carretes por kilo · Multicolor · Sincronizado en la nube</p>
     </div>
     <div class="head-actions">
@@ -677,7 +689,6 @@
       <label class="field"><span>Costo diseño/h</span><input type="number" id="q-design-cost" step="1" min="0" value="1000"></label>
     </div>
 
-    <!-- NUEVO: Dimensiones -->
     <div class="field">
       <span>Dimensiones (opcional — solo aparecen las que llenes)</span>
       <div class="quote-grid-5">
@@ -784,17 +795,33 @@ function roundUp5(n) {
   if (typeof n !== 'number' || !isFinite(n) || n === 0) return 0;
   return Math.ceil(n / 5) * 5;
 }
-// Devuelve array de dimensiones con valor no vacío
+
+// NUEVO: agrega la unidad automáticamente solo si el valor no la trae ya
+function formatDimension(value, defaultUnit) {
+  if (!value) return '';
+  const trimmed = String(value).trim();
+  if (!trimmed) return '';
+  // Si ya contiene letras (ej: "12cm", "2mm", "3 in"), respetar lo que escribió el usuario
+  if (/[a-zA-Z]/.test(trimmed)) return trimmed;
+  return trimmed + defaultUnit;
+}
+
+// Devuelve array de dimensiones con valor no vacío, ya con la unidad aplicada
 function getDimensionEntries(dims) {
   if (!dims) return [];
   const list = [
-    ['Alto', dims.alto],
-    ['Ancho', dims.ancho],
-    ['Largo', dims.largo],
-    ['Fondo', dims.fondo],
-    ['Espesor', dims.espesor]
+    ['Alto', dims.alto, 'cm'],
+    ['Ancho', dims.ancho, 'cm'],
+    ['Largo', dims.largo, 'cm'],
+    ['Fondo', dims.fondo, 'cm'],
+    ['Espesor', dims.espesor, 'mm']
   ];
-  return list.filter(([,v]) => v && String(v).trim().length > 0);
+  return list
+    .map(([label, val, unit]) => {
+      if (!val || String(val).trim() === '') return null;
+      return [label, formatDimension(val, unit)];
+    })
+    .filter(Boolean);
 }
 
 function hexToRgb(hex) { const h = String(hex).replace('#', ''); return { r: parseInt(h.slice(0,2),16), g: parseInt(h.slice(2,4),16), b: parseInt(h.slice(4,6),16) }; }
@@ -1015,7 +1042,13 @@ function renderShelfView() {
     shelvesHTML += `</div></div>`;
   }
   const overflowHTML = overflow > 0 ? `<div class="shelf-overflow">+${overflow} carrete${overflow === 1 ? '' : 's'} fuera de vista</div>` : '';
-  box.innerHTML = `<div class="shelf-view-wrap">${infoHTML}<div class="shelf-view">${shelvesHTML}</div>${overflowHTML}</div>`;
+  // NUEVO: título "Stock de filamentos" sobre la gráfica
+  box.innerHTML = `<div class="shelf-view-wrap">
+    <div class="shelf-title">Stock de filamentos</div>
+    ${infoHTML}
+    <div class="shelf-view">${shelvesHTML}</div>
+    ${overflowHTML}
+  </div>`;
 }
 
 const FAMILIES = [
@@ -1414,7 +1447,6 @@ function openQuoteModal() {
   $('#q-client').value = '';
   $('#q-project').value = '';
   $('#q-notes').value = '';
-  // NUEVO: reset dimensiones
   $('#q-dim-alto').value = '';
   $('#q-dim-ancho').value = '';
   $('#q-dim-largo').value = '';
@@ -1492,7 +1524,6 @@ function readQuoteInputs() {
     extras: quoteExtras.map(e => ({ name: e.name, cost: parseFloat(e.cost) || 0 })),
     image: quoteImageData || null,
     notes: $('#q-notes').value.trim(),
-    // NUEVO: dimensiones
     dimensions: {
       alto: $('#q-dim-alto').value.trim(),
       ancho: $('#q-dim-ancho').value.trim(),
@@ -1629,7 +1660,7 @@ function renderHistoryList(highlightId) {
     ).join('');
     const notesHTML = q.notes ? `<div class="hi-details-notes"><strong>Notas</strong>${esc(q.notes)}</div>` : '';
 
-    // NUEVO: dimensiones en historial
+    // Ahora usa unidades formateadas
     const dimEntries = getDimensionEntries(q.dimensions);
     const dimsHTML = dimEntries.length
       ? `<div class="hi-details-section-title">Dimensiones</div>` +
@@ -1759,7 +1790,7 @@ async function renderQuoteDoc(quote) {
     ? `<img src="${d.image}" alt="Modelo de referencia">`
     : `<div class="quote-doc-image-placeholder">Sin imagen<br>de referencia</div>`;
 
-  // NUEVO: bloque dimensiones (solo si al menos una tiene valor)
+  // Dimensiones con unidades (cm para todos, mm para espesor)
   const dimEntries = getDimensionEntries(d.dimensions);
   const dimsHTML = dimEntries.length
     ? `<div class="quote-doc-dimensions">
@@ -2119,7 +2150,6 @@ $('#q-currency').addEventListener('change', e => { currentCurrency = e.target.va
 ['#q-cost-gram','#q-weight','#q-qty','#q-hours','#q-design-hours','#q-design-cost','#q-kwh','#q-tax','#q-dep','#q-margin'].forEach(s => {
   $(s).addEventListener('input', updateQuote);
 });
-// NUEVO: inputs de dimensiones también disparan recálculo del preview (aunque no afectan costos, actualizan _quoteCurrent)
 ['#q-dim-alto','#q-dim-ancho','#q-dim-largo','#q-dim-fondo','#q-dim-espesor'].forEach(s => {
   $(s).addEventListener('input', updateQuote);
 });
@@ -2262,7 +2292,7 @@ function generatePDF() {
       try { doc.addImage(logoDataUrl, 'PNG', margin, y, logoSize, logoSize); textX = margin + logoSize + 5; } catch {}
     }
     doc.setFontSize(20); doc.setFont('helvetica', 'bold'); doc.setTextColor(20, 25, 35);
-    doc.text('Inventario de Filamento', textX, y + 7);
+    doc.text('GESTIÓN ito 3D', textX, y + 7);
     doc.setFontSize(9.5); doc.setFont('helvetica', 'normal'); doc.setTextColor(120, 128, 140);
     doc.text(`${dateStr}  ·  ${list.length} color${list.length === 1 ? '' : 'es'}  ·  ${fmtKg(totalG)} kg`, textX, y + 13);
     y += Math.max(logoSize, 16) + 4;
