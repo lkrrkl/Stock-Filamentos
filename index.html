@@ -257,6 +257,7 @@
   .quote-body{padding:18px 22px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:14px;min-height:0}
   .quote-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .quote-grid-3{grid-template-columns:repeat(3,1fr)}
+  .quote-grid-5{grid-template-columns:repeat(5,1fr)}
   .quote-extras{display:flex;flex-direction:column;gap:8px}
   .quote-extras-head{display:flex;align-items:center;justify-content:space-between;font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:700}
   .quote-extra-row{display:grid;grid-template-columns:1fr 120px 32px;gap:8px;align-items:center}
@@ -305,8 +306,6 @@
   .history-item.highlight{border-color:#f59e0b;box-shadow:0 0 0 3px rgba(245,158,11,.2);animation:highlightPulse 1.6s ease-in-out infinite}
   @keyframes highlightPulse{0%,100%{box-shadow:0 0 0 3px rgba(245,158,11,.2)}50%{box-shadow:0 0 0 6px rgba(245,158,11,.1)}}
 
-  /* Header clickeable del historial */
-  .hi-header{display:contents;cursor:pointer}
   .hi-main{min-width:0;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
   .hi-chevron{
     width:22px;height:22px;border-radius:6px;flex:0 0 auto;
@@ -326,7 +325,6 @@
   .hi-sub .dot{color:#3a4658}
   .hi-total{font-size:18px;font-weight:800;color:#22c55e;font-variant-numeric:tabular-nums;white-space:nowrap;cursor:pointer;user-select:none}
 
-  /* Detalles expandidos del historial */
   .hi-details{
     grid-column:1/-1;
     display:none;
@@ -381,9 +379,7 @@
   .history-foot .spacer{flex:1}
   .history-foot .count{font-size:12px;color:var(--muted)}
 
-  /* ============================================================
-     DOCUMENTO DE COTIZACIÓN — CUADRADO 900x900 px
-     ============================================================ */
+  /* DOCUMENTO DE COTIZACIÓN — CUADRADO 900x900 px */
   .quote-doc{
     position:absolute; left:-9999px; top:0;
     width:900px; height:900px;
@@ -393,72 +389,61 @@
     font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
     overflow:hidden;
   }
-
   .quote-doc-header{display:flex;align-items:center;gap:22px;border-bottom:3px solid #eab308;padding-bottom:14px;flex-shrink:0}
-  .quote-doc-logo{
-    width:120px; height:120px; object-fit:contain; flex:0 0 auto;
-    background:#ffffff !important;
-    border:none !important; outline:none !important;
-    border-radius:0 !important; box-shadow:none !important;
-    padding:0 !important; margin:0 !important;
-    display:block;
-  }
+  .quote-doc-logo{width:120px;height:120px;object-fit:contain;flex:0 0 auto;background:#ffffff !important;border:none !important;outline:none !important;border-radius:0 !important;box-shadow:none !important;padding:0 !important;margin:0 !important;display:block}
   .quote-doc-title{flex:1;min-width:0}
   .quote-doc-title h1{margin:0;font-size:30px;font-weight:800;color:#0f172a;letter-spacing:-.02em;line-height:1.05}
   .quote-doc-title p{margin:6px 0 0;color:#64748b;font-size:13px}
   .quote-doc-title p strong{color:#a16207;font-weight:800;font-size:14px}
   .quote-doc-currency-badge{display:inline-block;margin-left:8px;padding:3px 8px;border-radius:99px;background:#fef3c7;color:#a16207;font-size:10px;font-weight:800;border:1px solid #fde68a;letter-spacing:.05em}
 
-  .quote-doc-two-col{
-    display:grid;
-    grid-template-columns:1fr 1.1fr;
-    gap:14px;
-    flex-shrink:0;
-    height:250px;
-  }
-  .quote-doc-meta-col{
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    gap:6px;
-    padding:12px 16px;
-    background:#f8fafc;
-    border-radius:10px;
-    border:1px solid #e2e8f0;
-    overflow:hidden;
-  }
+  .quote-doc-two-col{display:grid;grid-template-columns:1fr 1.1fr;gap:14px;flex-shrink:0;height:250px}
+  .quote-doc-meta-col{display:flex;flex-direction:column;justify-content:space-between;gap:6px;padding:12px 16px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;overflow:hidden}
   .quote-doc-meta-item{font-size:12px;color:#0f172a;line-height:1.3}
   .quote-doc-meta-item strong{display:block;color:#64748b;font-size:9px;text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px;font-weight:700}
 
-  .quote-doc-image-col{
+  .quote-doc-image-col{display:flex;align-items:center;justify-content:center;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;overflow:hidden;padding:8px;position:relative}
+  .quote-doc-image-col img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:6px;display:block;background:#ffffff}
+  .quote-doc-image-placeholder{color:#cbd5e1;font-size:11px;text-align:center;text-transform:uppercase;letter-spacing:.8px;font-weight:700;line-height:1.6}
+
+  /* NUEVO: Dimensiones (solo aparece si hay datos) */
+  .quote-doc-dimensions{
     display:flex;
+    flex-wrap:wrap;
     align-items:center;
-    justify-content:center;
-    background:#f8fafc;
+    gap:6px 8px;
+    padding:8px 14px;
+    background:#eff6ff;
+    border:1px solid #bfdbfe;
     border-radius:10px;
-    border:1px solid #e2e8f0;
-    overflow:hidden;
-    padding:8px;
-    position:relative;
+    flex-shrink:0;
   }
-  .quote-doc-image-col img{
-    max-width:100%;
-    max-height:100%;
-    width:auto;
-    height:auto;
-    object-fit:contain;
-    border-radius:6px;
-    display:block;
-    background:#ffffff;
-  }
-  .quote-doc-image-placeholder{
-    color:#cbd5e1;
-    font-size:11px;
-    text-align:center;
+  .quote-doc-dimensions-title{
+    font-size:9px;
     text-transform:uppercase;
-    letter-spacing:.8px;
-    font-weight:700;
-    line-height:1.6;
+    letter-spacing:.6px;
+    color:#1e40af;
+    font-weight:800;
+    margin-right:4px;
+  }
+  .quote-doc-dimension-chip{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    padding:2px 9px;
+    background:#ffffff;
+    border:1px solid #bfdbfe;
+    border-radius:6px;
+    font-size:11px;
+    color:#0f172a;
+    line-height:1.4;
+  }
+  .quote-doc-dimension-chip strong{
+    color:#1e40af;
+    font-size:9px;
+    text-transform:uppercase;
+    font-weight:800;
+    letter-spacing:.3px;
   }
 
   .quote-doc-table-wrap{flex-shrink:0}
@@ -470,62 +455,21 @@
 
   .quote-doc-spacer{flex:1;min-height:4px}
 
-  /* Fila inferior: notas (izq) + totales (der) */
-  .quote-doc-totals-row{
-    display:grid;
-    grid-template-columns:1fr auto;
-    gap:14px;
-    align-items:flex-end;
-    flex-shrink:0;
-  }
-  .quote-doc-notes-col{
-    padding:10px 14px;
-    background:#fffbeb;
-    border:1px solid #fde68a;
-    border-radius:10px;
-    font-size:11px;
-    color:#78350f;
-    line-height:1.45;
-    min-height:1px;
-    white-space:pre-wrap;
-    word-break:break-word;
-  }
-  .quote-doc-notes-col strong{
-    display:block;
-    font-size:9px;
-    text-transform:uppercase;
-    letter-spacing:.6px;
-    margin-bottom:4px;
-    font-weight:800;
-    color:#a16207;
-  }
-  .quote-doc-notes-col.is-empty{
-    display:none;
-  }
-  .quote-doc-totals-row.no-notes{
-    grid-template-columns:1fr;
-  }
-  .quote-doc-totals-row.no-notes .quote-doc-totals{
-    justify-self:end;
-  }
+  .quote-doc-totals-row{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:flex-end;flex-shrink:0}
+  .quote-doc-notes-col{padding:10px 14px;background:#fffbeb;border:1px solid #fde68a;border-radius:10px;font-size:11px;color:#78350f;line-height:1.45;min-height:1px;white-space:pre-wrap;word-break:break-word}
+  .quote-doc-notes-col strong{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;font-weight:800;color:#a16207}
+  .quote-doc-notes-col.is-empty{display:none}
+  .quote-doc-totals-row.no-notes{grid-template-columns:1fr}
+  .quote-doc-totals-row.no-notes .quote-doc-totals{justify-self:end}
 
-  .quote-doc-totals{
-    width:100%;
-    max-width:340px;
-    padding:12px 16px;
-    background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;font-size:12px;
-  }
+  .quote-doc-totals{width:100%;max-width:340px;padding:12px 16px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;font-size:12px}
   .quote-doc-totals .row{display:flex;justify-content:space-between;padding:3px 0;color:#475569}
   .quote-doc-totals .row span:last-child{font-variant-numeric:tabular-nums;color:#0f172a;font-weight:600}
   .quote-doc-totals .row.total{border-top:2px solid #eab308;margin-top:6px;padding-top:10px;font-size:17px;font-weight:800;color:#a16207}
   .quote-doc-totals .row.total span:last-child{color:#a16207;font-size:20px}
   .quote-doc-totals .row.total.no-tax{border-top:none;margin-top:0;padding-top:0}
 
-  .quote-doc-footer{
-    padding-top:10px;border-top:2px solid #eab308;
-    font-size:10px;color:#94a3b8;text-align:center;line-height:1.6;
-    flex-shrink:0;
-  }
+  .quote-doc-footer{padding-top:10px;border-top:2px solid #eab308;font-size:10px;color:#94a3b8;text-align:center;line-height:1.6;flex-shrink:0}
 
   @media (max-width:900px){.slot{max-width:30px}}
   @media (max-width:760px){
@@ -557,7 +501,7 @@
     .chips{gap:10px}
     .chip{width:24px;height:24px}
     .btn{padding:9px 12px;font-size:13px}
-    .field-row,.quote-grid,.quote-grid-3{grid-template-columns:1fr}
+    .field-row,.quote-grid,.quote-grid-3,.quote-grid-5{grid-template-columns:1fr}
     .cloud-status{display:none}
     .print-line{grid-template-columns:minmax(0,1fr) 100px 32px;gap:8px}
     .print-select-btn{font-size:12.5px;padding:7px 9px;min-height:38px}
@@ -716,8 +660,8 @@
     <div class="quote-grid-3">
       <label class="field"><span>Moneda</span>
         <select id="q-currency">
-          <option value="USD">$ Dólares (USD)</option>
           <option value="CRC">₡ Colones (CRC)</option>
+          <option value="USD">$ Dólares (USD)</option>
         </select>
       </label>
       <label class="field"><span>Material</span><select id="q-material"></select></label>
@@ -732,6 +676,19 @@
       <label class="field"><span>Horas diseño</span><input type="number" id="q-design-hours" min="0" step="0.1" value="0"></label>
       <label class="field"><span>Costo diseño/h</span><input type="number" id="q-design-cost" step="1" min="0" value="1000"></label>
     </div>
+
+    <!-- NUEVO: Dimensiones -->
+    <div class="field">
+      <span>Dimensiones (opcional — solo aparecen las que llenes)</span>
+      <div class="quote-grid-5">
+        <label class="field"><span>Alto</span><input type="text" id="q-dim-alto" placeholder="12cm" autocomplete="off"></label>
+        <label class="field"><span>Ancho</span><input type="text" id="q-dim-ancho" placeholder="7cm" autocomplete="off"></label>
+        <label class="field"><span>Largo</span><input type="text" id="q-dim-largo" placeholder="25cm" autocomplete="off"></label>
+        <label class="field"><span>Fondo</span><input type="text" id="q-dim-fondo" placeholder="6cm" autocomplete="off"></label>
+        <label class="field"><span>Espesor</span><input type="text" id="q-dim-espesor" placeholder="2mm" autocomplete="off"></label>
+      </div>
+    </div>
+
     <div class="field">
       <span>Imagen de referencia del modelo (opcional)</span>
       <div class="quote-upload">
@@ -799,16 +756,10 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-/* =========================================================
-   CONFIGURACIÓN SUPABASE
-   ========================================================= */
 const SUPABASE_URL      = 'https://sgcsuokygvkzmzomrcyo.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_YO4mEeGuPDA32yEuf86Izw_g--ggMkU';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { auth: { persistSession: false } });
 
-/* =========================================================
-   Utilidades
-   ========================================================= */
 const KEY = 'filamento-stock-v1';
 const QUOTE_HISTORY_KEY = 'filamento-quotes-v1';
 const MAX_QUOTES = 100;
@@ -821,15 +772,29 @@ const normalizeHex = h => { h = String(h || '').trim(); if (!h) return null; if 
 const fmtKg = grams => { const kg = grams / 1000; return kg.toFixed(2).replace(/\.?0+$/, '') || '0'; };
 
 function fmtMoney(n, currency) {
-  currency = currency || 'USD';
+  currency = currency || 'CRC';
   const abs = Math.abs(n);
   const formatted = abs.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const sign = n < 0 ? '-' : '';
   if (currency === 'CRC') return sign + '₡' + formatted;
   return sign + '$' + formatted;
 }
-function currencyLabel(cur) {
-  return cur === 'CRC' ? 'Colones' : 'USD';
+function currencyLabel(cur) { return cur === 'CRC' ? 'Colones' : 'USD'; }
+function roundUp5(n) {
+  if (typeof n !== 'number' || !isFinite(n) || n === 0) return 0;
+  return Math.ceil(n / 5) * 5;
+}
+// Devuelve array de dimensiones con valor no vacío
+function getDimensionEntries(dims) {
+  if (!dims) return [];
+  const list = [
+    ['Alto', dims.alto],
+    ['Ancho', dims.ancho],
+    ['Largo', dims.largo],
+    ['Fondo', dims.fondo],
+    ['Espesor', dims.espesor]
+  ];
+  return list.filter(([,v]) => v && String(v).trim().length > 0);
 }
 
 function hexToRgb(hex) { const h = String(hex).replace('#', ''); return { r: parseInt(h.slice(0,2),16), g: parseInt(h.slice(2,4),16), b: parseInt(h.slice(4,6),16) }; }
@@ -889,9 +854,7 @@ function swatchCSS(pal) {
   return `conic-gradient(${stops.join(', ')})`;
 }
 
-/* =========================================================
-   Logo
-   ========================================================= */
+/* Logo */
 const DRIVE_LOGO_ID = '1obq1W51d5TIzXPkEPNR9i4o1h-AQsGca';
 const LOGO_CANDIDATES = [
   `https://lh3.googleusercontent.com/d/${DRIVE_LOGO_ID}=w1024`,
@@ -906,7 +869,6 @@ const LOGO_CANDIDATES = [
 ];
 let quoteLogoDataUrl = null;
 let quoteLogoPromise = null;
-
 async function getQuoteLogo() {
   if (quoteLogoDataUrl) return quoteLogoDataUrl;
   if (quoteLogoPromise) return quoteLogoPromise;
@@ -925,18 +887,14 @@ async function getQuoteLogo() {
         });
         quoteLogoDataUrl = dataUrl;
         return dataUrl;
-      } catch (e) {
-        console.warn('Logo fallback:', url, e.message);
-      }
+      } catch (e) { console.warn('Logo fallback:', url, e.message); }
     }
     return null;
   })();
   return quoteLogoPromise;
 }
 
-/* =========================================================
-   Compresión de imágenes
-   ========================================================= */
+/* Compresión */
 async function compressImage(file, maxSize = 600, quality = 0.78) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -950,15 +908,13 @@ async function compressImage(file, maxSize = 600, quality = 0.78) {
           height = Math.round(height * ratio);
         }
         const canvas = document.createElement('canvas');
-        canvas.width = width;
-        canvas.height = height;
+        canvas.width = width; canvas.height = height;
         const ctx = canvas.getContext('2d');
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, width, height);
         ctx.drawImage(img, 0, 0, width, height);
-        try {
-          resolve(canvas.toDataURL('image/jpeg', quality));
-        } catch (err) { reject(err); }
+        try { resolve(canvas.toDataURL('image/jpeg', quality)); }
+        catch (err) { reject(err); }
       };
       img.onerror = () => reject(new Error('No se pudo cargar la imagen'));
       img.src = e.target.result;
@@ -968,9 +924,7 @@ async function compressImage(file, maxSize = 600, quality = 0.78) {
   });
 }
 
-/* =========================================================
-   Carretes
-   ========================================================= */
+/* Carretes */
 function spoolGradient(pal) {
   if (pal.length === 1) return { fill: pal[0], defs: '' };
   const gid = 'sg-' + Math.random().toString(36).slice(2, 8);
@@ -1007,11 +961,8 @@ function spoolsHTML(grams, pal) {
   return `<div class="spools-grid" data-layout="${layout}">${svgs}</div>${badge}`;
 }
 
-/* =========================================================
-   Estanterías 2.5D
-   ========================================================= */
+/* Estanterías */
 const SHELVES_COUNT = 5, PER_SHELF = 20, SHELF_CAPACITY_TOTAL = SHELVES_COUNT * PER_SHELF;
-
 function collectSpoolsSorted() {
   const sorted = colors.slice().sort(compareSpectrum);
   const spools = [];
@@ -1024,7 +975,6 @@ function collectSpoolsSorted() {
   });
   return spools;
 }
-
 function renderShelfView() {
   const box = $('#shelf-box');
   if (!box) return;
@@ -1032,7 +982,6 @@ function renderShelfView() {
   const allSpools = collectSpoolsSorted();
   const visible = allSpools.slice(0, SHELF_CAPACITY_TOTAL);
   const overflow = Math.max(0, allSpools.length - SHELF_CAPACITY_TOTAL);
-
   let infoHTML = '';
   if (filter.filamentId) {
     const sel = colors.find(c => c.id === filter.filamentId);
@@ -1044,7 +993,6 @@ function renderShelfView() {
       infoHTML = `<div class="shelf-info"><span class="info-swatch" style="background:${swatchCSS(pal)}"></span><div class="info-text"><strong>${esc(sel.name)}</strong><span>${esc(parts.join(' · '))}</span></div><button type="button" class="info-clear" title="Quitar filtro">✕</button></div>`;
     }
   }
-
   let shelvesHTML = '';
   for (let s = 0; s < SHELVES_COUNT; s++) {
     shelvesHTML += `<div class="shelf"><div class="shelf-slots">`;
@@ -1070,21 +1018,18 @@ function renderShelfView() {
   box.innerHTML = `<div class="shelf-view-wrap">${infoHTML}<div class="shelf-view">${shelvesHTML}</div>${overflowHTML}</div>`;
 }
 
-/* =========================================================
-   Estado
-   ========================================================= */
 const FAMILIES = [
-  { id: 'all',        label: 'Todos',      dot: 'conic-gradient(#e63946,#f5b301,#84cc16,#06b6d4,#2563eb,#a855f7,#e63946)' },
-  { id: 'rojo',       label: 'Rojos',      dot: '#e63946' },
-  { id: 'naranja',    label: 'Naranjas',   dot: '#f97316' },
-  { id: 'amarillo',   label: 'Amarillos',  dot: '#f5b301' },
-  { id: 'verde',      label: 'Verdes',     dot: '#22c55e' },
-  { id: 'cian',       label: 'Cianes',     dot: '#06b6d4' },
-  { id: 'azul',       label: 'Azules',     dot: '#2563eb' },
-  { id: 'violeta',    label: 'Violetas',   dot: '#8b5cf6' },
-  { id: 'magenta',    label: 'Magentas',   dot: '#d946ef' },
+  { id: 'all', label: 'Todos', dot: 'conic-gradient(#e63946,#f5b301,#84cc16,#06b6d4,#2563eb,#a855f7,#e63946)' },
+  { id: 'rojo', label: 'Rojos', dot: '#e63946' },
+  { id: 'naranja', label: 'Naranjas', dot: '#f97316' },
+  { id: 'amarillo', label: 'Amarillos', dot: '#f5b301' },
+  { id: 'verde', label: 'Verdes', dot: '#22c55e' },
+  { id: 'cian', label: 'Cianes', dot: '#06b6d4' },
+  { id: 'azul', label: 'Azules', dot: '#2563eb' },
+  { id: 'violeta', label: 'Violetas', dot: '#8b5cf6' },
+  { id: 'magenta', label: 'Magentas', dot: '#d946ef' },
   { id: 'multicolor', label: 'Multicolor', dot: 'conic-gradient(#e63946,#f5b301,#84cc16,#06b6d4,#2563eb,#a855f7,#d946ef,#e63946)', multi: true },
-  { id: 'neutro',     label: 'Neutros',    dot: 'linear-gradient(135deg,#ffffff,#9ca3af,#111111)' }
+  { id: 'neutro', label: 'Neutros', dot: 'linear-gradient(135deg,#ffffff,#9ca3af,#111111)' }
 ];
 
 let colors = [];
@@ -1110,9 +1055,6 @@ function fixColor(c) {
   };
 }
 
-/* =========================================================
-   Supabase
-   ========================================================= */
 async function fetchColors() {
   const { data, error } = await sb.from('filamentos').select('*').order('created', { ascending: false });
   if (error) throw error;
@@ -1141,9 +1083,6 @@ async function migrateFromLocalStorage() {
   } catch (e) { console.warn('Migración omitida:', e); }
 }
 
-/* =========================================================
-   Estado nube
-   ========================================================= */
 const cloudStatus = $('#cloud-status');
 const cloudStatusText = $('#cloud-status-text');
 function setCloudState(state, text) {
@@ -1154,9 +1093,6 @@ function setCloudState(state, text) {
   if (state === 'ok') setTimeout(() => { cloudStatus.className = 'cloud-status'; }, 1800);
 }
 
-/* =========================================================
-   Render
-   ========================================================= */
 const grid = $('#grid');
 const emptyEl = $('#empty');
 
@@ -1257,9 +1193,6 @@ function showError(msg) {
   setCloudState('error', 'Sin conexión');
 }
 
-/* =========================================================
-   Drawer edición
-   ========================================================= */
 const overlay = $('#overlay');
 const drawer = $('#drawer');
 const form = $('#form');
@@ -1325,9 +1258,6 @@ function closeDrawer() {
   editingId = null;
 }
 
-/* =========================================================
-   Modal Impresión
-   ========================================================= */
 function openPrintModal() {
   printLines = [{ filamentId: '', grams: 0 }];
   closeAllPrintMenus();
@@ -1458,9 +1388,7 @@ async function applyPrint() {
   }
 }
 
-/* =========================================================
-   Cotizador
-   ========================================================= */
+/* Cotizador */
 const QUOTE_MATERIALS = {
   'PLA': 20, 'PLA+': 20, 'PLA PRO': 20, 'PLA Silk': 25, 'PLA Wood': 30, 'PLA Flex': 25, 'PLA Glow': 28,
   'PETG': 22, 'PETG-CF': 28, 'ABS': 25, 'ABS+': 25, 'ASA': 30,
@@ -1470,7 +1398,7 @@ const QUOTE_MATERIALS = {
 const QUOTE_DEFAULTS = { kWh24: 2737.15, designPerHour: 1000, taxPct: 0, depPct: 8, marginPct: 20 };
 let quoteExtras = [];
 let quoteImageData = null;
-let currentCurrency = 'USD';
+let currentCurrency = 'CRC';
 
 function openQuoteModal() {
   const sel = $('#q-material');
@@ -1486,6 +1414,12 @@ function openQuoteModal() {
   $('#q-client').value = '';
   $('#q-project').value = '';
   $('#q-notes').value = '';
+  // NUEVO: reset dimensiones
+  $('#q-dim-alto').value = '';
+  $('#q-dim-ancho').value = '';
+  $('#q-dim-largo').value = '';
+  $('#q-dim-fondo').value = '';
+  $('#q-dim-espesor').value = '';
   $('#q-weight').value = 10;
   $('#q-qty').value = 1;
   $('#q-hours').value = 1;
@@ -1543,7 +1477,7 @@ function readQuoteInputs() {
   return {
     client: $('#q-client').value.trim(),
     project: $('#q-project').value.trim(),
-    currency: $('#q-currency').value || 'USD',
+    currency: $('#q-currency').value || 'CRC',
     material: $('#q-material').value,
     costPerGram: parseFloat($('#q-cost-gram').value) || 0,
     weight: parseFloat($('#q-weight').value) || 0,
@@ -1557,36 +1491,46 @@ function readQuoteInputs() {
     marginPct: parseFloat($('#q-margin').value) || 0,
     extras: quoteExtras.map(e => ({ name: e.name, cost: parseFloat(e.cost) || 0 })),
     image: quoteImageData || null,
-    notes: $('#q-notes').value.trim()
+    notes: $('#q-notes').value.trim(),
+    // NUEVO: dimensiones
+    dimensions: {
+      alto: $('#q-dim-alto').value.trim(),
+      ancho: $('#q-dim-ancho').value.trim(),
+      largo: $('#q-dim-largo').value.trim(),
+      fondo: $('#q-dim-fondo').value.trim(),
+      espesor: $('#q-dim-espesor').value.trim()
+    }
   };
 }
+
 function updateQuote() {
   const d = readQuoteInputs();
   currentCurrency = d.currency;
-  const materialCost = d.weight * d.costPerGram * d.qty;
-  const energyCost = (d.printHours / 24) * d.kWh24 * d.qty;
-  const designCost = d.designHours * d.designPerHour * d.qty;
-  const extrasCost = d.extras.reduce((s,e) => s + e.cost, 0) * d.qty;
 
-  // Base para calcular dep / margen / impuestos (como antes)
-  const subtotalBase = materialCost + energyCost + designCost + extrasCost;
-  const dep = subtotalBase * (d.depPct / 100);
-  const margin = subtotalBase * (d.marginPct / 100);
-  const tax = subtotalBase * (d.taxPct / 100);
+  const rawMaterialCost = d.weight * d.costPerGram * d.qty;
+  const rawEnergyCost = (d.printHours / 24) * d.kWh24 * d.qty;
+  const rawDesignCost = d.designHours * d.designPerHour * d.qty;
+  const rawExtrasCost = d.extras.reduce((s,e) => s + e.cost, 0) * d.qty;
+  const rawSubtotalBase = rawMaterialCost + rawEnergyCost + rawDesignCost + rawExtrasCost;
+  const rawDep = rawSubtotalBase * (d.depPct / 100);
+  const rawMargin = rawSubtotalBase * (d.marginPct / 100);
+  const rawTax = rawSubtotalBase * (d.taxPct / 100);
 
-  // NUEVO: Modelo = material + depreciación + margen (integrados)
+  const materialCost = roundUp5(rawMaterialCost);
+  const dep = roundUp5(rawDep);
+  const margin = roundUp5(rawMargin);
   const modeloCost = materialCost + dep + margin;
+  const energyCost = roundUp5(rawEnergyCost);
+  const designCost = roundUp5(rawDesignCost);
+  const extrasCost = roundUp5(rawExtrasCost);
+  const tax = roundUp5(rawTax);
 
-  // Subtotal mostrado = modelo + energía + diseño + extras
   const subtotalMostrado = modeloCost + energyCost + designCost + extrasCost;
-
-  // Total = subtotalMostrado + impuestos (mismo total que antes)
   const total = subtotalMostrado + tax;
 
   const cur = d.currency;
   const hasTax = d.taxPct > 0;
 
-  // Preview en el modal
   $('#quote-result').innerHTML = `
     <div class="qr-row"><span>Modelo (${d.weight}g)</span><span>${fmtMoney(modeloCost, cur)}</span></div>
     <div class="qr-row"><span>Energía (${d.printHours}h)</span><span>${fmtMoney(energyCost, cur)}</span></div>
@@ -1599,8 +1543,9 @@ function updateQuote() {
   window._quoteCurrent = {
     ...d,
     materialCost, energyCost, designCost, extrasCost,
-    subtotalBase, modeloCost, subtotalMostrado,
-    subtotal: subtotalMostrado, // compatibilidad
+    subtotalBase: rawSubtotalBase,
+    modeloCost, subtotalMostrado,
+    subtotal: subtotalMostrado,
     tax, dep, margin, total
   };
 }
@@ -1611,9 +1556,7 @@ function showQuoteToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2400);
 }
 
-/* =========================================================
-   Historial de cotizaciones
-   ========================================================= */
+/* Historial */
 function loadQuoteHistory() {
   try { return JSON.parse(localStorage.getItem(QUOTE_HISTORY_KEY) || '[]'); }
   catch { return []; }
@@ -1652,12 +1595,8 @@ function saveQuoteToHistory() {
     createdAt: Date.now()
   };
   history.unshift(record);
-  try {
-    saveQuoteHistoryToStorage(history);
-  } catch (e) {
-    alert(e.message);
-    return;
-  }
+  try { saveQuoteHistoryToStorage(history); }
+  catch (e) { alert(e.message); return; }
   refreshHistoryBadge();
   showQuoteToast(`Guardada como ${record.quoteNumber}`);
   closeQuoteModal();
@@ -1674,7 +1613,7 @@ function renderHistoryList(highlightId) {
   }
   body.innerHTML = history.map(q => {
     const dateStr = new Date(q.createdAt).toLocaleDateString('es-CO', { day: '2-digit', month: 'short', year: 'numeric' });
-    const cur = q.currency || 'USD';
+    const cur = q.currency || 'CRC';
     const subParts = [];
     if (q.material) subParts.push(q.material);
     subParts.push(`${q.weight}g × ${q.qty} ud`);
@@ -1684,12 +1623,18 @@ function renderHistoryList(highlightId) {
       ? `<div class="hi-thumb"><img src="${q.image}" alt=""></div>`
       : `<div class="hi-thumb">📄</div>`;
 
-    // Detalles expandidos
     const extrasList = (q.extras || []).filter(e => e.name || e.cost > 0);
     const extrasHTML = extrasList.map(e =>
       `<div class="hi-detail-row"><span>${esc(e.name || 'Material extra')}</span><span>${fmtMoney(e.cost * q.qty, cur)}</span></div>`
     ).join('');
     const notesHTML = q.notes ? `<div class="hi-details-notes"><strong>Notas</strong>${esc(q.notes)}</div>` : '';
+
+    // NUEVO: dimensiones en historial
+    const dimEntries = getDimensionEntries(q.dimensions);
+    const dimsHTML = dimEntries.length
+      ? `<div class="hi-details-section-title">Dimensiones</div>` +
+        dimEntries.map(([label, val]) => `<div class="hi-detail-row"><span>${label}</span><span>${esc(val)}</span></div>`).join('')
+      : '';
 
     const details = `
       <div class="hi-details">
@@ -1703,6 +1648,8 @@ function renderHistoryList(highlightId) {
           <div class="hi-detail-row"><span>Material</span><span>${esc(q.material || '—')}</span></div>
           <div class="hi-detail-row"><span>Costo/g</span><span>${fmtMoney(q.costPerGram || 0, cur)}</span></div>
           <div class="hi-detail-row"><span>Peso × Cantidad</span><span>${q.weight}g × ${q.qty}</span></div>
+
+          ${dimsHTML}
 
           <div class="hi-details-section-title">Tiempo y diseño</div>
           <div class="hi-detail-row"><span>Tiempo impresión</span><span>${q.printHours}h</span></div>
@@ -1774,23 +1721,20 @@ function deleteQuoteById(id) {
   renderHistoryList();
 }
 
-/* =========================================================
-   Documento cuadrado 900x900 + PDF/PNG
-   ========================================================= */
+/* Documento */
 async function renderQuoteDoc(quote) {
   const logo = await getQuoteLogo();
   const d = quote;
-  const cur = d.currency || 'USD';
+  const cur = d.currency || 'CRC';
   const dateStr = new Date(d.createdAt).toLocaleDateString('es-CO', { day: '2-digit', month: 'long', year: 'numeric' });
   const hasTax = (d.taxPct || 0) > 0;
   const notes = (d.notes || '').trim();
   const hasNotes = notes.length > 0;
 
-  // Recalcular por si acaso (compatibilidad con registros viejos)
-  const materialCost = d.materialCost ?? (d.weight * d.costPerGram * d.qty);
-  const energyCost = d.energyCost ?? ((d.printHours / 24) * d.kWh24 * d.qty);
-  const designCost = d.designCost ?? (d.designHours * d.designPerHour * d.qty);
-  const extrasCost = d.extrasCost ?? ((d.extras || []).reduce((s,e) => s + e.cost, 0) * d.qty);
+  const materialCost = d.materialCost ?? 0;
+  const energyCost = d.energyCost ?? 0;
+  const designCost = d.designCost ?? 0;
+  const extrasCost = d.extrasCost ?? 0;
   const dep = d.dep ?? 0;
   const margin = d.margin ?? 0;
   const modeloCost = d.modeloCost ?? (materialCost + dep + margin);
@@ -1801,9 +1745,7 @@ async function renderQuoteDoc(quote) {
     `<tr><td>${esc(e.name || 'Material extra')}</td><td>${fmtMoney(e.cost * d.qty, cur)}</td></tr>`
   ).join('');
 
-  const logoHTML = logo
-    ? `<img src="${logo}" class="quote-doc-logo" alt="Logo">`
-    : '';
+  const logoHTML = logo ? `<img src="${logo}" class="quote-doc-logo" alt="Logo">` : '';
 
   const metaHTML = `
     <div class="quote-doc-meta-item"><strong>Cliente</strong>${esc(d.client || 'Cliente general')}</div>
@@ -1817,13 +1759,22 @@ async function renderQuoteDoc(quote) {
     ? `<img src="${d.image}" alt="Modelo de referencia">`
     : `<div class="quote-doc-image-placeholder">Sin imagen<br>de referencia</div>`;
 
-  // Bloque totales: subtotal solo si hay impuestos
+  // NUEVO: bloque dimensiones (solo si al menos una tiene valor)
+  const dimEntries = getDimensionEntries(d.dimensions);
+  const dimsHTML = dimEntries.length
+    ? `<div class="quote-doc-dimensions">
+         <span class="quote-doc-dimensions-title">Dimensiones</span>
+         ${dimEntries.map(([label, val]) =>
+           `<span class="quote-doc-dimension-chip"><strong>${label}</strong> ${esc(val)}</span>`
+         ).join('')}
+       </div>`
+    : '';
+
   const totalsHTML = `
     ${hasTax ? `<div class="row"><span>Subtotal</span><span>${fmtMoney(subtotalMostrado, cur)}</span></div>` : ''}
     ${hasTax ? `<div class="row"><span>Impuestos (${d.taxPct}%)</span><span>${fmtMoney(tax, cur)}</span></div>` : ''}
     <div class="row total${hasTax ? '' : ' no-tax'}"><span>TOTAL</span><span>${fmtMoney(d.total, cur)}</span></div>`;
 
-  // Bloque notas (solo si hay notas)
   const notesHTML = hasNotes
     ? `<div class="quote-doc-notes-col"><strong>Notas</strong>${esc(notes)}</div>`
     : `<div class="quote-doc-notes-col is-empty"></div>`;
@@ -1840,6 +1791,7 @@ async function renderQuoteDoc(quote) {
       <div class="quote-doc-meta-col">${metaHTML}</div>
       <div class="quote-doc-image-col">${imageHTML}</div>
     </div>
+    ${dimsHTML}
     <div class="quote-doc-table-wrap">
       <table class="quote-doc-table">
         <thead><tr><th>Concepto</th><th>Valor</th></tr></thead>
@@ -1875,27 +1827,15 @@ async function renderQuoteDoc(quote) {
 async function renderQuoteCanvas(quote) {
   const doc = await renderQuoteDoc(quote);
   void doc.offsetHeight;
-
   const imgs = doc.querySelectorAll('img');
   await Promise.all(Array.from(imgs).map(async img => {
-    if (!img.complete) {
-      await new Promise(res => { img.onload = img.onerror = res; });
-    }
+    if (!img.complete) { await new Promise(res => { img.onload = img.onerror = res; }); }
     try { await img.decode(); } catch(e) {}
   }));
-
   await new Promise(r => setTimeout(r, 120));
-
   return await html2canvas(doc, {
-    backgroundColor: '#ffffff',
-    scale: 2,
-    useCORS: true,
-    allowTaint: false,
-    logging: false,
-    width: 900,
-    height: 900,
-    windowWidth: 900,
-    windowHeight: 900
+    backgroundColor: '#ffffff', scale: 2, useCORS: true, allowTaint: false, logging: false,
+    width: 900, height: 900, windowWidth: 900, windowHeight: 900
   });
 }
 
@@ -1938,9 +1878,7 @@ async function downloadQuotePNG(quote) {
   }
 }
 
-/* =========================================================
-   Eventos UI
-   ========================================================= */
+/* Eventos UI */
 $('#btn-add').addEventListener('click', () => openDrawer());
 $('#btn-print').addEventListener('click', openPrintModal);
 $('#btn-quote').addEventListener('click', openQuoteModal);
@@ -2061,10 +1999,8 @@ form.addEventListener('submit', async (e) => {
   closeDrawer();
   render();
   setCloudState('syncing', 'Guardando…');
-  try {
-    await upsertColor(data);
-    setCloudState('ok', 'Guardado');
-  } catch (err) {
+  try { await upsertColor(data); setCloudState('ok', 'Guardado'); }
+  catch (err) {
     console.error(err);
     setCloudState('error', 'Error al guardar');
     alert('No se pudo guardar.\n' + (err.message || ''));
@@ -2082,10 +2018,8 @@ $('#btn-delete').addEventListener('click', async () => {
   closeDrawer();
   render();
   setCloudState('syncing', 'Eliminando…');
-  try {
-    await deleteColor(id);
-    setCloudState('ok', 'Eliminado');
-  } catch (err) {
+  try { await deleteColor(id); setCloudState('ok', 'Eliminado'); }
+  catch (err) {
     console.error(err);
     setCloudState('error', 'Error');
     alert('No se pudo eliminar.\n' + (err.message || ''));
@@ -2173,10 +2107,7 @@ $('#btn-print-submit').addEventListener('click', applyPrint);
 $('#btn-quote-close').addEventListener('click', closeQuoteModal);
 $('#btn-quote-cancel').addEventListener('click', closeQuoteModal);
 $('#quote-overlay').addEventListener('click', closeQuoteModal);
-$('#btn-q-add-extra').addEventListener('click', () => {
-  quoteExtras.push({ name: '', cost: 0 });
-  renderQuoteExtras();
-});
+$('#btn-q-add-extra').addEventListener('click', () => { quoteExtras.push({ name: '', cost: 0 }); renderQuoteExtras(); });
 $('#q-material').addEventListener('change', e => {
   const m = e.target.value;
   if (QUOTE_MATERIALS[m] !== undefined) {
@@ -2184,14 +2115,15 @@ $('#q-material').addEventListener('change', e => {
     updateQuote();
   }
 });
-$('#q-currency').addEventListener('change', e => {
-  currentCurrency = e.target.value;
-  updateQuote();
-});
+$('#q-currency').addEventListener('change', e => { currentCurrency = e.target.value; updateQuote(); });
 ['#q-cost-gram','#q-weight','#q-qty','#q-hours','#q-design-hours','#q-design-cost','#q-kwh','#q-tax','#q-dep','#q-margin'].forEach(s => {
   $(s).addEventListener('input', updateQuote);
 });
-$('#q-notes').addEventListener('input', () => { /* las notas no afectan cálculos, pero mantenemos _quoteCurrent actualizado */ updateQuote(); });
+// NUEVO: inputs de dimensiones también disparan recálculo del preview (aunque no afectan costos, actualizan _quoteCurrent)
+['#q-dim-alto','#q-dim-ancho','#q-dim-largo','#q-dim-fondo','#q-dim-espesor'].forEach(s => {
+  $(s).addEventListener('input', updateQuote);
+});
+$('#q-notes').addEventListener('input', () => { updateQuote(); });
 $('#q-extras').addEventListener('input', e => {
   const inp = e.target;
   if (!inp.dataset.idx) return;
@@ -2225,9 +2157,7 @@ $('#btn-history-close').addEventListener('click', closeHistoryModal);
 $('#btn-history-close2').addEventListener('click', closeHistoryModal);
 $('#history-overlay').addEventListener('click', closeHistoryModal);
 
-// Click en historial: expandir/colapsar o acciones
 $('#history-body').addEventListener('click', e => {
-  // Acciones (PDF/PNG/Eliminar)
   const actionBtn = e.target.closest('[data-action]');
   if (actionBtn) {
     e.stopPropagation();
@@ -2241,8 +2171,6 @@ $('#history-body').addEventListener('click', e => {
     else if (action === 'delete') deleteQuoteById(id);
     return;
   }
-
-  // Click en header o total → expandir/colapsar
   const headerClick = e.target.closest('.hi-main, .hi-total, .hi-chevron');
   if (headerClick) {
     const item = headerClick.closest('.history-item');
@@ -2259,9 +2187,7 @@ $('#btn-history-clear').addEventListener('click', () => {
   renderHistoryList();
 });
 
-/* =========================================================
-   PDF del inventario
-   ========================================================= */
+/* PDF del inventario */
 const LOGO_URL = 'https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/120x120/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png';
 let logoDataUrl = null, logoPromise = null;
 function loadLogoDataURL() {
@@ -2399,21 +2325,12 @@ $('#btn-pdf').addEventListener('click', async () => {
   const original = btn.innerHTML;
   btn.disabled = true;
   btn.innerHTML = '⏳ Generando…';
-  try {
-    await loadLogoDataURL();
-    generatePDF();
-  } catch (err) {
-    console.error(err);
-    alert('Error: ' + err.message);
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = original;
-  }
+  try { await loadLogoDataURL(); generatePDF(); }
+  catch (err) { console.error(err); alert('Error: ' + err.message); }
+  finally { btn.disabled = false; btn.innerHTML = original; }
 });
 
-/* =========================================================
-   Realtime
-   ========================================================= */
+/* Realtime */
 function startRealtime() {
   sb.channel('filamentos-realtime')
     .on('postgres_changes', { event: '*', schema: 'public', table: 'filamentos' }, async () => {
@@ -2429,9 +2346,7 @@ function startRealtime() {
     });
 }
 
-/* =========================================================
-   Arranque
-   ========================================================= */
+/* Arranque */
 (async function init() {
   showLoading();
   setCloudState('syncing', 'Conectando…');
