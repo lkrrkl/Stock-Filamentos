@@ -50,13 +50,27 @@
   .btn.history-btn{position:relative}
   .btn.history-btn .badge{position:absolute;top:-6px;right:-6px;background:var(--accent);color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;padding:0 5px;border-radius:99px;display:grid;place-items:center;border:2px solid var(--bg)}
 
-  .dashboard{display:grid;grid-template-columns:minmax(190px, 1fr) 1.55fr;gap:14px;margin-bottom:18px}
-  .stats-left{display:grid;grid-template-rows:repeat(3, 1fr);gap:12px}
+  /* FIX MÓVIL: minmax(0, ...) permite encoger el item */
+  .dashboard{display:grid;grid-template-columns:minmax(190px, 1fr) minmax(0, 1.55fr);gap:14px;margin-bottom:18px}
+  .stats-left{display:grid;grid-template-rows:repeat(3, 1fr);gap:12px;min-width:0}
   .stats-left .stat{padding:16px 20px;justify-content:center}
   .stats-left .stat-value{font-size:28px}
-  .stats-right{background:linear-gradient(145deg, #fef9c3 0%, #fde68a 40%, #fbbf24 100%);border-radius:var(--radius);border:1px solid #eab308;padding:12px;position:relative;display:flex;flex-direction:column;min-height:340px;box-shadow:inset 0 1px 0 rgba(255,255,255,.3)}
 
-  /* NUEVO: título "Stock de filamentos" sobre la gráfica */
+  /* FIX MÓVIL: min-width + overflow para que no desborde */
+  .stats-right{
+    background:linear-gradient(145deg, #fef9c3 0%, #fde68a 40%, #fbbf24 100%);
+    border-radius:var(--radius);
+    border:1px solid #eab308;
+    padding:12px;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    min-height:340px;
+    min-width:0;
+    overflow:hidden;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.3);
+  }
+
   .shelf-title{
     font-size:11px;
     text-transform:uppercase;
@@ -69,7 +83,7 @@
     text-shadow:0 1px 0 rgba(255,255,255,.4);
   }
 
-  .shelf-info{display:flex;align-items:center;gap:10px;padding:8px 10px;margin-bottom:8px;background:rgba(255,255,255,0.92);border-radius:10px;border:1px solid rgba(71,85,105,0.18);box-shadow:0 2px 8px rgba(0,0,0,0.12);position:relative;z-index:2;animation:infoIn .2s ease}
+  .shelf-info{display:flex;align-items:center;gap:10px;padding:8px 10px;margin-bottom:8px;background:rgba(255,255,255,0.92);border-radius:10px;border:1px solid rgba(71,85,105,0.18);box-shadow:0 2px 8px rgba(0,0,0,0.12);position:relative;z-index:2;animation:infoIn .2s ease;flex-shrink:0}
   @keyframes infoIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
   .info-swatch{width:24px;height:24px;border-radius:50%;flex:0 0 auto;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.3)}
   .info-text{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;font-size:12px;color:#1e293b}
@@ -78,11 +92,45 @@
   .info-clear{width:24px;height:24px;border-radius:6px;flex:0 0 auto;border:1px solid rgba(71,85,105,0.2);background:rgba(255,255,255,0.6);color:#64748b;cursor:pointer;font-size:11px;display:grid;place-items:center;padding:0;transition:.15s}
   .info-clear:hover{background:#fee2e2;color:#ef4444;border-color:#fca5a5}
 
-  .shelf-view-wrap{position:relative;z-index:1;display:flex;flex-direction:column;flex:1;min-height:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .shelf-view{display:flex;flex-direction:column;gap:9px;flex:1;padding:2px 0}
-  .shelf{position:relative;height:52px;border-radius:4px;background:linear-gradient(180deg, #eef2f7 0%, #dfe6ee 55%, #c5cfda 100%);box-shadow:inset 0 1px 0 #ffffff,inset 0 -2px 0 #94a3b8,0 4px 8px rgba(120,53,15,0.18),0 2px 3px rgba(120,53,15,0.10);overflow:hidden}
-  .shelf-slots{display:flex;align-items:center;justify-content:center;gap:2px;height:100%;padding:4px 6px;box-sizing:border-box}
-  .slot{flex:1 1 0;min-width:0;max-width:36px;aspect-ratio:1/1;padding:0;margin:0;border:none;background:transparent;display:flex;align-items:center;justify-content:center;box-sizing:border-box;position:relative;border-radius:50%;transition:transform .15s ease;line-height:0}
+  .shelf-view-wrap{position:relative;z-index:1;display:flex;flex-direction:column;flex:1;min-height:0;min-width:0;overflow:hidden}
+  .shelf-view{display:flex;flex-direction:column;gap:9px;flex:1;padding:2px 0;min-height:0;min-width:0}
+  .shelf{position:relative;height:52px;border-radius:4px;background:linear-gradient(180deg, #eef2f7 0%, #dfe6ee 55%, #c5cfda 100%);box-shadow:inset 0 1px 0 #ffffff,inset 0 -2px 0 #94a3b8,0 4px 8px rgba(120,53,15,0.18),0 2px 3px rgba(120,53,15,0.10);overflow:hidden;min-width:0}
+
+  /* FIX MÓVIL: grid con minmax(0, 1fr) es más robusto que flex con aspect-ratio */
+  .shelf-slots{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:repeat(20, minmax(0, 1fr));
+    align-items:center;
+    justify-items:center;
+    gap:2px;
+    height:100%;
+    padding:4px 6px;
+    box-sizing:border-box;
+    min-width:0;
+  }
+  .slot{
+    width:100%;
+    max-width:36px;
+    aspect-ratio:1/1;
+    padding:0;
+    margin:0;
+    border:none;
+    background:transparent;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-sizing:border-box;
+    position:relative;
+    border-radius:50%;
+    transition:transform .15s ease;
+    line-height:0;
+    justify-self:center;
+    align-self:center;
+    min-width:0;
+    min-height:0;
+  }
   .slot > svg{width:100%;height:100%;display:block;overflow:visible}
   .slot.occupied > svg{filter:drop-shadow(0 1.5px 1.2px rgba(0,0,0,0.40));transition:filter .15s ease}
   .slot.empty{cursor:default}
@@ -91,7 +139,7 @@
   .slot.occupied:hover > svg,.slot.occupied:focus-visible > svg,.slot.occupied.active > svg{filter:drop-shadow(0 2.5px 2.5px rgba(0,0,0,0.55))}
   .slot.occupied.active::before{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid #3b82f6;pointer-events:none;animation:activePulse 1.6s ease-in-out infinite}
   @keyframes activePulse{0%,100%{opacity:1}50%{opacity:.6}}
-  .shelf-overflow{margin-top:6px;text-align:center;font-size:11px;font-weight:700;color:#78350f;padding:4px 10px;background:rgba(255,255,255,0.55);border-radius:99px;align-self:center;border:1px solid rgba(120,53,15,0.2)}
+  .shelf-overflow{margin-top:6px;text-align:center;font-size:11px;font-weight:700;color:#78350f;padding:4px 10px;background:rgba(255,255,255,0.55);border-radius:99px;align-self:center;border:1px solid rgba(120,53,15,0.2);flex-shrink:0}
 
   .stat{background:linear-gradient(180deg,#171e28,#12171f);border:1px solid var(--border);border-radius:14px;padding:14px 18px;display:flex;flex-direction:column;gap:4px}
   .stat-label{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:700}
@@ -320,13 +368,7 @@
   @keyframes highlightPulse{0%,100%{box-shadow:0 0 0 3px rgba(245,158,11,.2)}50%{box-shadow:0 0 0 6px rgba(245,158,11,.1)}}
 
   .hi-main{min-width:0;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
-  .hi-chevron{
-    width:22px;height:22px;border-radius:6px;flex:0 0 auto;
-    background:var(--panel-2);border:1px solid var(--border);color:var(--muted);
-    display:grid;place-items:center;font-size:10px;
-    transition:transform .2s ease,background .15s,color .15s;
-    order:-1;
-  }
+  .hi-chevron{width:22px;height:22px;border-radius:6px;flex:0 0 auto;background:var(--panel-2);border:1px solid var(--border);color:var(--muted);display:grid;place-items:center;font-size:10px;transition:transform .2s ease,background .15s,color .15s;order:-1}
   .history-item.expanded .hi-chevron{transform:rotate(90deg);background:var(--accent);color:#fff;border-color:var(--accent)}
   .hi-thumb{width:52px;height:52px;border-radius:8px;overflow:hidden;background:#0e141c;border:1px solid var(--border);flex:0 0 auto;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:20px}
   .hi-thumb img{width:100%;height:100%;object-fit:cover;display:block}
@@ -338,48 +380,17 @@
   .hi-sub .dot{color:#3a4658}
   .hi-total{font-size:18px;font-weight:800;color:#22c55e;font-variant-numeric:tabular-nums;white-space:nowrap;cursor:pointer;user-select:none}
 
-  .hi-details{
-    grid-column:1/-1;
-    display:none;
-    padding-top:12px;
-    margin-top:6px;
-    border-top:1px solid var(--border);
-    animation:detailsIn .2s ease;
-  }
+  .hi-details{grid-column:1/-1;display:none;padding-top:12px;margin-top:6px;border-top:1px solid var(--border);animation:detailsIn .2s ease}
   @keyframes detailsIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
   .history-item.expanded .hi-details{display:block}
-  .hi-details-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:8px 18px;
-    font-size:11.5px;
-  }
-  .hi-details-section-title{
-    grid-column:1/-1;
-    font-size:9px;text-transform:uppercase;letter-spacing:.08em;
-    color:#f59e0b;font-weight:800;
-    padding:8px 0 2px;
-    border-top:1px dashed var(--border);
-    margin-top:6px;
-  }
+  .hi-details-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px 18px;font-size:11.5px}
+  .hi-details-section-title{grid-column:1/-1;font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:#f59e0b;font-weight:800;padding:8px 0 2px;border-top:1px dashed var(--border);margin-top:6px}
   .hi-details-section-title:first-child{border-top:none;margin-top:0;padding-top:0}
   .hi-detail-row{display:flex;justify-content:space-between;gap:8px;padding:3px 0;min-width:0}
   .hi-detail-row span:first-child{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .hi-detail-row span:last-child{color:var(--text);font-weight:600;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
   .hi-detail-row.total span:last-child{color:#22c55e;font-weight:800}
-  .hi-details-notes{
-    grid-column:1/-1;
-    padding:8px 12px;
-    background:#0e141c;
-    border-radius:8px;
-    border:1px solid var(--border);
-    font-size:11.5px;
-    color:var(--text);
-    line-height:1.5;
-    margin-top:6px;
-    white-space:pre-wrap;
-    word-break:break-word;
-  }
+  .hi-details-notes{grid-column:1/-1;padding:8px 12px;background:#0e141c;border-radius:8px;border:1px solid var(--border);font-size:11.5px;color:var(--text);line-height:1.5;margin-top:6px;white-space:pre-wrap;word-break:break-word}
   .hi-details-notes strong{display:block;color:#f59e0b;font-size:9px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
 
   .hi-actions{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:10px;margin-top:2px}
@@ -393,15 +404,7 @@
   .history-foot .count{font-size:12px;color:var(--muted)}
 
   /* DOCUMENTO DE COTIZACIÓN */
-  .quote-doc{
-    position:absolute; left:-9999px; top:0;
-    width:900px; height:900px;
-    background:#ffffff; color:#0f172a;
-    padding:34px 40px; box-sizing:border-box;
-    display:flex; flex-direction:column; gap:12px;
-    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-    overflow:hidden;
-  }
+  .quote-doc{position:absolute;left:-9999px;top:0;width:900px;height:900px;background:#ffffff;color:#0f172a;padding:34px 40px;box-sizing:border-box;display:flex;flex-direction:column;gap:12px;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden}
   .quote-doc-header{display:flex;align-items:center;gap:22px;border-bottom:3px solid #eab308;padding-bottom:14px;flex-shrink:0}
   .quote-doc-logo{width:120px;height:120px;object-fit:contain;flex:0 0 auto;background:#ffffff !important;border:none !important;outline:none !important;border-radius:0 !important;box-shadow:none !important;padding:0 !important;margin:0 !important;display:block}
   .quote-doc-title{flex:1;min-width:0}
@@ -419,44 +422,10 @@
   .quote-doc-image-col img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:6px;display:block;background:#ffffff}
   .quote-doc-image-placeholder{color:#cbd5e1;font-size:11px;text-align:center;text-transform:uppercase;letter-spacing:.8px;font-weight:700;line-height:1.6}
 
-  .quote-doc-dimensions{
-    display:flex;
-    flex-wrap:wrap;
-    align-items:center;
-    gap:6px 8px;
-    padding:8px 14px;
-    background:#eff6ff;
-    border:1px solid #bfdbfe;
-    border-radius:10px;
-    flex-shrink:0;
-  }
-  .quote-doc-dimensions-title{
-    font-size:9px;
-    text-transform:uppercase;
-    letter-spacing:.6px;
-    color:#1e40af;
-    font-weight:800;
-    margin-right:4px;
-  }
-  .quote-doc-dimension-chip{
-    display:inline-flex;
-    align-items:center;
-    gap:4px;
-    padding:2px 9px;
-    background:#ffffff;
-    border:1px solid #bfdbfe;
-    border-radius:6px;
-    font-size:11px;
-    color:#0f172a;
-    line-height:1.4;
-  }
-  .quote-doc-dimension-chip strong{
-    color:#1e40af;
-    font-size:9px;
-    text-transform:uppercase;
-    font-weight:800;
-    letter-spacing:.3px;
-  }
+  .quote-doc-dimensions{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;padding:8px 14px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;flex-shrink:0}
+  .quote-doc-dimensions-title{font-size:9px;text-transform:uppercase;letter-spacing:.6px;color:#1e40af;font-weight:800;margin-right:4px}
+  .quote-doc-dimension-chip{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;background:#ffffff;border:1px solid #bfdbfe;border-radius:6px;font-size:11px;color:#0f172a;line-height:1.4}
+  .quote-doc-dimension-chip strong{color:#1e40af;font-size:9px;text-transform:uppercase;font-weight:800;letter-spacing:.3px}
 
   .quote-doc-table-wrap{flex-shrink:0}
   .quote-doc-table{width:100%;border-collapse:collapse;font-size:12px}
@@ -485,11 +454,12 @@
 
   @media (max-width:900px){.slot{max-width:30px}}
   @media (max-width:760px){
-    .dashboard{grid-template-columns:1fr}
+    /* FIX MÓVIL: minmax(0, 1fr) permite encoger y evita overflow */
+    .dashboard{grid-template-columns:minmax(0, 1fr)}
     .stats-left{grid-template-rows:none;grid-template-columns:repeat(3,1fr)}
     .stats-left .stat{padding:12px 14px}
     .stats-left .stat-value{font-size:20px}
-    .stats-right{min-height:300px}
+    .stats-right{min-height:320px}
     .shelf{height:48px}
     .slot{max-width:28px}
     .hi-details-grid{grid-template-columns:repeat(2,1fr)}
@@ -502,10 +472,12 @@
     .head-actions .btn{flex:1}
     .stats-left{grid-template-columns:1fr 1fr}
     .stats-left .stat:last-child{grid-column:span 2}
-    .stats-right{min-height:270px;padding:10px}
-    .shelf{height:42px}
+    .stats-right{min-height:300px;padding:10px}
+    .shelf{height:40px}
     .shelf-slots{padding:3px 4px;gap:1px}
-    .slot{max-width:22px}
+    .slot{max-width:20px}
+    .shelf-view{gap:6px}
+    .shelf-title{font-size:10px;padding-bottom:6px}
     .grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
     .spools-wrap{width:62px;height:62px}
     .card-weight{font-size:17px}
@@ -688,18 +660,16 @@
       <label class="field"><span>Horas diseño</span><input type="number" id="q-design-hours" min="0" step="0.1" value="0"></label>
       <label class="field"><span>Costo diseño/h</span><input type="number" id="q-design-cost" step="1" min="0" value="1000"></label>
     </div>
-
     <div class="field">
       <span>Dimensiones (opcional — solo aparecen las que llenes)</span>
       <div class="quote-grid-5">
-        <label class="field"><span>Alto</span><input type="text" id="q-dim-alto" placeholder="12cm" autocomplete="off"></label>
-        <label class="field"><span>Ancho</span><input type="text" id="q-dim-ancho" placeholder="7cm" autocomplete="off"></label>
-        <label class="field"><span>Largo</span><input type="text" id="q-dim-largo" placeholder="25cm" autocomplete="off"></label>
-        <label class="field"><span>Fondo</span><input type="text" id="q-dim-fondo" placeholder="6cm" autocomplete="off"></label>
-        <label class="field"><span>Espesor</span><input type="text" id="q-dim-espesor" placeholder="2mm" autocomplete="off"></label>
+        <label class="field"><span>Alto</span><input type="text" id="q-dim-alto" placeholder="12" autocomplete="off"></label>
+        <label class="field"><span>Ancho</span><input type="text" id="q-dim-ancho" placeholder="7" autocomplete="off"></label>
+        <label class="field"><span>Largo</span><input type="text" id="q-dim-largo" placeholder="25" autocomplete="off"></label>
+        <label class="field"><span>Fondo</span><input type="text" id="q-dim-fondo" placeholder="6" autocomplete="off"></label>
+        <label class="field"><span>Espesor</span><input type="text" id="q-dim-espesor" placeholder="2" autocomplete="off"></label>
       </div>
     </div>
-
     <div class="field">
       <span>Imagen de referencia del modelo (opcional)</span>
       <div class="quote-upload">
@@ -772,7 +742,7 @@ const SUPABASE_ANON_KEY = 'sb_publishable_YO4mEeGuPDA32yEuf86Izw_g--ggMkU';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { auth: { persistSession: false } });
 
 const KEY = 'filamento-stock-v1';
-const QUOTE_HISTORY_KEY = 'filamento-quotes-v1';
+const QUOTE_HISTORY_KEY = 'filamento-quotes-v1';  // legacy local
 const MAX_QUOTES = 100;
 const $  = (s, r = document) => r.querySelector(s);
 const clamp = (n, a, b) => Math.min(b, Math.max(a, n));
@@ -795,18 +765,13 @@ function roundUp5(n) {
   if (typeof n !== 'number' || !isFinite(n) || n === 0) return 0;
   return Math.ceil(n / 5) * 5;
 }
-
-// NUEVO: agrega la unidad automáticamente solo si el valor no la trae ya
 function formatDimension(value, defaultUnit) {
   if (!value) return '';
   const trimmed = String(value).trim();
   if (!trimmed) return '';
-  // Si ya contiene letras (ej: "12cm", "2mm", "3 in"), respetar lo que escribió el usuario
   if (/[a-zA-Z]/.test(trimmed)) return trimmed;
   return trimmed + defaultUnit;
 }
-
-// Devuelve array de dimensiones con valor no vacío, ya con la unidad aplicada
 function getDimensionEntries(dims) {
   if (!dims) return [];
   const list = [
@@ -816,12 +781,10 @@ function getDimensionEntries(dims) {
     ['Fondo', dims.fondo, 'cm'],
     ['Espesor', dims.espesor, 'mm']
   ];
-  return list
-    .map(([label, val, unit]) => {
-      if (!val || String(val).trim() === '') return null;
-      return [label, formatDimension(val, unit)];
-    })
-    .filter(Boolean);
+  return list.map(([label, val, unit]) => {
+    if (!val || String(val).trim() === '') return null;
+    return [label, formatDimension(val, unit)];
+  }).filter(Boolean);
 }
 
 function hexToRgb(hex) { const h = String(hex).replace('#', ''); return { r: parseInt(h.slice(0,2),16), g: parseInt(h.slice(2,4),16), b: parseInt(h.slice(4,6),16) }; }
@@ -921,7 +884,6 @@ async function getQuoteLogo() {
   return quoteLogoPromise;
 }
 
-/* Compresión */
 async function compressImage(file, maxSize = 600, quality = 0.78) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -1042,7 +1004,6 @@ function renderShelfView() {
     shelvesHTML += `</div></div>`;
   }
   const overflowHTML = overflow > 0 ? `<div class="shelf-overflow">+${overflow} carrete${overflow === 1 ? '' : 's'} fuera de vista</div>` : '';
-  // NUEVO: título "Stock de filamentos" sobre la gráfica
   box.innerHTML = `<div class="shelf-view-wrap">
     <div class="shelf-title">Stock de filamentos</div>
     ${infoHTML}
@@ -1066,6 +1027,7 @@ const FAMILIES = [
 ];
 
 let colors = [];
+let quotesCache = [];  // NUEVO: cache en memoria de cotizaciones (de Supabase)
 let filter = { text:'', brand:'all', sort:'spectrum', family:'all', similar:null, filamentId:null };
 let editingId = null;
 let draftPalette = ['#4f9cf9'];
@@ -1113,7 +1075,151 @@ async function migrateFromLocalStorage() {
     const rows = local.map(fixColor);
     const { error: insErr } = await sb.from('filamentos').upsert(rows, { onConflict: 'id' });
     if (insErr) throw insErr;
-  } catch (e) { console.warn('Migración omitida:', e); }
+  } catch (e) { console.warn('Migración de filamentos omitida:', e); }
+}
+
+/* =========================================================
+   COTIZACIONES — Ahora en Supabase
+   ========================================================= */
+function fixQuoteRow(r) {
+  return {
+    id: r.id,
+    quoteNumber: r.quote_number,
+    client: r.client || '',
+    project: r.project || '',
+    currency: r.currency || 'CRC',
+    material: r.material || '',
+    costPerGram: Number(r.cost_per_gram) || 0,
+    weight: Number(r.weight) || 0,
+    qty: Number(r.qty) || 1,
+    printHours: Number(r.print_hours) || 0,
+    designHours: Number(r.design_hours) || 0,
+    designPerHour: Number(r.design_per_hour) || 0,
+    kWh24: Number(r.kwh24) || 0,
+    taxPct: Number(r.tax_pct) || 0,
+    depPct: Number(r.dep_pct) || 0,
+    marginPct: Number(r.margin_pct) || 0,
+    extras: Array.isArray(r.extras) ? r.extras : [],
+    image: r.image || null,
+    notes: r.notes || '',
+    dimensions: (r.dimensions && typeof r.dimensions === 'object') ? r.dimensions : {},
+    materialCost: Number(r.material_cost) || 0,
+    energyCost: Number(r.energy_cost) || 0,
+    designCost: Number(r.design_cost) || 0,
+    extrasCost: Number(r.extras_cost) || 0,
+    subtotalBase: Number(r.subtotal_base) || 0,
+    modeloCost: Number(r.modelo_cost) || 0,
+    subtotalMostrado: Number(r.subtotal_mostrado) || 0,
+    subtotal: Number(r.subtotal_mostrado) || 0,
+    tax: Number(r.tax) || 0,
+    dep: Number(r.dep) || 0,
+    margin: Number(r.margin) || 0,
+    total: Number(r.total) || 0,
+    createdAt: Number(r.created) || Date.now()
+  };
+}
+function quoteToRow(q) {
+  return {
+    id: q.id,
+    quote_number: q.quoteNumber,
+    client: q.client || '',
+    project: q.project || '',
+    currency: q.currency || 'CRC',
+    material: q.material || '',
+    cost_per_gram: q.costPerGram || 0,
+    weight: q.weight || 0,
+    qty: q.qty || 1,
+    print_hours: q.printHours || 0,
+    design_hours: q.designHours || 0,
+    design_per_hour: q.designPerHour || 0,
+    kwh24: q.kWh24 || 0,
+    tax_pct: q.taxPct || 0,
+    dep_pct: q.depPct || 0,
+    margin_pct: q.marginPct || 0,
+    extras: q.extras || [],
+    image: q.image || null,
+    notes: q.notes || '',
+    dimensions: q.dimensions || {},
+    material_cost: q.materialCost || 0,
+    energy_cost: q.energyCost || 0,
+    design_cost: q.designCost || 0,
+    extras_cost: q.extrasCost || 0,
+    subtotal_base: q.subtotalBase || 0,
+    modelo_cost: q.modeloCost || 0,
+    subtotal_mostrado: q.subtotalMostrado || q.subtotal || 0,
+    tax: q.tax || 0,
+    dep: q.dep || 0,
+    margin: q.margin || 0,
+    total: q.total || 0,
+    created: q.createdAt || Date.now()
+  };
+}
+
+async function fetchQuotes() {
+  const { data, error } = await sb
+    .from('cotizaciones')
+    .select('*')
+    .order('created', { ascending: false })
+    .limit(MAX_QUOTES);
+  if (error) throw error;
+  quotesCache = (data || []).map(fixQuoteRow);
+  return quotesCache;
+}
+async function upsertQuoteRemote(q) {
+  const { error } = await sb.from('cotizaciones').upsert(quoteToRow(q), { onConflict: 'id' });
+  if (error) throw error;
+}
+async function deleteQuoteRemote(id) {
+  const { error } = await sb.from('cotizaciones').delete().eq('id', id);
+  if (error) throw error;
+}
+async function deleteAllQuotesRemote(ids) {
+  if (!ids || ids.length === 0) return;
+  const { error } = await sb.from('cotizaciones').delete().in('id', ids);
+  if (error) throw error;
+}
+
+// Migración puntual de cotizaciones locales → Supabase
+async function migrateQuotesFromLocalStorage() {
+  try {
+    const raw = localStorage.getItem(QUOTE_HISTORY_KEY);
+    if (!raw) return;
+    const local = JSON.parse(raw);
+    if (!Array.isArray(local) || local.length === 0) return;
+    const { data: existing, error } = await sb.from('cotizaciones').select('id').limit(1);
+    if (error) throw error;
+    if (existing && existing.length > 0) {
+      console.log('Cotizaciones ya en Supabase — omitiendo migración local.');
+      return;
+    }
+    const rows = local.map(quoteToRow);
+    const { error: insErr } = await sb.from('cotizaciones').upsert(rows, { onConflict: 'id' });
+    if (insErr) throw insErr;
+    console.log(`✅ Migradas ${rows.length} cotizaciones locales a Supabase.`);
+    // Guardamos copia de seguridad con sufijo para no perderla
+    localStorage.setItem(QUOTE_HISTORY_KEY + '-backup', raw);
+    localStorage.removeItem(QUOTE_HISTORY_KEY);
+  } catch (e) { console.warn('Migración de cotizaciones omitida:', e); }
+}
+
+function generateQuoteNumber() {
+  const year = new Date().getFullYear();
+  const prefix = `COT-${year}-`;
+  const numbers = new Set();
+  quotesCache.forEach(q => {
+    if (q.quoteNumber && q.quoteNumber.startsWith(prefix)) {
+      const n = parseInt(q.quoteNumber.split('-').pop(), 10);
+      if (Number.isFinite(n)) numbers.add(n);
+    }
+  });
+  let n = 1;
+  while (numbers.has(n)) n++;
+  return prefix + String(n).padStart(3, '0');
+}
+function refreshHistoryBadge() {
+  const badge = $('#history-badge');
+  if (quotesCache.length > 0) { badge.textContent = quotesCache.length; badge.hidden = false; }
+  else badge.hidden = true;
 }
 
 const cloudStatus = $('#cloud-status');
@@ -1133,7 +1239,6 @@ function gradientCSS(pal, angle = 135) {
   if (pal.length === 1) return pal[0];
   return `linear-gradient(${angle}deg, ${pal.map((h,i) => `${h} ${((i/(pal.length-1))*100).toFixed(1)}%`).join(', ')})`;
 }
-
 function cardHTML(c) {
   const pal = fullPalette(c);
   const multi = pal.length >= 2;
@@ -1150,7 +1255,6 @@ function cardHTML(c) {
     </div>
   </article>`;
 }
-
 function renderChips() {
   const counts = {}; FAMILIES.forEach(f => counts[f.id] = 0);
   counts.all = colors.length;
@@ -1163,7 +1267,6 @@ function renderChips() {
     return `<button type="button" class="chip${active ? ' active' : ''}${isEmpty}${multiCls}" data-fam="${f.id}" title="${title}" aria-label="${title}" aria-pressed="${active}" style="${f.multi ? '' : `background:${f.dot}`}"></button>`;
   }).join('');
 }
-
 function getList() {
   let list = colors.slice();
   const q = filter.text.trim().toLowerCase();
@@ -1181,7 +1284,6 @@ function getList() {
   }
   return list;
 }
-
 function render() {
   const brands = [...new Set(colors.map(c => c.brand).filter(Boolean))].sort((a,b) => a.localeCompare(b, 'es'));
   if (filter.brand !== 'all' && !brands.includes(filter.brand)) filter.brand = 'all';
@@ -1213,7 +1315,6 @@ function render() {
     grid.innerHTML = list.map(cardHTML).join('');
   }
 }
-
 function showLoading() {
   grid.innerHTML = '';
   emptyEl.hidden = false;
@@ -1533,11 +1634,9 @@ function readQuoteInputs() {
     }
   };
 }
-
 function updateQuote() {
   const d = readQuoteInputs();
   currentCurrency = d.currency;
-
   const rawMaterialCost = d.weight * d.costPerGram * d.qty;
   const rawEnergyCost = (d.printHours / 24) * d.kWh24 * d.qty;
   const rawDesignCost = d.designHours * d.designPerHour * d.qty;
@@ -1558,7 +1657,6 @@ function updateQuote() {
 
   const subtotalMostrado = modeloCost + energyCost + designCost + extrasCost;
   const total = subtotalMostrado + tax;
-
   const cur = d.currency;
   const hasTax = d.taxPct > 0;
 
@@ -1587,56 +1685,43 @@ function showQuoteToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2400);
 }
 
-/* Historial */
-function loadQuoteHistory() {
-  try { return JSON.parse(localStorage.getItem(QUOTE_HISTORY_KEY) || '[]'); }
-  catch { return []; }
-}
-function saveQuoteHistoryToStorage(history) {
-  try {
-    localStorage.setItem(QUOTE_HISTORY_KEY, JSON.stringify(history.slice(0, MAX_QUOTES)));
-  } catch (e) {
-    if (e.name === 'QuotaExceededError' || e.code === 22) {
-      throw new Error('No hay espacio en el almacenamiento. Elimina cotizaciones antiguas para liberar espacio.');
-    }
-    throw e;
-  }
-}
-function generateQuoteNumber(history) {
-  const year = new Date().getFullYear();
-  const prefix = `COT-${year}-`;
-  const thisYear = history.filter(q => q.quoteNumber && q.quoteNumber.startsWith(prefix));
-  return prefix + String(thisYear.length + 1).padStart(3, '0');
-}
-function refreshHistoryBadge() {
-  const hist = loadQuoteHistory();
-  const badge = $('#history-badge');
-  if (hist.length > 0) { badge.textContent = hist.length; badge.hidden = false; }
-  else badge.hidden = true;
-}
-function saveQuoteToHistory() {
+async function saveQuoteToHistory() {
   const q = window._quoteCurrent;
   if (!q) return;
-  const history = loadQuoteHistory();
   const record = {
     ...q,
     image: quoteImageData || q.image || null,
     id: uid(),
-    quoteNumber: generateQuoteNumber(history),
+    quoteNumber: generateQuoteNumber(),
     createdAt: Date.now()
   };
-  history.unshift(record);
-  try { saveQuoteHistoryToStorage(history); }
-  catch (e) { alert(e.message); return; }
-  refreshHistoryBadge();
-  showQuoteToast(`Guardada como ${record.quoteNumber}`);
-  closeQuoteModal();
-  setTimeout(() => openHistoryModal(record.id), 320);
+  const btn = $('#btn-quote-save');
+  const original = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Guardando…';
+  setCloudState('syncing', 'Guardando cotización…');
+  try {
+    await upsertQuoteRemote(record);
+    quotesCache.unshift(record);
+    refreshHistoryBadge();
+    setCloudState('ok', 'Guardada');
+    showQuoteToast(`Guardada como ${record.quoteNumber}`);
+    closeQuoteModal();
+    setTimeout(() => openHistoryModal(record.id), 320);
+  } catch (err) {
+    console.error('Error guardando cotización:', err);
+    setCloudState('error', 'Error al guardar');
+    alert('No se pudo guardar la cotización en la nube.\n\n' + (err.message || '') +
+      '\n\n⚠️ ¿Ejecutaste el SQL de la tabla "cotizaciones" en Supabase?');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = original;
+  }
 }
 
 function renderHistoryList(highlightId) {
   const body = $('#history-body');
-  const history = loadQuoteHistory();
+  const history = quotesCache;
   $('#history-count').textContent = `${history.length} cotizacion${history.length === 1 ? '' : 'es'}`;
   if (history.length === 0) {
     body.innerHTML = `<div class="history-empty"><div style="font-size:36px;margin-bottom:8px">📭</div><strong>Sin cotizaciones aún</strong><br>Usa el botón «💰 Cotizar» para crear tu primera cotización.</div>`;
@@ -1653,14 +1738,11 @@ function renderHistoryList(highlightId) {
     const thumbHTML = q.image
       ? `<div class="hi-thumb"><img src="${q.image}" alt=""></div>`
       : `<div class="hi-thumb">📄</div>`;
-
     const extrasList = (q.extras || []).filter(e => e.name || e.cost > 0);
     const extrasHTML = extrasList.map(e =>
       `<div class="hi-detail-row"><span>${esc(e.name || 'Material extra')}</span><span>${fmtMoney(e.cost * q.qty, cur)}</span></div>`
     ).join('');
     const notesHTML = q.notes ? `<div class="hi-details-notes"><strong>Notas</strong>${esc(q.notes)}</div>` : '';
-
-    // Ahora usa unidades formateadas
     const dimEntries = getDimensionEntries(q.dimensions);
     const dimsHTML = dimEntries.length
       ? `<div class="hi-details-section-title">Dimensiones</div>` +
@@ -1674,25 +1756,20 @@ function renderHistoryList(highlightId) {
           <div class="hi-detail-row"><span>Cliente</span><span>${esc(q.client || 'Cliente general')}</span></div>
           <div class="hi-detail-row"><span>Proyecto</span><span>${esc(q.project || 'Impresión 3D')}</span></div>
           <div class="hi-detail-row"><span>Moneda</span><span>${currencyLabel(cur)}</span></div>
-
           <div class="hi-details-section-title">Material y geometría</div>
           <div class="hi-detail-row"><span>Material</span><span>${esc(q.material || '—')}</span></div>
           <div class="hi-detail-row"><span>Costo/g</span><span>${fmtMoney(q.costPerGram || 0, cur)}</span></div>
           <div class="hi-detail-row"><span>Peso × Cantidad</span><span>${q.weight}g × ${q.qty}</span></div>
-
           ${dimsHTML}
-
           <div class="hi-details-section-title">Tiempo y diseño</div>
           <div class="hi-detail-row"><span>Tiempo impresión</span><span>${q.printHours}h</span></div>
           <div class="hi-detail-row"><span>Horas diseño</span><span>${q.designHours}h</span></div>
           <div class="hi-detail-row"><span>Costo diseño/h</span><span>${fmtMoney(q.designPerHour || 0, cur)}</span></div>
-
           <div class="hi-details-section-title">Parámetros</div>
           <div class="hi-detail-row"><span>kWh (24h)</span><span>${q.kWh24}</span></div>
           <div class="hi-detail-row"><span>% Impuestos</span><span>${q.taxPct}%</span></div>
           <div class="hi-detail-row"><span>% Depreciación</span><span>${q.depPct}%</span></div>
           <div class="hi-detail-row"><span>% Margen</span><span>${q.marginPct}%</span></div>
-
           <div class="hi-details-section-title">Desglose de cálculo</div>
           <div class="hi-detail-row"><span>Material filamento</span><span>${fmtMoney(q.materialCost || 0, cur)}</span></div>
           <div class="hi-detail-row"><span>Energía</span><span>${fmtMoney(q.energyCost || 0, cur)}</span></div>
@@ -1728,7 +1805,18 @@ function renderHistoryList(highlightId) {
   }).join('');
 }
 
-function openHistoryModal(highlightId) {
+async function openHistoryModal(highlightId) {
+  // Refrescamos desde Supabase antes de abrir
+  try {
+    await fetchQuotes();
+  } catch (e) {
+    console.warn('No se pudo refrescar cotizaciones:', e);
+    if (quotesCache.length === 0) {
+      alert('No se pudieron cargar las cotizaciones.\n\n' + (e.message || '') +
+        '\n\n⚠️ ¿Ejecutaste el SQL de la tabla "cotizaciones" en Supabase?');
+    }
+  }
+  refreshHistoryBadge();
   renderHistoryList(highlightId);
   $('#history-overlay').classList.add('open');
   $('#history-modal').classList.add('open');
@@ -1741,15 +1829,31 @@ function closeHistoryModal() {
   $('#history-modal').setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
 }
-function deleteQuoteById(id) {
-  const hist = loadQuoteHistory();
-  const idx = hist.findIndex(q => q.id === id);
+async function deleteQuoteById(id) {
+  const idx = quotesCache.findIndex(q => q.id === id);
   if (idx < 0) return;
-  if (!confirm(`¿Eliminar la cotización ${hist[idx].quoteNumber}?`)) return;
-  hist.splice(idx, 1);
-  saveQuoteHistoryToStorage(hist);
-  refreshHistoryBadge();
-  renderHistoryList();
+  if (!confirm(`¿Eliminar la cotización ${quotesCache[idx].quoteNumber}?`)) return;
+  try {
+    await deleteQuoteRemote(id);
+    quotesCache.splice(idx, 1);
+    refreshHistoryBadge();
+    renderHistoryList();
+  } catch (err) {
+    alert('No se pudo eliminar.\n' + (err.message || ''));
+  }
+}
+async function clearAllQuotes() {
+  if (quotesCache.length === 0) return;
+  if (!confirm(`¿Borrar las ${quotesCache.length} cotizaciones del historial? Esta acción no se puede deshacer.`)) return;
+  try {
+    const ids = quotesCache.map(q => q.id);
+    await deleteAllQuotesRemote(ids);
+    quotesCache = [];
+    refreshHistoryBadge();
+    renderHistoryList();
+  } catch (err) {
+    alert('No se pudo borrar el historial.\n' + (err.message || ''));
+  }
 }
 
 /* Documento */
@@ -1775,9 +1879,7 @@ async function renderQuoteDoc(quote) {
   const extrasRows = (d.extras || []).filter(e => e.name || e.cost > 0).map(e =>
     `<tr><td>${esc(e.name || 'Material extra')}</td><td>${fmtMoney(e.cost * d.qty, cur)}</td></tr>`
   ).join('');
-
   const logoHTML = logo ? `<img src="${logo}" class="quote-doc-logo" alt="Logo">` : '';
-
   const metaHTML = `
     <div class="quote-doc-meta-item"><strong>Cliente</strong>${esc(d.client || 'Cliente general')}</div>
     <div class="quote-doc-meta-item"><strong>Proyecto</strong>${esc(d.project || 'Impresión 3D')}</div>
@@ -1785,12 +1887,9 @@ async function renderQuoteDoc(quote) {
     <div class="quote-doc-meta-item"><strong>Peso / Cantidad</strong>${d.weight}g × ${d.qty} ud</div>
     <div class="quote-doc-meta-item"><strong>Tiempo de impresión</strong>${d.printHours} h</div>
     <div class="quote-doc-meta-item"><strong>Horas de diseño</strong>${d.designHours} h</div>`;
-
   const imageHTML = d.image
     ? `<img src="${d.image}" alt="Modelo de referencia">`
     : `<div class="quote-doc-image-placeholder">Sin imagen<br>de referencia</div>`;
-
-  // Dimensiones con unidades (cm para todos, mm para espesor)
   const dimEntries = getDimensionEntries(d.dimensions);
   const dimsHTML = dimEntries.length
     ? `<div class="quote-doc-dimensions">
@@ -1798,14 +1897,11 @@ async function renderQuoteDoc(quote) {
          ${dimEntries.map(([label, val]) =>
            `<span class="quote-doc-dimension-chip"><strong>${label}</strong> ${esc(val)}</span>`
          ).join('')}
-       </div>`
-    : '';
-
+       </div>` : '';
   const totalsHTML = `
     ${hasTax ? `<div class="row"><span>Subtotal</span><span>${fmtMoney(subtotalMostrado, cur)}</span></div>` : ''}
     ${hasTax ? `<div class="row"><span>Impuestos (${d.taxPct}%)</span><span>${fmtMoney(tax, cur)}</span></div>` : ''}
     <div class="row total${hasTax ? '' : ' no-tax'}"><span>TOTAL</span><span>${fmtMoney(d.total, cur)}</span></div>`;
-
   const notesHTML = hasNotes
     ? `<div class="quote-doc-notes-col"><strong>Notas</strong>${esc(notes)}</div>`
     : `<div class="quote-doc-notes-col is-empty"></div>`;
@@ -1869,7 +1965,6 @@ async function renderQuoteCanvas(quote) {
     width: 900, height: 900, windowWidth: 900, windowHeight: 900
   });
 }
-
 async function downloadQuotePDF(quote) {
   if (!window.html2canvas || !window.jspdf) { alert('Recursos no cargados. Revisa tu conexión.'); return; }
   try {
@@ -1888,7 +1983,6 @@ async function downloadQuotePDF(quote) {
     alert('Error generando PDF: ' + err.message);
   }
 }
-
 async function downloadQuotePNG(quote) {
   if (!window.html2canvas) { alert('Recursos no cargados.'); return; }
   try {
@@ -2147,10 +2241,7 @@ $('#q-material').addEventListener('change', e => {
   }
 });
 $('#q-currency').addEventListener('change', e => { currentCurrency = e.target.value; updateQuote(); });
-['#q-cost-gram','#q-weight','#q-qty','#q-hours','#q-design-hours','#q-design-cost','#q-kwh','#q-tax','#q-dep','#q-margin'].forEach(s => {
-  $(s).addEventListener('input', updateQuote);
-});
-['#q-dim-alto','#q-dim-ancho','#q-dim-largo','#q-dim-fondo','#q-dim-espesor'].forEach(s => {
+['#q-cost-gram','#q-weight','#q-qty','#q-hours','#q-design-hours','#q-design-cost','#q-kwh','#q-tax','#q-dep','#q-margin','#q-dim-alto','#q-dim-ancho','#q-dim-largo','#q-dim-fondo','#q-dim-espesor'].forEach(s => {
   $(s).addEventListener('input', updateQuote);
 });
 $('#q-notes').addEventListener('input', () => { updateQuote(); });
@@ -2169,7 +2260,6 @@ $('#q-extras').addEventListener('click', e => {
   renderQuoteExtras();
   updateQuote();
 });
-
 $('#q-image-btn').addEventListener('click', () => $('#q-image-input').click());
 $('#q-image-input').addEventListener('change', e => {
   const file = e.target.files && e.target.files[0];
@@ -2180,21 +2270,18 @@ $('#q-image-remove').addEventListener('click', () => {
   resetQuoteImageUI();
   updateQuote();
 });
-
 $('#btn-quote-save').addEventListener('click', saveQuoteToHistory);
 
 $('#btn-history-close').addEventListener('click', closeHistoryModal);
 $('#btn-history-close2').addEventListener('click', closeHistoryModal);
 $('#history-overlay').addEventListener('click', closeHistoryModal);
-
 $('#history-body').addEventListener('click', e => {
   const actionBtn = e.target.closest('[data-action]');
   if (actionBtn) {
     e.stopPropagation();
     const action = actionBtn.dataset.action;
     const id = actionBtn.dataset.id;
-    const hist = loadQuoteHistory();
-    const quote = hist.find(q => q.id === id);
+    const quote = quotesCache.find(q => q.id === id);
     if (!quote) return;
     if (action === 'pdf') downloadQuotePDF(quote);
     else if (action === 'png') downloadQuotePNG(quote);
@@ -2207,15 +2294,7 @@ $('#history-body').addEventListener('click', e => {
     if (item) item.classList.toggle('expanded');
   }
 });
-
-$('#btn-history-clear').addEventListener('click', () => {
-  const hist = loadQuoteHistory();
-  if (hist.length === 0) return;
-  if (!confirm(`¿Borrar las ${hist.length} cotizaciones del historial? Esta acción no se puede deshacer.`)) return;
-  localStorage.removeItem(QUOTE_HISTORY_KEY);
-  refreshHistoryBadge();
-  renderHistoryList();
-});
+$('#btn-history-clear').addEventListener('click', clearAllQuotes);
 
 /* PDF del inventario */
 const LOGO_URL = 'https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/120x120/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png';
@@ -2374,13 +2453,24 @@ function startRealtime() {
       if (status === 'SUBSCRIBED') setCloudState('ok', 'Sincronizado');
       if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') setCloudState('error', 'Realtime caído');
     });
+
+  sb.channel('cotizaciones-realtime')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'cotizaciones' }, async () => {
+      try {
+        await fetchQuotes();
+        refreshHistoryBadge();
+        if ($('#history-modal').classList.contains('open')) {
+          renderHistoryList();
+        }
+      } catch (e) { console.warn('Realtime cotizaciones:', e); }
+    })
+    .subscribe();
 }
 
 /* Arranque */
 (async function init() {
   showLoading();
   setCloudState('syncing', 'Conectando…');
-  refreshHistoryBadge();
   getQuoteLogo();
   try {
     await migrateFromLocalStorage();
@@ -2392,6 +2482,16 @@ function startRealtime() {
   } catch (err) {
     console.error('Error inicial:', err);
     showError('No se pudo conectar con Supabase. Verifica tu conexión y el SQL de la tabla.');
+    return;
+  }
+  // Cotizaciones — bloque independiente
+  try {
+    await migrateQuotesFromLocalStorage();
+    await fetchQuotes();
+    refreshHistoryBadge();
+  } catch (e) {
+    console.warn('Cotizaciones no disponibles:', e);
+    refreshHistoryBadge();
   }
 })();
 </script>
