@@ -5,20 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
 <link rel="icon" type="image/png" href="https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/120x120/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png">
-<link rel="apple-touch-icon" href="https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/120x120/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png">
 <title>Stock de Filamento · Registro de colores</title>
 <style>
   :root{
-    --bg:#0d1117;
-    --panel:#161b22;
-    --panel-2:#1c2330;
-    --border:#2a3342;
-    --text:#e6edf3;
-    --muted:#8b98a9;
-    --accent:#4f9cf9;
-    --success:#22c55e;
-    --danger:#f2555a;
-    --radius:18px;
+    --bg:#0d1117; --panel:#161b22; --panel-2:#1c2330; --border:#2a3342;
+    --text:#e6edf3; --muted:#8b98a9; --accent:#4f9cf9; --success:#22c55e;
+    --danger:#f2555a; --radius:18px;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
@@ -26,9 +18,7 @@
     background:radial-gradient(1200px 620px at 15% -10%, #16243a 0%, #0d1117 55%) fixed;
     color:var(--text);
     font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    min-height:100vh;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
+    min-height:100vh; -webkit-font-smoothing:antialiased; overflow-x:hidden;
   }
   .wrap{max-width:1220px;margin:0 auto;padding:0 20px 80px}
 
@@ -38,239 +28,57 @@
   header h1{margin:0;font-size:22px;letter-spacing:-.02em}
   header p{margin:3px 0 0;font-size:13px;color:var(--muted)}
   .head-actions{margin-left:auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-  .cloud-status{
-    display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;
-    color:var(--muted);padding:6px 10px;border-radius:99px;border:1px solid var(--border);
-    background:var(--panel-2);
-  }
+  .cloud-status{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--muted);padding:6px 10px;border-radius:99px;border:1px solid var(--border);background:var(--panel-2)}
   .cloud-status .dot{width:8px;height:8px;border-radius:50%;background:#3fb950;box-shadow:0 0 8px rgba(63,185,80,.6)}
   .cloud-status.syncing .dot{background:#d29922;box-shadow:0 0 8px rgba(210,153,34,.6);animation:pulse 1s infinite}
   .cloud-status.error .dot{background:var(--danger);box-shadow:0 0 8px rgba(242,85,90,.6)}
   @keyframes pulse{50%{opacity:.35}}
 
-  .btn{
-    appearance:none;border:1px solid var(--border);background:var(--panel-2);
-    color:var(--text);font:inherit;font-size:14px;font-weight:600;
-    padding:10px 16px;border-radius:12px;cursor:pointer;
-    transition:.16s ease;white-space:nowrap;
-  }
+  .btn{appearance:none;border:1px solid var(--border);background:var(--panel-2);color:var(--text);font:inherit;font-size:14px;font-weight:600;padding:10px 16px;border-radius:12px;cursor:pointer;transition:.16s ease;white-space:nowrap}
   .btn:hover{background:#232e3f;border-color:#3a4658;transform:translateY(-1px)}
   .btn:active{transform:translateY(0)}
   .btn.primary{background:linear-gradient(180deg,#4f9cf9,#3b82f6);border-color:#3b82f6;color:#fff}
   .btn.primary:hover{background:linear-gradient(180deg,#61a8fa,#4f8ef7)}
-  .btn.ghost{background:transparent;color:var(--muted)}
-  .btn.ghost:hover{background:var(--panel-2);color:var(--text)}
   .btn.danger{background:transparent;border-color:#5b2a2d;color:var(--danger)}
   .btn.danger:hover{background:#2a1416;border-color:#7a3438}
   .btn:disabled{opacity:.55;cursor:wait;transform:none}
+  .btn.small{padding:6px 10px;font-size:12px;border-radius:8px}
+  .btn.print-btn{background:linear-gradient(180deg,#ef4444,#dc2626);border-color:#dc2626;color:#fff;box-shadow:0 8px 24px -8px rgba(239,68,68,.55)}
+  .btn.print-btn:hover{background:linear-gradient(180deg,#f87171,#ef4444);border-color:#ef4444}
+  .btn.quote-btn{background:linear-gradient(180deg,#f59e0b,#d97706);border-color:#d97706;color:#fff;box-shadow:0 8px 24px -8px rgba(245,158,11,.55)}
+  .btn.quote-btn:hover{background:linear-gradient(180deg,#fbbf24,#f59e0b);border-color:#f59e0b}
+  .btn.history-btn{position:relative}
+  .btn.history-btn .badge{position:absolute;top:-6px;right:-6px;background:var(--accent);color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;padding:0 5px;border-radius:99px;display:grid;place-items:center;border:2px solid var(--bg)}
 
-  .btn.print-btn{
-    background:linear-gradient(180deg,#ef4444,#dc2626);
-    border-color:#dc2626;color:#fff;
-    box-shadow:0 8px 24px -8px rgba(239,68,68,.55);
-  }
-  .btn.print-btn:hover{
-    background:linear-gradient(180deg,#f87171,#ef4444);
-    border-color:#ef4444;
-    box-shadow:0 10px 28px -8px rgba(239,68,68,.75);
-  }
+  .dashboard{display:grid;grid-template-columns:minmax(190px, 1fr) 1.55fr;gap:14px;margin-bottom:18px}
+  .stats-left{display:grid;grid-template-rows:repeat(3, 1fr);gap:12px}
+  .stats-left .stat{padding:16px 20px;justify-content:center}
+  .stats-left .stat-value{font-size:28px}
+  .stats-right{background:linear-gradient(145deg, #fef9c3 0%, #fde68a 40%, #fbbf24 100%);border-radius:var(--radius);border:1px solid #eab308;padding:12px;position:relative;display:flex;flex-direction:column;min-height:340px;box-shadow:inset 0 1px 0 rgba(255,255,255,.3)}
 
-  /* ---------- Dashboard: stats + shelf view ---------- */
-  .dashboard{
-    display:grid;
-    grid-template-columns:minmax(190px, 1fr) 1.55fr;
-    gap:14px;
-    margin-bottom:18px;
-  }
-  .stats-left{
-    display:grid;
-    grid-template-rows:repeat(3, 1fr);
-    gap:12px;
-  }
-  .stats-left .stat{
-    padding:16px 20px;
-    justify-content:center;
-  }
-  .stats-left .stat-value{
-    font-size:28px;
-  }
-  .stats-right{
-    background:linear-gradient(145deg, #fef9c3 0%, #fde68a 40%, #fbbf24 100%);
-    border-radius:var(--radius);
-    border:1px solid #eab308;
-    padding:12px;
-    position:relative;
-    display:flex;
-    flex-direction:column;
-    min-height:340px;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.3);
-  }
-
-  /* ----- Info bar del filamento seleccionado ----- */
-  .shelf-info{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:8px 10px;
-    margin-bottom:8px;
-    background:rgba(255,255,255,0.92);
-    border-radius:10px;
-    border:1px solid rgba(71,85,105,0.18);
-    box-shadow:0 2px 8px rgba(0,0,0,0.12);
-    position:relative;
-    z-index:2;
-    animation:infoIn .2s ease;
-  }
+  .shelf-info{display:flex;align-items:center;gap:10px;padding:8px 10px;margin-bottom:8px;background:rgba(255,255,255,0.92);border-radius:10px;border:1px solid rgba(71,85,105,0.18);box-shadow:0 2px 8px rgba(0,0,0,0.12);position:relative;z-index:2;animation:infoIn .2s ease}
   @keyframes infoIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
-  .shelf-info[hidden]{display:none}
-  .info-swatch{
-    width:24px;height:24px;border-radius:50%;flex:0 0 auto;
-    border:2px solid #fff;
-    box-shadow:0 1px 3px rgba(0,0,0,0.3);
-  }
-  .info-text{
-    flex:1;min-width:0;
-    display:flex;flex-direction:column;gap:1px;
-    font-size:12px;color:#1e293b;
-  }
-  .info-text strong{
-    font-size:13px;font-weight:700;
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-    color:#0f172a;
-  }
-  .info-text span{
-    color:#64748b;
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  }
-  .info-clear{
-    width:24px;height:24px;border-radius:6px;flex:0 0 auto;
-    border:1px solid rgba(71,85,105,0.2);
-    background:rgba(255,255,255,0.6);
-    color:#64748b;cursor:pointer;font-size:11px;
-    display:grid;place-items:center;padding:0;
-    transition:.15s;
-  }
+  .info-swatch{width:24px;height:24px;border-radius:50%;flex:0 0 auto;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.3)}
+  .info-text{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;font-size:12px;color:#1e293b}
+  .info-text strong{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#0f172a}
+  .info-text span{color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .info-clear{width:24px;height:24px;border-radius:6px;flex:0 0 auto;border:1px solid rgba(71,85,105,0.2);background:rgba(255,255,255,0.6);color:#64748b;cursor:pointer;font-size:11px;display:grid;place-items:center;padding:0;transition:.15s}
   .info-clear:hover{background:#fee2e2;color:#ef4444;border-color:#fca5a5}
 
-  /* ----- Estantes 2.5D (5 x 20 = 100) ----- */
-  .shelf-view-wrap{
-    position:relative;z-index:1;
-    display:flex;flex-direction:column;
-    flex:1;min-height:0;
-    overflow-x:auto;
-    -webkit-overflow-scrolling:touch;
-  }
-  .shelf-view{
-    display:flex;flex-direction:column;
-    gap:9px;
-    flex:1;
-    padding: 2px 0;
-  }
-  .shelf{
-    position:relative;
-    height:52px;
-    border-radius:4px;
-    background:linear-gradient(180deg, #eef2f7 0%, #dfe6ee 55%, #c5cfda 100%);
-    box-shadow:
-      inset 0 1px 0 #ffffff,
-      inset 0 -2px 0 #94a3b8,
-      0 4px 8px rgba(120,53,15,0.18),
-      0 2px 3px rgba(120,53,15,0.10);
-    overflow:hidden;
-  }
-  .shelf-slots{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:2px;
-    height:100%;
-    padding:4px 6px;
-    box-sizing:border-box;
-  }
-  /* Slots flexibles: crecen hasta llenar, con max-width como tope */
-  .slot{
-    flex:1 1 0;
-    min-width:0;
-    max-width:36px;
-    aspect-ratio:1 / 1;
-    padding:0;
-    margin:0;
-    border:none;
-    background:transparent;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    box-sizing:border-box;
-    position:relative;
-    border-radius:50%;
-    transition:transform .15s ease;
-    line-height:0;
-  }
-  .slot > svg{
-    width:100%;
-    height:100%;
-    display:block;
-    overflow:visible;
-  }
-  /* Sombra del carrete: sigue el canal alfa → circular, nunca rectangular */
-  .slot.occupied > svg{
-    filter:drop-shadow(0 1.5px 1.2px rgba(0,0,0,0.40));
-    transition:filter .15s ease;
-  }
-  .slot.empty{
-    cursor:default;
-  }
-  .slot.occupied{
-    cursor:pointer;
-    outline:none;
-  }
-  .slot.occupied:hover{
-    transform:scale(1.14);
-    z-index:3;
-  }
-  .slot.occupied:hover > svg{
-    filter:drop-shadow(0 2.5px 2.5px rgba(0,0,0,0.55));
-  }
-  .slot.occupied:focus-visible{
-    transform:scale(1.14);
-    z-index:3;
-  }
-  .slot.occupied:focus-visible > svg{
-    filter:drop-shadow(0 2.5px 2.5px rgba(0,0,0,0.55));
-  }
-  .slot.occupied.active{
-    transform:scale(1.14);
-    z-index:3;
-  }
-  .slot.occupied.active > svg{
-    filter:drop-shadow(0 2.5px 2.5px rgba(0,0,0,0.55));
-  }
-  .slot.occupied.active::before{
-    content:"";
-    position:absolute;
-    inset:-3px;
-    border-radius:50%;
-    border:2px solid #3b82f6;
-    pointer-events:none;
-    animation:activePulse 1.6s ease-in-out infinite;
-  }
-  @keyframes activePulse{
-    0%,100%{opacity:1}
-    50%{opacity:.6}
-  }
-
-  .shelf-overflow{
-    margin-top:6px;
-    text-align:center;
-    font-size:11px;
-    font-weight:700;
-    color:#78350f;
-    padding:4px 10px;
-    background:rgba(255,255,255,0.55);
-    border-radius:99px;
-    align-self:center;
-    border:1px solid rgba(120,53,15,0.2);
-  }
+  .shelf-view-wrap{position:relative;z-index:1;display:flex;flex-direction:column;flex:1;min-height:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .shelf-view{display:flex;flex-direction:column;gap:9px;flex:1;padding:2px 0}
+  .shelf{position:relative;height:52px;border-radius:4px;background:linear-gradient(180deg, #eef2f7 0%, #dfe6ee 55%, #c5cfda 100%);box-shadow:inset 0 1px 0 #ffffff,inset 0 -2px 0 #94a3b8,0 4px 8px rgba(120,53,15,0.18),0 2px 3px rgba(120,53,15,0.10);overflow:hidden}
+  .shelf-slots{display:flex;align-items:center;justify-content:center;gap:2px;height:100%;padding:4px 6px;box-sizing:border-box}
+  .slot{flex:1 1 0;min-width:0;max-width:36px;aspect-ratio:1/1;padding:0;margin:0;border:none;background:transparent;display:flex;align-items:center;justify-content:center;box-sizing:border-box;position:relative;border-radius:50%;transition:transform .15s ease;line-height:0}
+  .slot > svg{width:100%;height:100%;display:block;overflow:visible}
+  .slot.occupied > svg{filter:drop-shadow(0 1.5px 1.2px rgba(0,0,0,0.40));transition:filter .15s ease}
+  .slot.empty{cursor:default}
+  .slot.occupied{cursor:pointer;outline:none}
+  .slot.occupied:hover,.slot.occupied:focus-visible,.slot.occupied.active{transform:scale(1.14);z-index:3}
+  .slot.occupied:hover > svg,.slot.occupied:focus-visible > svg,.slot.occupied.active > svg{filter:drop-shadow(0 2.5px 2.5px rgba(0,0,0,0.55))}
+  .slot.occupied.active::before{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid #3b82f6;pointer-events:none;animation:activePulse 1.6s ease-in-out infinite}
+  @keyframes activePulse{0%,100%{opacity:1}50%{opacity:.6}}
+  .shelf-overflow{margin-top:6px;text-align:center;font-size:11px;font-weight:700;color:#78350f;padding:4px 10px;background:rgba(255,255,255,0.55);border-radius:99px;align-self:center;border:1px solid rgba(120,53,15,0.2)}
 
   .stat{background:linear-gradient(180deg,#171e28,#12171f);border:1px solid var(--border);border-radius:14px;padding:14px 18px;display:flex;flex-direction:column;gap:4px}
   .stat-label{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:700}
@@ -279,15 +87,14 @@
   .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
   .toolbar .spacer{flex:1}
   .search{flex:1 1 220px;min-width:180px}
-  .search input, .toolbar select{width:100%;background:#0e141c;border:1px solid var(--border);color:var(--text);border-radius:12px;padding:11px 14px;font:inherit;font-size:14px;outline:none;transition:.15s}
+  .search input,.toolbar select{width:100%;background:#0e141c;border:1px solid var(--border);color:var(--text);border-radius:12px;padding:11px 14px;font:inherit;font-size:14px;outline:none;transition:.15s}
   .search input::placeholder{color:#5d6b7d}
-  .search input:focus, .toolbar select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,156,249,.16)}
+  .search input:focus,.toolbar select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,156,249,.16)}
   .toolbar select{flex:0 1 190px;cursor:pointer}
 
   .color-bar{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border)}
   .color-bar .spacer{flex:1}
   .chips{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
-
   .chip{width:26px;height:26px;border-radius:50%;padding:0;flex:0 0 auto;border:2px solid transparent;cursor:pointer;outline:none;transition:transform .18s ease, border-color .15s ease, box-shadow .15s ease, opacity .18s;box-shadow:0 0 0 1px rgba(255,255,255,.16),inset 0 -6px 12px -6px rgba(0,0,0,.55)}
   .chip:hover{transform:scale(1.18)}
   .chip:focus-visible{box-shadow:0 0 0 3px rgba(79,156,249,.5)}
@@ -302,13 +109,11 @@
   .similar input[type=color]{width:36px;height:32px;padding:0;border:1px solid var(--border);border-radius:9px;background:#0e141c;cursor:pointer;flex:0 0 auto}
   .similar input[type=color]::-webkit-color-swatch-wrapper{padding:3px}
   .similar input[type=color]::-webkit-color-swatch{border:none;border-radius:6px}
-  .similar input[type=color]::-moz-color-swatch{border:none;border-radius:6px}
   .similar.active input[type=color]{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,156,249,.18)}
   .chip-clear{width:22px;height:22px;border-radius:50%;border:1px solid var(--border);background:var(--panel-2);color:var(--muted);font-size:10px;cursor:pointer;display:grid;place-items:center;padding:0;transition:.15s}
   .chip-clear:hover{color:var(--danger);border-color:#5b2a2d;background:#2a1416}
 
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:16px}
-
   .card{background:linear-gradient(180deg,#171e28,#12171f);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;position:relative;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;outline:none}
   .card:hover,.card:focus-visible{transform:translateY(-4px);border-color:#3a4658;box-shadow:0 18px 34px -18px rgba(0,0,0,.9)}
   .card:focus-visible{box-shadow:0 0 0 3px rgba(79,156,249,.35)}
@@ -335,7 +140,7 @@
   .spools-grid[data-layout="4"]{grid-template-columns:repeat(2,minmax(0,1fr))}
   .spools-grid[data-layout="4"] .spool-svg{max-width:34px;max-height:34px}
   .spool-svg{width:100%;aspect-ratio:1;display:block;min-width:0}
-  .spool-overflow{position:absolute;bottom:0;right:0;background:var(--accent);color:#fff;font-size:9px;font-weight:800;padding:1px 5px;border-radius:99px;border:2px solid var(--panel);line-height:1.2;letter-spacing:-.02em;z-index:1;pointer-events:none}
+  .spool-overflow{position:absolute;bottom:0;right:0;background:var(--accent);color:#fff;font-size:9px;font-weight:800;padding:1px 5px;border-radius:99px;border:2px solid var(--panel);line-height:1.2;z-index:1;pointer-events:none}
 
   .empty{text-align:center;padding:70px 20px;color:var(--muted);border:1px dashed var(--border);border-radius:var(--radius);background:rgba(22,27,34,.4)}
   .empty-icon{font-size:40px;margin-bottom:10px}
@@ -367,8 +172,8 @@
   .field{display:flex;flex-direction:column;gap:7px}
   .field > span{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:700}
   input[type=text],input[type=number],input[type=search],textarea,select{font-family:inherit}
-  .field input[type=text],.field input[type=number],.field textarea{background:#0e141c;border:1px solid var(--border);color:var(--text);border-radius:11px;padding:11px 13px;font-size:14px;width:100%;outline:none;transition:.15s;resize:vertical}
-  .field input:focus,.field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,156,249,.16)}
+  .field input[type=text],.field input[type=number],.field textarea,.field select{background:#0e141c;border:1px solid var(--border);color:var(--text);border-radius:11px;padding:11px 13px;font-size:14px;width:100%;outline:none;transition:.15s;resize:vertical}
+  .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,156,249,.16)}
   .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .field-hint{font-size:11.5px;color:var(--muted);line-height:1.4}
 
@@ -378,7 +183,6 @@
   .palette-row input[type=color]{width:42px;height:36px;padding:0;border:1px solid var(--border);border-radius:8px;background:#0e141c;cursor:pointer;flex:0 0 auto}
   .palette-row input[type=color]::-webkit-color-swatch-wrapper{padding:3px}
   .palette-row input[type=color]::-webkit-color-swatch{border:none;border-radius:5px}
-  .palette-row input[type=color]::-moz-color-swatch{border:none;border-radius:5px}
   .palette-row .pal-hex{flex:1;background:transparent;border:none;color:var(--text);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;padding:8px 4px;outline:none;min-width:0}
   .pal-remove{width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:var(--panel-2);color:var(--muted);cursor:pointer;font-size:12px;display:grid;place-items:center;transition:.15s;flex:0 0 auto}
   .pal-remove:hover{color:var(--danger);border-color:#5b2a2d;background:#2a1416}
@@ -396,12 +200,9 @@
   .stepper input{text-align:center;font-size:18px;font-weight:700;background:#0e141c;border:1px solid var(--border);color:var(--text);border-radius:11px;padding:10px;width:100%;outline:none;font-variant-numeric:tabular-nums}
   .stepper input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,156,249,.16)}
   .stepper input::-webkit-outer-spin-button,.stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-  .stepper input[type=number]{-moz-appearance:textfield}
 
-  /* ---------- Modal Impresión ---------- */
   .print-overlay{position:fixed;inset:0;background:rgba(3,6,12,.72);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .25s;z-index:60}
   .print-overlay.open{opacity:1;pointer-events:auto}
-
   .print-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.95);width:min(580px,calc(100vw - 24px));max-height:calc(100vh - 24px);background:var(--panel);border:1px solid var(--border);border-radius:20px;z-index:61;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s cubic-bezier(.4,0,.2,1);box-shadow:0 24px 80px rgba(0,0,0,.7)}
   .print-modal.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
   .print-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--border);flex:0 0 auto}
@@ -414,116 +215,32 @@
   .print-line:only-child .print-remove{visibility:hidden}
 
   .print-select-wrap{position:relative;min-width:0}
-  .print-select-btn{
-    width:100%;display:flex;align-items:center;gap:9px;
-    background:#0e141c;border:1px solid var(--border);color:var(--text);
-    border-radius:10px;padding:8px 10px;font:inherit;font-size:13.5px;
-    cursor:pointer;text-align:left;transition:.15s;min-height:40px;
-  }
+  .print-select-btn{width:100%;display:flex;align-items:center;gap:9px;background:#0e141c;border:1px solid var(--border);color:var(--text);border-radius:10px;padding:8px 10px;font:inherit;font-size:13.5px;cursor:pointer;text-align:left;transition:.15s;min-height:40px}
   .print-select-btn:hover{border-color:#3a4658}
   .print-select-btn:focus-visible{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,156,249,.16)}
-  .print-select-btn .sel-swatch{
-    width:18px;height:18px;border-radius:50%;flex:0 0 auto;
-    border:1px solid rgba(255,255,255,.18);
-    background:#1a2230;
-    box-shadow:inset 0 0 0 1px rgba(0,0,0,.35);
-  }
-  .print-select-btn .sel-label{
-    flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  }
+  .print-select-btn .sel-swatch{width:18px;height:18px;border-radius:50%;flex:0 0 auto;border:1px solid rgba(255,255,255,.18);background:#1a2230;box-shadow:inset 0 0 0 1px rgba(0,0,0,.35)}
+  .print-select-btn .sel-label{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .print-select-btn .sel-label.placeholder{color:#5d6b7d}
   .print-select-btn .sel-arrow{color:var(--muted);font-size:10px;flex:0 0 auto}
-
-  .print-select-menu{
-    position:fixed;
-    background:var(--panel);border:1px solid var(--border);
-    border-radius:12px;z-index:200;
-    max-height:360px;
-    box-shadow:0 16px 40px rgba(0,0,0,.7);
-    display:flex;
-    flex-direction:column;
-    overflow:hidden;
-    animation:menuIn .12s ease;
-  }
+  .print-select-menu{position:fixed;background:var(--panel);border:1px solid var(--border);border-radius:12px;z-index:200;max-height:360px;box-shadow:0 16px 40px rgba(0,0,0,.7);display:flex;flex-direction:column;overflow:hidden}
   .print-select-menu[hidden]{display:none}
-  @keyframes menuIn{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
-
-  .print-select-search-wrap{
-    padding:8px;
-    border-bottom:1px solid var(--border);
-    flex:0 0 auto;
-    background:var(--panel);
-    border-radius:12px 12px 0 0;
-  }
-  .print-select-search{
-    width:100%;
-    background:#0e141c;
-    border:1px solid var(--border);
-    color:var(--text);
-    border-radius:8px;
-    padding:8px 11px;
-    font:inherit;
-    font-size:13px;
-    outline:none;
-    transition:border-color .15s, box-shadow .15s;
-  }
-  .print-select-search::placeholder{ color:#5d6b7d; }
-  .print-select-search:focus{
-    border-color:var(--accent);
-    box-shadow:0 0 0 3px rgba(79,156,249,.16);
-  }
-
-  .print-select-options{
-    padding:4px;
-    overflow-y:auto;
-    flex:1 1 auto;
-    min-height:0;
-    overscroll-behavior:contain;
-  }
-
-  .print-select-option{
-    width:100%;display:flex;align-items:center;gap:10px;
-    padding:8px 10px;border-radius:8px;
-    border:none;background:transparent;color:var(--text);
-    font:inherit;font-size:13px;text-align:left;cursor:pointer;
-    transition:.1s;
-  }
-  .print-select-option:hover,
-  .print-select-option:focus-visible{background:#232e3f;outline:none}
+  .print-select-search-wrap{padding:8px;border-bottom:1px solid var(--border);flex:0 0 auto;background:var(--panel);border-radius:12px 12px 0 0}
+  .print-select-search{width:100%;background:#0e141c;border:1px solid var(--border);color:var(--text);border-radius:8px;padding:8px 11px;font:inherit;font-size:13px;outline:none}
+  .print-select-search:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,156,249,.16)}
+  .print-select-options{padding:4px;overflow-y:auto;flex:1 1 auto;min-height:0;overscroll-behavior:contain}
+  .print-select-option{width:100%;display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;border:none;background:transparent;color:var(--text);font:inherit;font-size:13px;text-align:left;cursor:pointer;transition:.1s}
+  .print-select-option:hover,.print-select-option:focus-visible{background:#232e3f;outline:none}
   .print-select-option.selected{background:rgba(79,156,249,.16)}
-  .print-select-option.selected:hover{background:rgba(79,156,249,.24)}
-  .print-select-option .opt-swatch{
-    width:20px;height:20px;border-radius:50%;flex:0 0 auto;
-    border:1px solid rgba(255,255,255,.18);
-    box-shadow:inset 0 0 0 1px rgba(0,0,0,.35);
-  }
+  .print-select-option .opt-swatch{width:20px;height:20px;border-radius:50%;flex:0 0 auto;border:1px solid rgba(255,255,255,.18);box-shadow:inset 0 0 0 1px rgba(0,0,0,.35)}
   .print-select-option .opt-text{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
-  .print-select-option .opt-name{
-    font-weight:650;font-size:13px;
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  }
-  .print-select-option .opt-meta{
-    font-size:11px;color:var(--muted);
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  }
-
-  .print-select-empty{
-    padding:22px 12px;
-    text-align:center;
-    font-size:13px;
-    color:var(--muted);
-    line-height:1.4;
-  }
-  .print-select-empty[hidden]{ display:none; }
-
+  .print-select-option .opt-name{font-weight:650;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .print-select-option .opt-meta{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .print-select-empty{padding:22px 12px;text-align:center;font-size:13px;color:var(--muted);line-height:1.4}
+  .print-select-empty[hidden]{display:none}
   .print-qty{display:flex;align-items:center;background:#0e141c;border:1px solid var(--border);border-radius:10px;padding-right:10px;transition:.15s;min-height:40px}
   .print-qty:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,156,249,.16)}
-  .print-qty input{background:transparent;border:none;box-shadow:none;color:var(--text);text-align:right;padding:10px 4px 10px 12px;font:inherit;font-size:14px;outline:none;width:100%;min-width:0;font-variant-numeric:tabular-nums}
-  .print-qty input::-webkit-outer-spin-button,
-  .print-qty input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-  .print-qty input[type=number]{-moz-appearance:textfield}
+  .print-qty input{background:transparent;border:none;color:var(--text);text-align:right;padding:10px 4px 10px 12px;font:inherit;font-size:14px;outline:none;width:100%;min-width:0;font-variant-numeric:tabular-nums}
   .print-qty span{color:var(--muted);font-size:12px;font-weight:700;padding-right:2px;flex:0 0 auto}
-
   .print-remove{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--panel-2);color:var(--muted);cursor:pointer;font-size:13px;display:grid;place-items:center;transition:.15s;flex:0 0 auto}
   .print-remove:hover{color:var(--danger);border-color:#5b2a2d;background:#2a1416}
   .add-line-btn{width:100%;padding:11px;font-size:13px;border-style:dashed;color:var(--muted);background:transparent;margin-top:2px}
@@ -531,9 +248,286 @@
   .print-foot{padding:16px 22px;border-top:1px solid var(--border);display:flex;gap:10px;align-items:center;background:#131922;flex:0 0 auto;border-radius:0 0 20px 20px}
   .print-foot .spacer{flex:1}
 
-  @media (max-width:900px){
-    .slot{max-width:30px}
+  .quote-overlay{position:fixed;inset:0;background:rgba(3,6,12,.72);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .25s;z-index:60}
+  .quote-overlay.open{opacity:1;pointer-events:auto}
+  .quote-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.95);width:min(620px,calc(100vw - 24px));max-height:calc(100vh - 24px);background:var(--panel);border:1px solid var(--border);border-radius:20px;z-index:61;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s cubic-bezier(.4,0,.2,1);box-shadow:0 24px 80px rgba(0,0,0,.7)}
+  .quote-modal.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+  .quote-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--border);flex:0 0 auto}
+  .quote-head h2{margin:0;font-size:17px;font-weight:700;letter-spacing:-.01em}
+  .quote-body{padding:18px 22px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:14px;min-height:0}
+  .quote-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .quote-grid-3{grid-template-columns:repeat(3,1fr)}
+  .quote-extras{display:flex;flex-direction:column;gap:8px}
+  .quote-extras-head{display:flex;align-items:center;justify-content:space-between;font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:700}
+  .quote-extra-row{display:grid;grid-template-columns:1fr 120px 32px;gap:8px;align-items:center}
+  .quote-extra-row input{background:#0e141c;border:1px solid var(--border);color:var(--text);border-radius:10px;padding:8px 10px;font:inherit;font-size:13px;outline:none;transition:.15s}
+  .quote-extra-row input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,156,249,.16)}
+
+  .quote-upload{display:flex;flex-direction:column;gap:8px}
+  .quote-upload-btn{appearance:none;width:100%;border:2px dashed var(--border);background:#0e141c;color:var(--muted);border-radius:11px;padding:16px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:center;gap:8px}
+  .quote-upload-btn:hover{border-color:var(--accent);color:var(--text);background:var(--panel-2)}
+  .quote-upload-icon{font-size:18px}
+  .quote-upload-preview{position:relative;background:#0e141c;border:1px solid var(--border);border-radius:11px;padding:8px;display:flex;align-items:center;justify-content:center}
+  .quote-upload-preview[hidden]{display:none}
+  .quote-upload-preview img{max-width:100%;max-height:200px;border-radius:8px;display:block}
+  .quote-upload-remove{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,0.75);color:#fff;cursor:pointer;font-size:12px;display:grid;place-items:center;padding:0;transition:.15s;backdrop-filter:blur(4px)}
+  .quote-upload-remove:hover{background:var(--danger);border-color:var(--danger)}
+
+  .quote-advanced{background:#0e141c;border:1px solid var(--border);border-radius:12px;padding:10px 14px}
+  .quote-advanced summary{cursor:pointer;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.09em;padding:2px 0;list-style:none}
+  .quote-advanced summary::-webkit-details-marker{display:none}
+  .quote-advanced summary::before{content:"▸ ";display:inline-block;transition:transform .15s}
+  .quote-advanced[open] summary::before{transform:rotate(90deg)}
+  .quote-advanced[open] summary{margin-bottom:10px}
+  .quote-advanced .quote-grid{margin-top:8px}
+  .quote-result{background:linear-gradient(180deg,#0e141c,#0a0f16);border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+  .qr-row{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);padding:2px 0}
+  .qr-row span:last-child{font-variant-numeric:tabular-nums;color:var(--text);font-weight:600}
+  .qr-subtotal{border-top:1px dashed var(--border);padding-top:8px;margin-top:4px;color:var(--text);font-weight:700}
+  .qr-total{border-top:2px solid #f59e0b;padding-top:10px;margin-top:6px;font-size:16px;color:var(--text);font-weight:800}
+  .qr-total span{color:#f59e0b;font-size:18px}
+  .quote-foot{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:10px;align-items:center;background:#131922;border-radius:0 0 20px 20px;flex:0 0 auto}
+  .quote-foot .spacer{flex:1}
+  .quote-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#22c55e;color:#fff;padding:10px 20px;border-radius:99px;font-size:13px;font-weight:700;z-index:300;box-shadow:0 12px 30px rgba(0,0,0,.4);transition:transform .3s cubic-bezier(.4,0,.2,1);pointer-events:none}
+  .quote-toast.show{transform:translateX(-50%) translateY(0)}
+
+  .history-overlay{position:fixed;inset:0;background:rgba(3,6,12,.72);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .25s;z-index:62}
+  .history-overlay.open{opacity:1;pointer-events:auto}
+  .history-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.95);width:min(760px,calc(100vw - 24px));max-height:calc(100vh - 24px);background:var(--panel);border:1px solid var(--border);border-radius:20px;z-index:63;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s cubic-bezier(.4,0,.2,1);box-shadow:0 24px 80px rgba(0,0,0,.7)}
+  .history-modal.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+  .history-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--border);flex:0 0 auto}
+  .history-head h2{margin:0;font-size:17px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .history-body{padding:16px 20px;overflow-y:auto;flex:1;min-height:0;display:flex;flex-direction:column;gap:10px}
+  .history-empty{padding:50px 20px;text-align:center;color:var(--muted);font-size:14px;background:#0e141c;border:1px dashed var(--border);border-radius:14px;line-height:1.5}
+  .history-empty strong{color:var(--text)}
+  .history-item{background:linear-gradient(180deg,#171e28,#12171f);border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:10px 14px;align-items:center;transition:.15s}
+  .history-item:hover{border-color:#3a4658;background:linear-gradient(180deg,#1a2230,#141a24)}
+  .history-item.highlight{border-color:#f59e0b;box-shadow:0 0 0 3px rgba(245,158,11,.2);animation:highlightPulse 1.6s ease-in-out infinite}
+  @keyframes highlightPulse{0%,100%{box-shadow:0 0 0 3px rgba(245,158,11,.2)}50%{box-shadow:0 0 0 6px rgba(245,158,11,.1)}}
+
+  /* Header clickeable del historial */
+  .hi-header{display:contents;cursor:pointer}
+  .hi-main{min-width:0;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
+  .hi-chevron{
+    width:22px;height:22px;border-radius:6px;flex:0 0 auto;
+    background:var(--panel-2);border:1px solid var(--border);color:var(--muted);
+    display:grid;place-items:center;font-size:10px;
+    transition:transform .2s ease,background .15s,color .15s;
+    order:-1;
   }
+  .history-item.expanded .hi-chevron{transform:rotate(90deg);background:var(--accent);color:#fff;border-color:var(--accent)}
+  .hi-thumb{width:52px;height:52px;border-radius:8px;overflow:hidden;background:#0e141c;border:1px solid var(--border);flex:0 0 auto;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:20px}
+  .hi-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .hi-info{min-width:0;flex:1}
+  .hi-title{font-size:14px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .hi-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;font-weight:700;color:#f59e0b;background:rgba(245,158,11,.1);padding:2px 7px;border-radius:5px;border:1px solid rgba(245,158,11,.25)}
+  .hi-sub{font-size:12px;color:var(--muted);margin-top:4px;display:flex;flex-wrap:wrap;gap:6px 12px}
+  .hi-sub span{white-space:nowrap}
+  .hi-sub .dot{color:#3a4658}
+  .hi-total{font-size:18px;font-weight:800;color:#22c55e;font-variant-numeric:tabular-nums;white-space:nowrap;cursor:pointer;user-select:none}
+
+  /* Detalles expandidos del historial */
+  .hi-details{
+    grid-column:1/-1;
+    display:none;
+    padding-top:12px;
+    margin-top:6px;
+    border-top:1px solid var(--border);
+    animation:detailsIn .2s ease;
+  }
+  @keyframes detailsIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+  .history-item.expanded .hi-details{display:block}
+  .hi-details-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px 18px;
+    font-size:11.5px;
+  }
+  .hi-details-section-title{
+    grid-column:1/-1;
+    font-size:9px;text-transform:uppercase;letter-spacing:.08em;
+    color:#f59e0b;font-weight:800;
+    padding:8px 0 2px;
+    border-top:1px dashed var(--border);
+    margin-top:6px;
+  }
+  .hi-details-section-title:first-child{border-top:none;margin-top:0;padding-top:0}
+  .hi-detail-row{display:flex;justify-content:space-between;gap:8px;padding:3px 0;min-width:0}
+  .hi-detail-row span:first-child{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hi-detail-row span:last-child{color:var(--text);font-weight:600;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .hi-detail-row.total span:last-child{color:#22c55e;font-weight:800}
+  .hi-details-notes{
+    grid-column:1/-1;
+    padding:8px 12px;
+    background:#0e141c;
+    border-radius:8px;
+    border:1px solid var(--border);
+    font-size:11.5px;
+    color:var(--text);
+    line-height:1.5;
+    margin-top:6px;
+    white-space:pre-wrap;
+    word-break:break-word;
+  }
+  .hi-details-notes strong{display:block;color:#f59e0b;font-size:9px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+
+  .hi-actions{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:10px;margin-top:2px}
+  .hi-actions .btn{flex:0 0 auto}
+  .hi-actions .btn.pdf{color:#f87171;border-color:#5b2a2d}
+  .hi-actions .btn.pdf:hover{background:#2a1416;border-color:#7a3438}
+  .hi-actions .btn.png{color:#60a5fa;border-color:#1e3a5f}
+  .hi-actions .btn.png:hover{background:#0f1e33;border-color:#1e40af}
+  .history-foot{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:10px;align-items:center;background:#131922;border-radius:0 0 20px 20px;flex:0 0 auto}
+  .history-foot .spacer{flex:1}
+  .history-foot .count{font-size:12px;color:var(--muted)}
+
+  /* ============================================================
+     DOCUMENTO DE COTIZACIÓN — CUADRADO 900x900 px
+     ============================================================ */
+  .quote-doc{
+    position:absolute; left:-9999px; top:0;
+    width:900px; height:900px;
+    background:#ffffff; color:#0f172a;
+    padding:34px 40px; box-sizing:border-box;
+    display:flex; flex-direction:column; gap:12px;
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    overflow:hidden;
+  }
+
+  .quote-doc-header{display:flex;align-items:center;gap:22px;border-bottom:3px solid #eab308;padding-bottom:14px;flex-shrink:0}
+  .quote-doc-logo{
+    width:120px; height:120px; object-fit:contain; flex:0 0 auto;
+    background:#ffffff !important;
+    border:none !important; outline:none !important;
+    border-radius:0 !important; box-shadow:none !important;
+    padding:0 !important; margin:0 !important;
+    display:block;
+  }
+  .quote-doc-title{flex:1;min-width:0}
+  .quote-doc-title h1{margin:0;font-size:30px;font-weight:800;color:#0f172a;letter-spacing:-.02em;line-height:1.05}
+  .quote-doc-title p{margin:6px 0 0;color:#64748b;font-size:13px}
+  .quote-doc-title p strong{color:#a16207;font-weight:800;font-size:14px}
+  .quote-doc-currency-badge{display:inline-block;margin-left:8px;padding:3px 8px;border-radius:99px;background:#fef3c7;color:#a16207;font-size:10px;font-weight:800;border:1px solid #fde68a;letter-spacing:.05em}
+
+  .quote-doc-two-col{
+    display:grid;
+    grid-template-columns:1fr 1.1fr;
+    gap:14px;
+    flex-shrink:0;
+    height:250px;
+  }
+  .quote-doc-meta-col{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    gap:6px;
+    padding:12px 16px;
+    background:#f8fafc;
+    border-radius:10px;
+    border:1px solid #e2e8f0;
+    overflow:hidden;
+  }
+  .quote-doc-meta-item{font-size:12px;color:#0f172a;line-height:1.3}
+  .quote-doc-meta-item strong{display:block;color:#64748b;font-size:9px;text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px;font-weight:700}
+
+  .quote-doc-image-col{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#f8fafc;
+    border-radius:10px;
+    border:1px solid #e2e8f0;
+    overflow:hidden;
+    padding:8px;
+    position:relative;
+  }
+  .quote-doc-image-col img{
+    max-width:100%;
+    max-height:100%;
+    width:auto;
+    height:auto;
+    object-fit:contain;
+    border-radius:6px;
+    display:block;
+    background:#ffffff;
+  }
+  .quote-doc-image-placeholder{
+    color:#cbd5e1;
+    font-size:11px;
+    text-align:center;
+    text-transform:uppercase;
+    letter-spacing:.8px;
+    font-weight:700;
+    line-height:1.6;
+  }
+
+  .quote-doc-table-wrap{flex-shrink:0}
+  .quote-doc-table{width:100%;border-collapse:collapse;font-size:12px}
+  .quote-doc-table th{background:#f1f5f9;padding:7px 10px;text-align:left;border-bottom:2px solid #eab308;color:#475569;font-size:9px;text-transform:uppercase;letter-spacing:.6px;font-weight:800}
+  .quote-doc-table th:last-child,.quote-doc-table td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+  .quote-doc-table td{padding:7px 10px;border-bottom:1px solid #e2e8f0;color:#1e293b}
+  .quote-doc-table tr:last-child td{border-bottom:none}
+
+  .quote-doc-spacer{flex:1;min-height:4px}
+
+  /* Fila inferior: notas (izq) + totales (der) */
+  .quote-doc-totals-row{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:14px;
+    align-items:flex-end;
+    flex-shrink:0;
+  }
+  .quote-doc-notes-col{
+    padding:10px 14px;
+    background:#fffbeb;
+    border:1px solid #fde68a;
+    border-radius:10px;
+    font-size:11px;
+    color:#78350f;
+    line-height:1.45;
+    min-height:1px;
+    white-space:pre-wrap;
+    word-break:break-word;
+  }
+  .quote-doc-notes-col strong{
+    display:block;
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:.6px;
+    margin-bottom:4px;
+    font-weight:800;
+    color:#a16207;
+  }
+  .quote-doc-notes-col.is-empty{
+    display:none;
+  }
+  .quote-doc-totals-row.no-notes{
+    grid-template-columns:1fr;
+  }
+  .quote-doc-totals-row.no-notes .quote-doc-totals{
+    justify-self:end;
+  }
+
+  .quote-doc-totals{
+    width:100%;
+    max-width:340px;
+    padding:12px 16px;
+    background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;font-size:12px;
+  }
+  .quote-doc-totals .row{display:flex;justify-content:space-between;padding:3px 0;color:#475569}
+  .quote-doc-totals .row span:last-child{font-variant-numeric:tabular-nums;color:#0f172a;font-weight:600}
+  .quote-doc-totals .row.total{border-top:2px solid #eab308;margin-top:6px;padding-top:10px;font-size:17px;font-weight:800;color:#a16207}
+  .quote-doc-totals .row.total span:last-child{color:#a16207;font-size:20px}
+  .quote-doc-totals .row.total.no-tax{border-top:none;margin-top:0;padding-top:0}
+
+  .quote-doc-footer{
+    padding-top:10px;border-top:2px solid #eab308;
+    font-size:10px;color:#94a3b8;text-align:center;line-height:1.6;
+    flex-shrink:0;
+  }
+
+  @media (max-width:900px){.slot{max-width:30px}}
   @media (max-width:760px){
     .dashboard{grid-template-columns:1fr}
     .stats-left{grid-template-rows:none;grid-template-columns:repeat(3,1fr)}
@@ -542,6 +536,7 @@
     .stats-right{min-height:300px}
     .shelf{height:48px}
     .slot{max-width:28px}
+    .hi-details-grid{grid-template-columns:repeat(2,1fr)}
   }
   @media (max-width:560px){
     .wrap{padding:0 14px 70px}
@@ -557,25 +552,22 @@
     .slot{max-width:22px}
     .grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
     .spools-wrap{width:62px;height:62px}
-    .preview .spools-wrap{width:66px;height:66px}
     .card-weight{font-size:17px}
     .toolbar select{flex:1 1 140px}
     .chips{gap:10px}
     .chip{width:24px;height:24px}
     .btn{padding:9px 12px;font-size:13px}
-    .field-row{grid-template-columns:1fr}
+    .field-row,.quote-grid,.quote-grid-3{grid-template-columns:1fr}
     .cloud-status{display:none}
     .print-line{grid-template-columns:minmax(0,1fr) 100px 32px;gap:8px}
     .print-select-btn{font-size:12.5px;padding:7px 9px;min-height:38px}
     .print-qty{min-height:38px}
-    .print-qty input{font-size:13px;padding:8px 3px 8px 10px}
-    .print-select-option{padding:8px 8px;gap:8px}
-    .print-select-option .opt-swatch{width:18px;height:18px}
-    .print-select-option .opt-name{font-size:12.5px}
-    .print-select-search{font-size:12.5px;padding:7px 10px}
-    .shelf-info{padding:6px 8px}
-    .info-text strong{font-size:12px}
-    .info-text span{font-size:11px}
+    .quote-extra-row{grid-template-columns:1fr 80px 32px}
+    .quote-body,.print-body{padding:14px 16px}
+    .quote-foot,.print-foot{padding:12px 16px;flex-wrap:wrap}
+    .hi-total{font-size:16px}
+    .hi-thumb{width:44px;height:44px}
+    .hi-details-grid{grid-template-columns:1fr}
   }
 </style>
 </head>
@@ -594,8 +586,10 @@
       <span class="cloud-status" id="cloud-status" title="Estado de sincronización">
         <span class="dot"></span><span id="cloud-status-text">Conectado</span>
       </span>
+      <button class="btn history-btn" id="btn-history" title="Historial de cotizaciones">📚 Historial<span class="badge" id="history-badge" hidden>0</span></button>
+      <button class="btn quote-btn" id="btn-quote" title="Estimar costos de impresión">💰 Cotizar</button>
       <button class="btn primary" id="btn-add">+ Nuevo color</button>
-      <button class="btn print-btn" id="btn-print" title="Registrar impresión (descontar gramos)">🖨️ Impresión</button>
+      <button class="btn print-btn" id="btn-print" title="Registrar impresión">🖨️ Impresión</button>
     </div>
   </header>
 
@@ -605,9 +599,7 @@
       <div class="stat"><span class="stat-label">Total en stock</span><span class="stat-value" id="st-total">0 kg</span></div>
       <div class="stat"><span class="stat-label">Marcas</span><span class="stat-value" id="st-brands">0</span></div>
     </div>
-    <div class="stats-right" id="shelf-box">
-      <!-- Vista de estanterías generada por JS -->
-    </div>
+    <div class="stats-right" id="shelf-box"></div>
   </section>
 
   <section class="toolbar">
@@ -632,7 +624,7 @@
     <div class="similar" id="similar-box">
       <span>Similar a</span>
       <input type="color" id="f-similar" value="#e63946" title="Elegir un color de referencia">
-      <button type="button" class="chip-clear" id="btn-similar-clear" hidden title="Quitar filtro de color similar">✕</button>
+      <button type="button" class="chip-clear" id="btn-similar-clear" hidden title="Quitar filtro">✕</button>
     </div>
   </section>
 
@@ -648,9 +640,7 @@
       <h2 id="drawer-title">Nuevo color</h2>
       <button type="button" class="icon-btn" id="btn-close" aria-label="Cerrar">✕</button>
     </div>
-
     <div class="drawer-body">
-
       <div class="preview">
         <div class="swatch-big" id="pv-swatch"></div>
         <div class="preview-info">
@@ -659,52 +649,30 @@
         </div>
         <div class="spools-wrap" id="pv-spools"></div>
       </div>
-
-      <label class="field">
-        <span>Nombre del color</span>
-        <input type="text" id="f-name" placeholder="Ej: Rojo Carmesí / Arcoíris Silk" required>
-      </label>
-
+      <label class="field"><span>Nombre del color</span><input type="text" id="f-name" placeholder="Ej: Rojo Carmesí" required></label>
       <div class="field-row">
-        <label class="field">
-          <span>Marca</span>
-          <input type="text" id="f-brand" list="brand-list" placeholder="Ej: Bambu Lab…">
-          <datalist id="brand-list"></datalist>
-        </label>
-
-        <label class="field">
-          <span>Material / tipo</span>
-          <input type="text" id="f-material" list="material-list" placeholder="PLA, PETG, ABS, PLA Matte…" maxlength="40">
-          <datalist id="material-list"></datalist>
-        </label>
+        <label class="field"><span>Marca</span><input type="text" id="f-brand" list="brand-list" placeholder="Ej: Bambu Lab…"><datalist id="brand-list"></datalist></label>
+        <label class="field"><span>Material / tipo</span><input type="text" id="f-material" list="material-list" placeholder="PLA, PETG…" maxlength="40"><datalist id="material-list"></datalist></label>
       </div>
-
       <div class="field">
         <span>Colores del filamento</span>
         <div class="palette-editor" id="palette-editor"></div>
-        <button type="button" class="btn add-color-btn" id="btn-add-color">+ Añadir color (bicolor, tricolor…)</button>
+        <button type="button" class="btn add-color-btn" id="btn-add-color">+ Añadir color</button>
         <div class="palette-hint" id="palette-hint">Filamento sólido · 1 color</div>
       </div>
-
       <div class="field">
         <span>Cantidad en stock (kg)</span>
         <div class="qty">
           <div class="stepper">
-            <button type="button" class="step-btn" data-delta="-0.1" title="Restar 0.1 kg (100 g)" aria-label="Restar 0.1 kg">−</button>
+            <button type="button" class="step-btn" data-delta="-0.1" title="−0.1 kg">−</button>
             <input type="number" id="f-kg" min="0" max="999" step="0.01" inputmode="decimal" value="0">
-            <button type="button" class="step-btn" data-delta="0.1" title="Sumar 0.1 kg (100 g)" aria-label="Sumar 0.1 kg">+</button>
+            <button type="button" class="step-btn" data-delta="0.1" title="+0.1 kg">+</button>
           </div>
-          <div class="field-hint">Ajusta con los botones (±0.1 kg) o escribe el valor exacto (2 decimales).</div>
+          <div class="field-hint">Ajusta con los botones (±0.1 kg) o escribe el valor exacto.</div>
         </div>
       </div>
-
-      <label class="field">
-        <span>Notas (opcional)</span>
-        <textarea id="f-notes" rows="2" placeholder="Ej: comprado en oferta, lote 2024…"></textarea>
-      </label>
-
+      <label class="field"><span>Notas (opcional)</span><textarea id="f-notes" rows="2" placeholder="Ej: lote 2024…"></textarea></label>
     </div>
-
     <div class="drawer-foot">
       <button type="button" class="btn danger" id="btn-delete">Eliminar</button>
       <div class="spacer"></div>
@@ -714,7 +682,6 @@
   </form>
 </aside>
 
-<!-- ================= Modal Impresión ================= -->
 <div class="print-overlay" id="print-overlay"></div>
 <div class="print-modal" id="print-modal" aria-hidden="true">
   <div class="print-head">
@@ -735,8 +702,100 @@
 
 <div class="print-select-menu" id="print-menu-shared" hidden role="listbox"></div>
 
-<!-- Librerías -->
+<div class="quote-overlay" id="quote-overlay"></div>
+<div class="quote-modal" id="quote-modal" aria-hidden="true">
+  <div class="quote-head">
+    <h2>💰 Estimación de costos</h2>
+    <button type="button" class="icon-btn" id="btn-quote-close" aria-label="Cerrar">✕</button>
+  </div>
+  <div class="quote-body">
+    <div class="quote-grid">
+      <label class="field"><span>Cliente</span><input type="text" id="q-client" placeholder="(opcional)"></label>
+      <label class="field"><span>Proyecto</span><input type="text" id="q-project" placeholder="(opcional)"></label>
+    </div>
+    <div class="quote-grid-3">
+      <label class="field"><span>Moneda</span>
+        <select id="q-currency">
+          <option value="USD">$ Dólares (USD)</option>
+          <option value="CRC">₡ Colones (CRC)</option>
+        </select>
+      </label>
+      <label class="field"><span>Material</span><select id="q-material"></select></label>
+      <label class="field"><span>Costo/g</span><input type="number" id="q-cost-gram" step="0.1" min="0"></label>
+    </div>
+    <div class="quote-grid quote-grid-3">
+      <label class="field"><span>Peso (g)</span><input type="number" id="q-weight" min="0" step="0.1" value="10"></label>
+      <label class="field"><span>Cantidad</span><input type="number" id="q-qty" min="1" step="1" value="1"></label>
+      <label class="field"><span>T. impresión (h)</span><input type="number" id="q-hours" min="0" step="0.1" value="1"></label>
+    </div>
+    <div class="quote-grid">
+      <label class="field"><span>Horas diseño</span><input type="number" id="q-design-hours" min="0" step="0.1" value="0"></label>
+      <label class="field"><span>Costo diseño/h</span><input type="number" id="q-design-cost" step="1" min="0" value="1000"></label>
+    </div>
+    <div class="field">
+      <span>Imagen de referencia del modelo (opcional)</span>
+      <div class="quote-upload">
+        <input type="file" id="q-image-input" accept="image/*" hidden>
+        <button type="button" class="quote-upload-btn" id="q-image-btn">
+          <span class="quote-upload-icon">📷</span>
+          <span>Añadir imagen del modelo</span>
+        </button>
+        <div class="quote-upload-preview" id="q-image-preview" hidden>
+          <img id="q-image-thumb" alt="Vista previa">
+          <button type="button" class="quote-upload-remove" id="q-image-remove" title="Quitar imagen">✕</button>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <span>Notas para la cotización (opcional)</span>
+      <textarea id="q-notes" rows="2" placeholder="Ej: Incluye cadena de llavero · tiempo de fabricación 15 días…"></textarea>
+    </div>
+    <div class="quote-extras">
+      <div class="quote-extras-head">
+        <span>Materiales adicionales</span>
+        <button type="button" class="btn small" id="btn-q-add-extra">+ Añadir</button>
+      </div>
+      <div id="q-extras"></div>
+    </div>
+    <details class="quote-advanced">
+      <summary>Parámetros avanzados</summary>
+      <div class="quote-grid">
+        <label class="field"><span>Costo kWh (24h)</span><input type="number" id="q-kwh" step="0.01" min="0" value="2737.15"></label>
+        <label class="field"><span>% Impuestos</span><input type="number" id="q-tax" step="0.1" min="0" value="0"></label>
+      </div>
+      <div class="quote-grid">
+        <label class="field"><span>% Depreciación</span><input type="number" id="q-dep" step="0.1" min="0" value="8"></label>
+        <label class="field"><span>% Margen</span><input type="number" id="q-margin" step="0.1" min="0" value="20"></label>
+      </div>
+    </details>
+    <div class="quote-result" id="quote-result"></div>
+  </div>
+  <div class="quote-foot">
+    <button type="button" class="btn" id="btn-quote-cancel">Cancelar</button>
+    <div class="spacer"></div>
+    <button type="button" class="btn primary" id="btn-quote-save">💾 Guardar y generar PDF/PNG</button>
+  </div>
+</div>
+
+<div class="history-overlay" id="history-overlay"></div>
+<div class="history-modal" id="history-modal" aria-hidden="true">
+  <div class="history-head">
+    <h2>📚 Historial de cotizaciones</h2>
+    <button type="button" class="icon-btn" id="btn-history-close" aria-label="Cerrar">✕</button>
+  </div>
+  <div class="history-body" id="history-body"></div>
+  <div class="history-foot">
+    <span class="count" id="history-count">0 cotizaciones</span>
+    <div class="spacer"></div>
+    <button type="button" class="btn danger" id="btn-history-clear">🗑️ Borrar todo</button>
+    <button type="button" class="btn" id="btn-history-close2">Cerrar</button>
+  </div>
+</div>
+
+<div class="quote-toast" id="quote-toast">✓ Guardada</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -745,324 +804,223 @@
    ========================================================= */
 const SUPABASE_URL      = 'https://sgcsuokygvkzmzomrcyo.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_YO4mEeGuPDA32yEuf86Izw_g--ggMkU';
-
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-  auth: { persistSession: false }
-});
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { auth: { persistSession: false } });
 
 /* =========================================================
    Utilidades
    ========================================================= */
 const KEY = 'filamento-stock-v1';
+const QUOTE_HISTORY_KEY = 'filamento-quotes-v1';
+const MAX_QUOTES = 100;
 const $  = (s, r = document) => r.querySelector(s);
 const clamp = (n, a, b) => Math.min(b, Math.max(a, n));
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
-const esc = s => String(s ?? '').replace(/[&<>"']/g, m => (
-  { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[m]
-));
+const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[m]));
+const normalizeText = s => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+const normalizeHex = h => { h = String(h || '').trim(); if (!h) return null; if (!h.startsWith('#')) h = '#' + h; return /^#[0-9a-fA-F]{6}$/.test(h) ? h.toLowerCase() : null; };
+const fmtKg = grams => { const kg = grams / 1000; return kg.toFixed(2).replace(/\.?0+$/, '') || '0'; };
 
-function normalizeText(s) {
-  return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+function fmtMoney(n, currency) {
+  currency = currency || 'USD';
+  const abs = Math.abs(n);
+  const formatted = abs.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const sign = n < 0 ? '-' : '';
+  if (currency === 'CRC') return sign + '₡' + formatted;
+  return sign + '$' + formatted;
+}
+function currencyLabel(cur) {
+  return cur === 'CRC' ? 'Colones' : 'USD';
 }
 
-function normalizeHex(h) {
-  h = String(h || '').trim();
-  if (!h) return null;
-  if (!h.startsWith('#')) h = '#' + h;
-  return /^#[0-9a-fA-F]{6}$/.test(h) ? h.toLowerCase() : null;
-}
-
-function fmtKg(grams) {
-  const kg = grams / 1000;
-  return kg.toFixed(2).replace(/\.?0+$/, '') || '0';
-}
-
-function hexToRgb(hex) {
-  const h = String(hex).replace('#', '');
-  return {
-    r: parseInt(h.slice(0, 2), 16),
-    g: parseInt(h.slice(2, 4), 16),
-    b: parseInt(h.slice(4, 6), 16)
-  };
-}
-
-function rgbToHsl(r, g, b) {
-  r /= 255; g /= 255; b /= 255;
-  const max = Math.max(r, g, b), min = Math.min(r, g, b);
-  const l = (max + min) / 2;
-  let h = 0, s = 0;
-  const d = max - min;
-  if (d > 0) {
-    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-    switch (max) {
-      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-      case g: h = (b - r) / d + 2; break;
-      default: h = (r - g) / d + 4; break;
-    }
-    h *= 60;
+function hexToRgb(hex) { const h = String(hex).replace('#', ''); return { r: parseInt(h.slice(0,2),16), g: parseInt(h.slice(2,4),16), b: parseInt(h.slice(4,6),16) }; }
+function rgbToHsl(r,g,b) {
+  r/=255; g/=255; b/=255;
+  const max=Math.max(r,g,b), min=Math.min(r,g,b), l=(max+min)/2;
+  let h=0, s=0; const d=max-min;
+  if (d>0) {
+    s = l>0.5 ? d/(2-max-min) : d/(max+min);
+    switch(max){ case r: h=(g-b)/d+(g<b?6:0); break; case g: h=(b-r)/d+2; break; default: h=(r-g)/d+4; }
+    h*=60;
   }
   return { h, s, l };
 }
-
-function hslOf(hex) {
-  const { r, g, b } = hexToRgb(hex);
-  return rgbToHsl(r, g, b);
-}
-
-function isNeutral(hex) {
-  const { r, g, b } = hexToRgb(hex);
-  const max = Math.max(r, g, b), min = Math.min(r, g, b);
-  const chroma = (max - min) / 255;
-  const l = (max + min) / 510;
-  return chroma < 0.10 || l < 0.10 || l > 0.95;
-}
-
+function hslOf(hex) { const { r,g,b } = hexToRgb(hex); return rgbToHsl(r,g,b); }
+function isNeutral(hex) { const { r,g,b } = hexToRgb(hex); const max=Math.max(r,g,b), min=Math.min(r,g,b); const chroma=(max-min)/255; const l=(max+min)/510; return chroma<0.10||l<0.10||l>0.95; }
 function colorFamily(hex) {
   if (isNeutral(hex)) return 'neutro';
   const { h } = hslOf(hex);
-  if (h < 15 || h >= 345) return 'rojo';
-  if (h < 45)  return 'naranja';
-  if (h < 70)  return 'amarillo';
-  if (h < 165) return 'verde';
-  if (h < 195) return 'cian';
-  if (h < 255) return 'azul';
-  if (h < 300) return 'violeta';
+  if (h<15||h>=345) return 'rojo';
+  if (h<45) return 'naranja';
+  if (h<70) return 'amarillo';
+  if (h<165) return 'verde';
+  if (h<195) return 'cian';
+  if (h<255) return 'azul';
+  if (h<300) return 'violeta';
   return 'magenta';
 }
-
 function colorDistance(hexA, hexB) {
-  const A = hslOf(hexA), B = hslOf(hexB);
-  const na = isNeutral(hexA), nb = isNeutral(hexB);
-  if (na && nb) return Math.abs(A.l - B.l) * 1.6;
-  if (na !== nb) return 1.2;
-  let dh = Math.abs(A.h - B.h);
-  if (dh > 180) dh = 360 - dh;
-  const hs = (dh / 180) * 0.9;
-  const ss = Math.abs(A.s - B.s) * 0.6;
-  const ls = Math.abs(A.l - B.l) * 0.7;
-  return Math.sqrt(hs * hs + ss * ss + ls * ls);
+  const A=hslOf(hexA), B=hslOf(hexB); const na=isNeutral(hexA), nb=isNeutral(hexB);
+  if (na && nb) return Math.abs(A.l-B.l)*1.6;
+  if (na!==nb) return 1.2;
+  let dh=Math.abs(A.h-B.h); if (dh>180) dh=360-dh;
+  const hs=(dh/180)*0.9, ss=Math.abs(A.s-B.s)*0.6, ls=Math.abs(A.l-B.l)*0.7;
+  return Math.sqrt(hs*hs+ss*ss+ls*ls);
 }
-
 function fullPalette(c) { return [c.hex].concat(c.palette || []); }
 function isMulti(c) { return Array.isArray(c.palette) && c.palette.length >= 1; }
 function getFamily(c) { return isMulti(c) ? 'multicolor' : colorFamily(c.hex); }
-function multiLabel(n) {
-  if (n <= 1) return 'Sólido';
-  if (n === 2) return 'Bicolor';
-  if (n === 3) return 'Tricolor';
-  if (n === 4) return 'Cuatricolor';
-  return `Multicolor (${n})`;
-}
-
-function compareSpectrum(a, b) {
-  const ma = isMulti(a), mb = isMulti(b);
-  const na = isNeutral(a.hex), nb = isNeutral(b.hex);
-  const gA = ma ? 1 : (na ? 2 : 0);
-  const gB = mb ? 1 : (nb ? 2 : 0);
+function multiLabel(n) { if (n<=1) return 'Sólido'; if (n===2) return 'Bicolor'; if (n===3) return 'Tricolor'; if (n===4) return 'Cuatricolor'; return `Multicolor (${n})`; }
+function compareSpectrum(a,b) {
+  const ma=isMulti(a), mb=isMulti(b); const na=isNeutral(a.hex), nb=isNeutral(b.hex);
+  const gA=ma?1:(na?2:0), gB=mb?1:(nb?2:0);
   if (gA !== gB) return gA - gB;
-
-  const A = hslOf(a.hex), B = hslOf(b.hex);
-  if (ma && mb) {
-    if (Math.abs(A.h - B.h) > 0.5) return A.h - B.h;
-    return a.name.localeCompare(b.name, 'es');
-  }
-  if (na && nb) {
-    if (Math.abs(A.l - B.l) > 0.015) return B.l - A.l;
-    return A.s - B.s;
-  }
-  if (Math.abs(A.h - B.h) > 0.5) return A.h - B.h;
-  if (Math.abs(A.s - B.s) > 0.02) return B.s - A.s;
-  return B.l - A.l;
+  const A=hslOf(a.hex), B=hslOf(b.hex);
+  if (ma && mb) { if (Math.abs(A.h-B.h)>0.5) return A.h-B.h; return a.name.localeCompare(b.name,'es'); }
+  if (na && nb) { if (Math.abs(A.l-B.l)>0.015) return B.l-A.l; return A.s-B.s; }
+  if (Math.abs(A.h-B.h)>0.5) return A.h-B.h;
+  if (Math.abs(A.s-B.s)>0.02) return B.s-A.s;
+  return B.l-A.l;
 }
-
 function swatchCSS(pal) {
   if (!pal || pal.length === 0) return '#1a2230';
   if (pal.length === 1) return pal[0];
-  const n = pal.length;
-  const stops = [];
-  for (let i = 0; i < n; i++) {
-    const startDeg = (i / n) * 360;
-    const endDeg = ((i + 1) / n) * 360;
-    stops.push(`${pal[i]} ${startDeg}deg ${endDeg}deg`);
-  }
+  const n=pal.length, stops=[];
+  for (let i=0;i<n;i++) stops.push(`${pal[i]} ${(i/n)*360}deg ${((i+1)/n)*360}deg`);
   return `conic-gradient(${stops.join(', ')})`;
 }
 
-function familySearchTerms(hex) {
-  const fam = colorFamily(hex);
-  const map = {
-    'rojo': 'rojo roja rojos rojas carmesi carmin escarlata',
-    'naranja': 'naranja naranjas anaranjado anaranjada mandarina',
-    'amarillo': 'amarillo amarilla amarillos amarillas dorado dorada',
-    'verde': 'verde verdes esmeralda lima oliva',
-    'cian': 'cian cianes turquesa celeste aqua',
-    'azul': 'azul azules azulado azulada marino',
-    'violeta': 'violeta violetas purpura morado morada lila',
-    'magenta': 'magenta magentas fucsia rosa rosado rosada',
-    'neutro': 'neutro neutros blanco blanca blancos negros negra negro gris plateado plateada'
-  };
-  return map[fam] || fam;
-}
-
 /* =========================================================
-   Logo para PDF
+   Logo
    ========================================================= */
-const LOGO_URL = 'https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/120x120/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png';
-let logoDataUrl = null;
-let logoPromise = null;
+const DRIVE_LOGO_ID = '1obq1W51d5TIzXPkEPNR9i4o1h-AQsGca';
+const LOGO_CANDIDATES = [
+  `https://lh3.googleusercontent.com/d/${DRIVE_LOGO_ID}=w1024`,
+  `https://lh3.googleusercontent.com/d/${DRIVE_LOGO_ID}=w512`,
+  `https://lh3.googleusercontent.com/d/${DRIVE_LOGO_ID}=s1024`,
+  `https://drive.google.com/thumbnail?id=${DRIVE_LOGO_ID}&sz=w1024`,
+  `https://drive.google.com/thumbnail?id=${DRIVE_LOGO_ID}&sz=w512`,
+  `https://drive.google.com/uc?export=download&id=${DRIVE_LOGO_ID}`,
+  `https://drive.google.com/uc?export=view&id=${DRIVE_LOGO_ID}`,
+  `https://drive.usercontent.google.com/download?id=${DRIVE_LOGO_ID}&export=view`,
+  'https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/240x240/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png'
+];
+let quoteLogoDataUrl = null;
+let quoteLogoPromise = null;
 
-function loadLogoDataURL() {
-  if (logoPromise) return logoPromise;
-  logoPromise = (async () => {
-    try {
-      const resp = await fetch(LOGO_URL, { mode: 'cors', cache: 'force-cache' });
-      if (!resp.ok) throw new Error('HTTP ' + resp.status);
-      const blob = await resp.blob();
-      const url = URL.createObjectURL(blob);
-      const img = await new Promise((res, rej) => {
-        const im = new Image();
-        im.onload = () => res(im);
-        im.onerror = () => rej(new Error('No se pudo decodificar la imagen'));
-        im.src = url;
-      });
-      const size = 200;
-      const canvas = document.createElement('canvas');
-      canvas.width = size;
-      canvas.height = size;
-      canvas.getContext('2d').drawImage(img, 0, 0, size, size);
-      URL.revokeObjectURL(url);
-      logoDataUrl = canvas.toDataURL('image/png');
-      return logoDataUrl;
-    } catch (err) {
-      console.warn('Logo para PDF no disponible:', err);
-      return null;
+async function getQuoteLogo() {
+  if (quoteLogoDataUrl) return quoteLogoDataUrl;
+  if (quoteLogoPromise) return quoteLogoPromise;
+  quoteLogoPromise = (async () => {
+    for (const url of LOGO_CANDIDATES) {
+      try {
+        const resp = await fetch(url, { mode: 'cors', cache: 'force-cache' });
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        const blob = await resp.blob();
+        if (!blob.type.startsWith('image/')) throw new Error('No es imagen');
+        const dataUrl = await new Promise((res, rej) => {
+          const r = new FileReader();
+          r.onload = () => res(r.result);
+          r.onerror = () => rej(r.error);
+          r.readAsDataURL(blob);
+        });
+        quoteLogoDataUrl = dataUrl;
+        return dataUrl;
+      } catch (e) {
+        console.warn('Logo fallback:', url, e.message);
+      }
     }
+    return null;
   })();
-  return logoPromise;
+  return quoteLogoPromise;
 }
 
 /* =========================================================
-   Carretes (gráficos de tarjeta)
+   Compresión de imágenes
+   ========================================================= */
+async function compressImage(file, maxSize = 600, quality = 0.78) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > maxSize || height > maxSize) {
+          const ratio = Math.min(maxSize / width, maxSize / height);
+          width = Math.round(width * ratio);
+          height = Math.round(height * ratio);
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, width, height);
+        ctx.drawImage(img, 0, 0, width, height);
+        try {
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        } catch (err) { reject(err); }
+      };
+      img.onerror = () => reject(new Error('No se pudo cargar la imagen'));
+      img.src = e.target.result;
+    };
+    reader.onerror = () => reject(new Error('No se pudo leer el archivo'));
+    reader.readAsDataURL(file);
+  });
+}
+
+/* =========================================================
+   Carretes
    ========================================================= */
 function spoolGradient(pal) {
   if (pal.length === 1) return { fill: pal[0], defs: '' };
-  const gradId = 'sg-' + Math.random().toString(36).slice(2, 8);
-  const stops = pal.map((c, i) =>
-    `<stop offset="${(i / (pal.length - 1)) * 100}%" stop-color="${c}"/>`
-  ).join('');
-  const defs = `<defs><linearGradient id="${gradId}" x1="0%" y1="0%" x2="100%" y2="100%">${stops}</linearGradient></defs>`;
-  return { fill: `url(#${gradId})`, defs };
+  const gid = 'sg-' + Math.random().toString(36).slice(2, 8);
+  const stops = pal.map((c,i) => `<stop offset="${(i/(pal.length-1))*100}%" stop-color="${c}"/>`).join('');
+  return { fill: `url(#${gid})`, defs: `<defs><linearGradient id="${gid}" x1="0%" y1="0%" x2="100%" y2="100%">${stops}</linearGradient></defs>` };
 }
-
 function spoolSVG(pal, fill) {
-  const cx = 20, cy = 20;
-  const outerR = 17.5;
-  const holeR = 4.5;
-  const filamentMinR = holeR + 1.2;
-  const filamentMaxR = outerR - 2;
+  const outerR=17.5, holeR=4.5;
   const f = Math.max(0, Math.min(1, fill));
-  const filamentR = filamentMinR + (filamentMaxR - filamentMinR) * f;
+  const filR = (holeR+1.2) + ((outerR-2)-(holeR+1.2))*f;
   const { fill: fillColor, defs } = spoolGradient(pal);
-
-  return `<svg class="spool-svg" viewBox="0 0 40 40" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-    ${defs}
-    <circle cx="${cx}" cy="${cy}" r="${outerR}" fill="#1a2230" stroke="#3a4658" stroke-width="1.1"/>
-    <circle cx="${cx}" cy="${cy}" r="${filamentR}" fill="${fillColor}"/>
-    <circle cx="${cx}" cy="${cy}" r="${holeR}" fill="#0d1117" stroke="#3a4658" stroke-width="0.8"/>
-  </svg>`;
+  return `<svg class="spool-svg" viewBox="0 0 40 40" preserveAspectRatio="xMidYMid meet" aria-hidden="true">${defs}<circle cx="20" cy="20" r="${outerR}" fill="#1a2230" stroke="#3a4658" stroke-width="1.1"/><circle cx="20" cy="20" r="${filR}" fill="${fillColor}"/><circle cx="20" cy="20" r="${holeR}" fill="#0d1117" stroke="#3a4658" stroke-width="0.8"/></svg>`;
 }
-
-/* Carretes del estante: radio casi al máximo del viewBox para aprovechar el slot */
 function shelfSpoolSVG(pal, fill) {
-  const cx = 20, cy = 20;
-  const outerR = 19.2;
-  const holeR = 5;
-  const filamentMinR = holeR + 1.2;
-  const filamentMaxR = outerR - 1.6;
+  const outerR=19.2, holeR=5;
   const f = Math.max(0, Math.min(1, fill));
-  const filamentR = filamentMinR + (filamentMaxR - filamentMinR) * f;
+  const filR = (holeR+1.2) + ((outerR-1.6)-(holeR+1.2))*f;
   const { fill: fillColor, defs } = spoolGradient(pal);
-
-  return `<svg class="shelf-spool-svg" viewBox="0 0 40 40" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-    ${defs}
-    <circle cx="${cx}" cy="${cy}" r="${outerR}" fill="#1a2230" stroke="#2f3a4a" stroke-width="1.2"/>
-    <circle cx="${cx}" cy="${cy}" r="${filamentR}" fill="${fillColor}"/>
-    <circle cx="${cx}" cy="${cy}" r="${holeR}" fill="#0d1117" stroke="#2f3a4a" stroke-width="0.9"/>
-    <circle cx="${cx}" cy="${cy}" r="${filamentR}" fill="none" stroke="rgba(0,0,0,0.12)" stroke-width="0.4"/>
-  </svg>`;
+  return `<svg class="shelf-spool-svg" viewBox="0 0 40 40" preserveAspectRatio="xMidYMid meet" aria-hidden="true">${defs}<circle cx="20" cy="20" r="${outerR}" fill="#1a2230" stroke="#2f3a4a" stroke-width="1.2"/><circle cx="20" cy="20" r="${filR}" fill="${fillColor}"/><circle cx="20" cy="20" r="${holeR}" fill="#0d1117" stroke="#2f3a4a" stroke-width="0.9"/><circle cx="20" cy="20" r="${filR}" fill="none" stroke="rgba(0,0,0,0.12)" stroke-width="0.4"/></svg>`;
 }
-
-function emptySpoolSVG() {
-  return `<svg class="spool-svg" viewBox="0 0 40 40" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-    <circle cx="20" cy="20" r="17.5" fill="#0d1117" stroke="#2a3342" stroke-width="1.1" stroke-dasharray="2 2.5"/>
-    <circle cx="20" cy="20" r="4.5" fill="none" stroke="#2a3342" stroke-width="0.8" stroke-dasharray="1.5 2"/>
-  </svg>`;
-}
-
-/* SVG para slots vacíos del estante — círculo real, tamaño casi igual al ocupado */
-function slotEmptySVG() {
-  return `<svg viewBox="0 0 40 40" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-    <circle cx="20" cy="20" r="17.5" fill="rgba(71,85,105,0.05)" stroke="rgba(71,85,105,0.22)" stroke-width="1.6" stroke-dasharray="2.2 2"/>
-  </svg>`;
-}
-
+function emptySpoolSVG() { return `<svg class="spool-svg" viewBox="0 0 40 40" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><circle cx="20" cy="20" r="17.5" fill="#0d1117" stroke="#2a3342" stroke-width="1.1" stroke-dasharray="2 2.5"/><circle cx="20" cy="20" r="4.5" fill="none" stroke="#2a3342" stroke-width="0.8" stroke-dasharray="1.5 2"/></svg>`; }
+function slotEmptySVG() { return `<svg viewBox="0 0 40 40" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><circle cx="20" cy="20" r="17.5" fill="rgba(71,85,105,0.05)" stroke="rgba(71,85,105,0.22)" stroke-width="1.6" stroke-dasharray="2.2 2"/></svg>`; }
 function spoolsHTML(grams, pal) {
-  const fullSpools = Math.floor(grams / 1000);
-  const remainder = grams % 1000;
-  const hasPartial = remainder > 0;
-  const count = fullSpools + (hasPartial ? 1 : 0);
-
-  if (count === 0) {
-    return `<div class="spools-grid" data-layout="1">${emptySpoolSVG()}</div>`;
-  }
-
-  let layout, showSpools = [];
-  if (count === 1) {
-    layout = 1;
-    showSpools.push({ fill: hasPartial ? remainder / 1000 : 1 });
-  } else if (count === 2) {
-    layout = 2;
-    showSpools.push({ fill: 1 });
-    showSpools.push({ fill: hasPartial ? remainder / 1000 : 1 });
-  } else if (count === 3) {
-    layout = 3;
-    showSpools.push({ fill: 1 });
-    showSpools.push({ fill: 1 });
-    showSpools.push({ fill: hasPartial ? remainder / 1000 : 1 });
-  } else {
-    layout = 4;
-    const fullToShow = hasPartial ? 3 : 4;
-    for (let i = 0; i < fullToShow; i++) showSpools.push({ fill: 1 });
-    if (hasPartial) showSpools.push({ fill: remainder / 1000 });
-  }
-
+  const full = Math.floor(grams/1000), rem = grams%1000, hasP = rem > 0, count = full + (hasP?1:0);
+  if (count === 0) return `<div class="spools-grid" data-layout="1">${emptySpoolSVG()}</div>`;
+  let layout, arr = [];
+  if (count === 1) { layout=1; arr.push({ fill: hasP ? rem/1000 : 1 }); }
+  else if (count === 2) { layout=2; arr.push({fill:1},{fill: hasP?rem/1000:1}); }
+  else if (count === 3) { layout=3; arr.push({fill:1},{fill:1},{fill: hasP?rem/1000:1}); }
+  else { layout=4; const show = hasP?3:4; for(let i=0;i<show;i++) arr.push({fill:1}); if(hasP) arr.push({fill: rem/1000}); }
   const overflow = count > 4 ? count - 4 : 0;
-  const svgs = showSpools.map(s => spoolSVG(pal, s.fill)).join('');
-  const badge = overflow > 0 ? `<span class="spool-overflow" title="${overflow} carrete${overflow === 1 ? '' : 's'} más">+${overflow}</span>` : '';
-
+  const svgs = arr.map(s => spoolSVG(pal, s.fill)).join('');
+  const badge = overflow > 0 ? `<span class="spool-overflow">+${overflow}</span>` : '';
   return `<div class="spools-grid" data-layout="${layout}">${svgs}</div>${badge}`;
 }
 
 /* =========================================================
-   Estanterías 2.5D (5 x 20 = 100 carretes de capacidad)
+   Estanterías 2.5D
    ========================================================= */
-const SHELVES_COUNT        = 5;
-const PER_SHELF            = 20;
-const SHELF_CAPACITY_TOTAL = SHELVES_COUNT * PER_SHELF; // 100
+const SHELVES_COUNT = 5, PER_SHELF = 20, SHELF_CAPACITY_TOTAL = SHELVES_COUNT * PER_SHELF;
 
 function collectSpoolsSorted() {
   const sorted = colors.slice().sort(compareSpectrum);
   const spools = [];
   sorted.forEach(c => {
     const pal = fullPalette(c);
-    if (c.grams <= 0) {
-      spools.push({ color: c, pal, fill: 0 });
-      return;
-    }
-    const full = Math.floor(c.grams / 1000);
-    const rem  = c.grams % 1000;
-    for (let k = 0; k < full; k++) spools.push({ color: c, pal, fill: 1 });
-    if (rem > 0) spools.push({ color: c, pal, fill: rem / 1000 });
+    if (c.grams <= 0) { spools.push({ color: c, pal, fill: 0 }); return; }
+    const full = Math.floor(c.grams/1000), rem = c.grams%1000;
+    for (let k=0;k<full;k++) spools.push({ color: c, pal, fill: 1 });
+    if (rem > 0) spools.push({ color: c, pal, fill: rem/1000 });
   });
   return spools;
 }
@@ -1070,32 +1028,20 @@ function collectSpoolsSorted() {
 function renderShelfView() {
   const box = $('#shelf-box');
   if (!box) return;
-
-  if (filter.filamentId && !colors.find(c => c.id === filter.filamentId)) {
-    filter.filamentId = null;
-  }
-
+  if (filter.filamentId && !colors.find(c => c.id === filter.filamentId)) filter.filamentId = null;
   const allSpools = collectSpoolsSorted();
-  const visible   = allSpools.slice(0, SHELF_CAPACITY_TOTAL);
-  const overflow  = Math.max(0, allSpools.length - SHELF_CAPACITY_TOTAL);
+  const visible = allSpools.slice(0, SHELF_CAPACITY_TOTAL);
+  const overflow = Math.max(0, allSpools.length - SHELF_CAPACITY_TOTAL);
 
   let infoHTML = '';
   if (filter.filamentId) {
     const sel = colors.find(c => c.id === filter.filamentId);
     if (sel) {
-      const pal   = fullPalette(sel);
+      const pal = fullPalette(sel);
       const parts = [sel.brand || 'Sin marca'];
       if (sel.material) parts.push(sel.material);
       parts.push(`${fmtKg(sel.grams)} kg restantes`);
-      infoHTML = `
-        <div class="shelf-info">
-          <span class="info-swatch" style="background:${swatchCSS(pal)}"></span>
-          <div class="info-text">
-            <strong>${esc(sel.name)}</strong>
-            <span>${esc(parts.join(' · '))}</span>
-          </div>
-          <button type="button" class="info-clear" title="Quitar filtro" aria-label="Quitar filtro">✕</button>
-        </div>`;
+      infoHTML = `<div class="shelf-info"><span class="info-swatch" style="background:${swatchCSS(pal)}"></span><div class="info-text"><strong>${esc(sel.name)}</strong><span>${esc(parts.join(' · '))}</span></div><button type="button" class="info-clear" title="Quitar filtro">✕</button></div>`;
     }
   }
 
@@ -1105,7 +1051,6 @@ function renderShelfView() {
     for (let i = 0; i < PER_SHELF; i++) {
       const idx = s * PER_SHELF + i;
       const spool = visible[idx];
-
       if (spool) {
         const c = spool.color;
         const isActive = filter.filamentId === c.id ? ' active' : '';
@@ -1114,32 +1059,15 @@ function renderShelfView() {
         if (c.material) titleParts.push(c.material);
         titleParts.push(`${fmtKg(c.grams)} kg`);
         const title = titleParts.join(' · ');
-
-        shelvesHTML += `
-          <button type="button"
-                  class="slot occupied${isActive}"
-                  data-id="${esc(c.id)}"
-                  title="${esc(title)}"
-                  aria-label="${esc(title)}">
-            ${shelfSpoolSVG(spool.pal, spool.fill)}
-          </button>`;
+        shelvesHTML += `<button type="button" class="slot occupied${isActive}" data-id="${esc(c.id)}" title="${esc(title)}" aria-label="${esc(title)}">${shelfSpoolSVG(spool.pal, spool.fill)}</button>`;
       } else {
         shelvesHTML += `<div class="slot empty" aria-hidden="true">${slotEmptySVG()}</div>`;
       }
     }
     shelvesHTML += `</div></div>`;
   }
-
-  const overflowHTML = overflow > 0
-    ? `<div class="shelf-overflow">+${overflow} carrete${overflow === 1 ? '' : 's'} fuera de vista</div>`
-    : '';
-
-  box.innerHTML = `
-    <div class="shelf-view-wrap">
-      ${infoHTML}
-      <div class="shelf-view" id="shelf-view">${shelvesHTML}</div>
-      ${overflowHTML}
-    </div>`;
+  const overflowHTML = overflow > 0 ? `<div class="shelf-overflow">+${overflow} carrete${overflow === 1 ? '' : 's'} fuera de vista</div>` : '';
+  box.innerHTML = `<div class="shelf-view-wrap">${infoHTML}<div class="shelf-view">${shelvesHTML}</div>${overflowHTML}</div>`;
 }
 
 /* =========================================================
@@ -1160,14 +1088,7 @@ const FAMILIES = [
 ];
 
 let colors = [];
-let filter = {
-  text: '',
-  brand: 'all',
-  sort: 'spectrum',
-  family: 'all',
-  similar: null,
-  filamentId: null
-};
+let filter = { text:'', brand:'all', sort:'spectrum', family:'all', similar:null, filamentId:null };
 let editingId = null;
 let draftPalette = ['#4f9cf9'];
 let lastStatusState = '';
@@ -1175,9 +1096,7 @@ let printLines = [];
 let openPrintMenuIdx = null;
 
 function fixColor(c) {
-  const palette = Array.isArray(c.palette)
-    ? c.palette.map(h => normalizeHex(h)).filter(Boolean)
-    : [];
+  const palette = Array.isArray(c.palette) ? c.palette.map(h => normalizeHex(h)).filter(Boolean) : [];
   return {
     id: c.id || uid(),
     name: c.name || 'Sin nombre',
@@ -1195,29 +1114,18 @@ function fixColor(c) {
    Supabase
    ========================================================= */
 async function fetchColors() {
-  const { data, error } = await sb
-    .from('filamentos')
-    .select('*')
-    .order('created', { ascending: false });
+  const { data, error } = await sb.from('filamentos').select('*').order('created', { ascending: false });
   if (error) throw error;
   return (data || []).map(fixColor);
 }
-
 async function upsertColor(data) {
-  const { error } = await sb
-    .from('filamentos')
-    .upsert(data, { onConflict: 'id' });
+  const { error } = await sb.from('filamentos').upsert(data, { onConflict: 'id' });
   if (error) throw error;
 }
-
 async function deleteColor(id) {
-  const { error } = await sb
-    .from('filamentos')
-    .delete()
-    .eq('id', id);
+  const { error } = await sb.from('filamentos').delete().eq('id', id);
   if (error) throw error;
 }
-
 async function migrateFromLocalStorage() {
   try {
     const raw = localStorage.getItem(KEY);
@@ -1227,17 +1135,10 @@ async function migrateFromLocalStorage() {
     const { data: existing, error } = await sb.from('filamentos').select('id').limit(1);
     if (error) throw error;
     if (existing && existing.length > 0) return;
-    const rows = local.map(fixColor).map(c => ({
-      id: c.id, name: c.name, brand: c.brand, material: c.material,
-      hex: c.hex, palette: c.palette || [], grams: c.grams,
-      notes: c.notes || '', created: c.created
-    }));
+    const rows = local.map(fixColor);
     const { error: insErr } = await sb.from('filamentos').upsert(rows, { onConflict: 'id' });
     if (insErr) throw insErr;
-    console.log(`✅ Migrados ${rows.length} colores.`);
-  } catch (e) {
-    console.warn('Migración omitida:', e);
-  }
+  } catch (e) { console.warn('Migración omitida:', e); }
 }
 
 /* =========================================================
@@ -1245,7 +1146,6 @@ async function migrateFromLocalStorage() {
    ========================================================= */
 const cloudStatus = $('#cloud-status');
 const cloudStatusText = $('#cloud-status-text');
-
 function setCloudState(state, text) {
   if (state === lastStatusState && text === cloudStatusText.textContent) return;
   lastStatusState = state;
@@ -1262,32 +1162,19 @@ const emptyEl = $('#empty');
 
 function gradientCSS(pal, angle = 135) {
   if (pal.length === 1) return pal[0];
-  return `linear-gradient(${angle}deg, ${pal.map((h, i) =>
-    `${h} ${((i / (pal.length - 1)) * 100).toFixed(1)}%`).join(', ')})`;
+  return `linear-gradient(${angle}deg, ${pal.map((h,i) => `${h} ${((i/(pal.length-1))*100).toFixed(1)}%`).join(', ')})`;
 }
 
 function cardHTML(c) {
   const pal = fullPalette(c);
   const multi = pal.length >= 2;
-
-  const materialTag = c.material
-    ? `<span class="material-tag" title="Material: ${esc(c.material)}">${esc(c.material)}</span>`
-    : '';
-  const multiTag = multi
-    ? `<span class="multi-tag" title="${multiLabel(pal.length)}">${multiLabel(pal.length)}</span>`
-    : '';
-
-  return `
-  <article class="card" data-id="${c.id}" tabindex="0" role="button" aria-label="Editar ${esc(c.name)}">
+  const materialTag = c.material ? `<span class="material-tag" title="Material: ${esc(c.material)}">${esc(c.material)}</span>` : '';
+  const multiTag = multi ? `<span class="multi-tag" title="${multiLabel(pal.length)}">${multiLabel(pal.length)}</span>` : '';
+  return `<article class="card" data-id="${c.id}" tabindex="0" role="button" aria-label="Editar ${esc(c.name)}">
     <div class="card-band" style="background:${gradientCSS(pal)}"></div>
     <div class="card-body">
-      <div class="card-text">
-        <h3 class="card-name" title="${esc(c.name)}">${esc(c.name)}</h3>
-        <span class="card-brand">
-          <span class="brand-name" title="${esc(c.brand || 'Sin marca')}">${esc(c.brand || 'Sin marca')}</span>
-          ${materialTag}
-          ${multiTag}
-        </span>
+      <div class="card-text"><h3 class="card-name" title="${esc(c.name)}">${esc(c.name)}</h3>
+        <span class="card-brand"><span class="brand-name" title="${esc(c.brand || 'Sin marca')}">${esc(c.brand || 'Sin marca')}</span>${materialTag}${multiTag}</span>
       </div>
       <div class="spools-wrap">${spoolsHTML(c.grams, pal)}</div>
       <div class="card-weight">${fmtKg(c.grams)}<span>kg</span></div>
@@ -1296,94 +1183,62 @@ function cardHTML(c) {
 }
 
 function renderChips() {
-  const counts = {};
-  FAMILIES.forEach(f => counts[f.id] = 0);
+  const counts = {}; FAMILIES.forEach(f => counts[f.id] = 0);
   counts.all = colors.length;
-  colors.forEach(c => {
-    const fam = getFamily(c);
-    if (counts[fam] !== undefined) counts[fam]++;
-  });
-
+  colors.forEach(c => { const fam = getFamily(c); if (counts[fam] !== undefined) counts[fam]++; });
   $('#chips').innerHTML = FAMILIES.map(f => {
-    const n = counts[f.id] || 0;
-    const active = filter.family === f.id;
+    const n = counts[f.id] || 0, active = filter.family === f.id;
     const isEmpty = n === 0 && f.id !== 'all' ? ' empty' : '';
     const multiCls = f.multi ? ' multi-chip' : '';
     const title = `${f.label} (${n})`;
-    return `<button type="button"
-              class="chip${active ? ' active' : ''}${isEmpty}${multiCls}"
-              data-fam="${f.id}" title="${title}" aria-label="${title}"
-              aria-pressed="${active}"
-              style="${f.multi ? '' : `background:${f.dot}`}"></button>`;
+    return `<button type="button" class="chip${active ? ' active' : ''}${isEmpty}${multiCls}" data-fam="${f.id}" title="${title}" aria-label="${title}" aria-pressed="${active}" style="${f.multi ? '' : `background:${f.dot}`}"></button>`;
   }).join('');
 }
 
 function getList() {
   let list = colors.slice();
   const q = filter.text.trim().toLowerCase();
-  if (q) {
-    list = list.filter(c =>
-      (c.name + ' ' + c.brand + ' ' + c.material + ' ' + c.notes).toLowerCase().includes(q)
-    );
-  }
+  if (q) list = list.filter(c => (c.name + ' ' + c.brand + ' ' + c.material + ' ' + c.notes).toLowerCase().includes(q));
   if (filter.brand !== 'all') list = list.filter(c => c.brand === filter.brand);
   if (filter.family !== 'all') list = list.filter(c => getFamily(c) === filter.family);
   if (filter.similar) list = list.filter(c => colorDistance(c.hex, filter.similar) <= 0.5);
   if (filter.filamentId) list = list.filter(c => c.id === filter.filamentId);
-
   switch (filter.sort) {
-    case 'name':   list.sort((a, b) => a.name.localeCompare(b.name, 'es')); break;
-    case 'brand':  list.sort((a, b) => (a.brand || '').localeCompare(b.brand || '', 'es')); break;
-    case 'weight': list.sort((a, b) => b.grams - a.grams); break;
-    case 'recent': list.sort((a, b) => b.created - a.created); break;
-    case 'spectrum':
-    default:       list.sort(compareSpectrum); break;
+    case 'name': list.sort((a,b) => a.name.localeCompare(b.name, 'es')); break;
+    case 'brand': list.sort((a,b) => (a.brand || '').localeCompare(b.brand || '', 'es')); break;
+    case 'weight': list.sort((a,b) => b.grams - a.grams); break;
+    case 'recent': list.sort((a,b) => b.created - a.created); break;
+    default: list.sort(compareSpectrum); break;
   }
   return list;
 }
 
 function render() {
-  const brands = [...new Set(colors.map(c => c.brand).filter(Boolean))]
-    .sort((a, b) => a.localeCompare(b, 'es'));
+  const brands = [...new Set(colors.map(c => c.brand).filter(Boolean))].sort((a,b) => a.localeCompare(b, 'es'));
   if (filter.brand !== 'all' && !brands.includes(filter.brand)) filter.brand = 'all';
-
   const bf = $('#brand-filter');
-  bf.innerHTML =
-    `<option value="all">Todas las marcas (${colors.length})</option>` +
-    brands.map(b => `<option value="${esc(b)}">${esc(b)}</option>`).join('');
+  bf.innerHTML = `<option value="all">Todas las marcas (${colors.length})</option>` + brands.map(b => `<option value="${esc(b)}">${esc(b)}</option>`).join('');
   bf.value = filter.brand;
-
   $('#brand-list').innerHTML = brands.map(b => `<option value="${esc(b)}">`).join('');
-
-  const materials = [...new Set(colors.map(c => c.material).filter(Boolean))]
-    .sort((a, b) => a.localeCompare(b, 'es'));
+  const materials = [...new Set(colors.map(c => c.material).filter(Boolean))].sort((a,b) => a.localeCompare(b, 'es'));
   $('#material-list').innerHTML = materials.map(m => `<option value="${esc(m)}">`).join('');
-
-  const totalG = colors.reduce((s, c) => s + c.grams, 0);
+  const totalG = colors.reduce((s,c) => s + c.grams, 0);
   $('#st-colors').textContent = colors.length;
-  $('#st-total').textContent  = fmtKg(totalG) + ' kg';
+  $('#st-total').textContent = fmtKg(totalG) + ' kg';
   $('#st-brands').textContent = brands.length;
-
   renderChips();
   renderShelfView();
-
   $('#similar-box').classList.toggle('active', !!filter.similar);
   $('#btn-similar-clear').hidden = !filter.similar;
-
   const list = getList();
-
   if (colors.length === 0) {
     grid.innerHTML = '';
     emptyEl.hidden = false;
-    emptyEl.innerHTML = `<div class="empty-icon">🎨</div>
-      <h3>Aún no tienes colores</h3>
-      <p>Pulsa «Nuevo color» para registrar tu primer filamento.</p>`;
+    emptyEl.innerHTML = `<div class="empty-icon">🎨</div><h3>Aún no tienes colores</h3><p>Pulsa «Nuevo color» para registrar tu primer filamento.</p>`;
   } else if (list.length === 0) {
     grid.innerHTML = '';
     emptyEl.hidden = false;
-    emptyEl.innerHTML = `<div class="empty-icon">🔍</div>
-      <h3>Sin resultados</h3>
-      <p>Prueba con otra familia de color, otra marca o quita el filtro de color similar.</p>`;
+    emptyEl.innerHTML = `<div class="empty-icon">🔍</div><h3>Sin resultados</h3><p>Prueba con otra familia, marca o quita el filtro.</p>`;
   } else {
     emptyEl.hidden = true;
     grid.innerHTML = list.map(cardHTML).join('');
@@ -1393,18 +1248,12 @@ function render() {
 function showLoading() {
   grid.innerHTML = '';
   emptyEl.hidden = false;
-  emptyEl.innerHTML = `<div class="empty-icon">⏳</div>
-    <h3>Conectando…</h3>
-    <p>Cargando tu inventario desde la nube.</p>`;
+  emptyEl.innerHTML = `<div class="empty-icon">⏳</div><h3>Conectando…</h3><p>Cargando tu inventario desde la nube.</p>`;
 }
-
 function showError(msg) {
   grid.innerHTML = '';
   emptyEl.hidden = false;
-  emptyEl.innerHTML = `<div class="empty-icon">⚠️</div>
-    <h3>Error de conexión</h3>
-    <p>${esc(msg)}</p>
-    <button class="btn primary" onclick="location.reload()" style="margin-top:14px">Reintentar</button>`;
+  emptyEl.innerHTML = `<div class="empty-icon">⚠️</div><h3>Error de conexión</h3><p>${esc(msg)}</p><button class="btn primary" onclick="location.reload()" style="margin-top:14px">Reintentar</button>`;
   setCloudState('error', 'Sin conexión');
 }
 
@@ -1412,23 +1261,18 @@ function showError(msg) {
    Drawer edición
    ========================================================= */
 const overlay = $('#overlay');
-const drawer  = $('#drawer');
-const form    = $('#form');
+const drawer = $('#drawer');
+const form = $('#form');
 
 function readQty() {
   const kg = clamp(parseFloat($('#f-kg').value) || 0, 0, 999);
-  const grams = Math.round(kg * 1000);
-  return { kg, grams };
+  return { kg, grams: Math.round(kg * 1000) };
 }
-
 function pickNextColor(existing) {
-  const defaults = ['#e63946','#f5b301','#84cc16','#06b6d4','#2563eb','#8b5cf6','#d946ef','#f97316','#14b8a6','#ef4444'];
-  for (const d of defaults) {
-    if (!existing.some(h => h.toLowerCase() === d)) return d;
-  }
+  const defs = ['#e63946','#f5b301','#84cc16','#06b6d4','#2563eb','#8b5cf6','#d946ef','#f97316','#14b8a6','#ef4444'];
+  for (const d of defs) if (!existing.some(h => h.toLowerCase() === d)) return d;
   return '#888888';
 }
-
 function renderPaletteEditor() {
   const ed = $('#palette-editor');
   const n = draftPalette.length;
@@ -1436,59 +1280,36 @@ function renderPaletteEditor() {
     <div class="palette-row" data-idx="${i}">
       <input type="color" class="pal-color" value="${hex}">
       <input type="text" class="pal-hex" value="${hex}" maxlength="7" spellcheck="false">
-      ${n > 1
-        ? `<button type="button" class="pal-remove" title="Quitar este color">✕</button>`
-        : `<span class="pal-tag">Base</span>`}
-    </div>
-  `).join('');
-
+      ${n > 1 ? `<button type="button" class="pal-remove" title="Quitar">✕</button>` : `<span class="pal-tag">Base</span>`}
+    </div>`).join('');
   const hint = $('#palette-hint');
-  if (n === 1) {
-    hint.innerHTML = 'Filamento sólido · 1 color';
-    hint.classList.remove('multi');
-  } else {
-    hint.innerHTML = `<span class="badge">${multiLabel(n)}</span> ${n} colores en el degradado`;
-    hint.classList.add('multi');
-  }
+  if (n === 1) { hint.innerHTML = 'Filamento sólido · 1 color'; hint.classList.remove('multi'); }
+  else { hint.innerHTML = `<span class="badge">${multiLabel(n)}</span> ${n} colores en el degradado`; hint.classList.add('multi'); }
 }
-
 function updatePreview() {
   const { grams } = readQty();
   const pal = draftPalette.length ? draftPalette.slice() : ['#888888'];
-  const totalPct = Math.round(grams / 10);
-  const multi = pal.length >= 2;
-
+  const pct = Math.round(grams/10), multi = pal.length >= 2;
   $('#pv-swatch').style.background = gradientCSS(pal);
-
-  let text;
-  if (grams === 0)         text = 'Sin stock';
-  else                     text = `${totalPct}% · ${fmtKg(grams)} kg`;
+  let text = grams === 0 ? 'Sin stock' : `${pct}% · ${fmtKg(grams)} kg`;
   if (multi) text += ` · ${multiLabel(pal.length)}`;
-
   $('#pv-total').innerHTML = `${fmtKg(grams)}<span>kg</span>`;
   $('#pv-sub').textContent = text;
   $('#pv-spools').innerHTML = spoolsHTML(grams, pal);
 }
-
 function openDrawer(id = null) {
   editingId = id;
   const c = id ? colors.find(x => x.id === id) : null;
-
   $('#drawer-title').textContent = c ? 'Editar color' : 'Nuevo color';
-  $('#f-name').value     = c ? c.name     : '';
-  $('#f-brand').value    = c ? c.brand    : '';
+  $('#f-name').value = c ? c.name : '';
+  $('#f-brand').value = c ? c.brand : '';
   $('#f-material').value = c ? c.material : '';
-  $('#f-notes').value    = c ? c.notes    : '';
-
+  $('#f-notes').value = c ? c.notes : '';
   draftPalette = c ? fullPalette(c) : ['#4f9cf9'];
   renderPaletteEditor();
-
   const grams = c ? c.grams : 1000;
-  const kgVal = parseFloat((grams / 1000).toFixed(2));
-  $('#f-kg').value = kgVal;
-
+  $('#f-kg').value = parseFloat((grams/1000).toFixed(2));
   $('#btn-delete').style.display = c ? '' : 'none';
-
   updatePreview();
   overlay.classList.add('open');
   drawer.classList.add('open');
@@ -1496,7 +1317,6 @@ function openDrawer(id = null) {
   document.body.style.overflow = 'hidden';
   setTimeout(() => $('#f-name').focus(), 260);
 }
-
 function closeDrawer() {
   overlay.classList.remove('open');
   drawer.classList.remove('open');
@@ -1517,7 +1337,6 @@ function openPrintModal() {
   $('#print-modal').setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
 }
-
 function closePrintModal() {
   closeAllPrintMenus();
   $('#print-overlay').classList.remove('open');
@@ -1525,227 +1344,597 @@ function closePrintModal() {
   $('#print-modal').setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
 }
-
 function renderPrintLines() {
   closeAllPrintMenus();
   const container = $('#print-lines');
   const available = colors.filter(c => c.grams > 0);
-
   if (available.length === 0) {
-    container.innerHTML = `<div class="print-empty">No hay filamentos con stock disponible.<br>Añade stock desde «+ Nuevo color» antes de registrar una impresión.</div>`;
+    container.innerHTML = `<div class="print-empty">No hay filamentos con stock disponible.</div>`;
     $('#btn-print-add').disabled = true;
     $('#btn-print-submit').disabled = true;
     return;
   }
-
   $('#btn-print-add').disabled = false;
   $('#btn-print-submit').disabled = false;
-
   container.innerHTML = printLines.map((line, idx) => {
-    const selected = line.filamentId
-      ? available.find(c => c.id === line.filamentId)
-      : null;
-    const selPal = selected ? fullPalette(selected) : null;
-    const selSwatch = selected ? swatchCSS(selPal) : '#1a2230';
-    const selLabel = selected
-      ? `${selected.name} — ${selected.brand || 'Sin marca'} (${fmtKg(selected.grams)} kg)`
-      : '— Seleccionar filamento —';
-
-    return `
-      <div class="print-line" data-idx="${idx}">
-        <div class="print-select-wrap">
-          <button type="button" class="print-select-btn" aria-haspopup="listbox" aria-expanded="false">
-            <span class="sel-swatch" style="background:${selSwatch}"></span>
-            <span class="sel-label${selected ? '' : ' placeholder'}">${esc(selLabel)}</span>
-            <span class="sel-arrow">▾</span>
-          </button>
-        </div>
-        <div class="print-qty">
-          <input type="number" class="print-grams" min="0.1" step="0.1" value="${line.grams || ''}" placeholder="g" inputmode="decimal">
-          <span>g</span>
-        </div>
-        <button type="button" class="print-remove" title="Quitar línea">✕</button>
-      </div>
-    `;
+    const selected = line.filamentId ? available.find(c => c.id === line.filamentId) : null;
+    const selSwatch = selected ? swatchCSS(fullPalette(selected)) : '#1a2230';
+    const selLabel = selected ? `${selected.name} — ${selected.brand || 'Sin marca'} (${fmtKg(selected.grams)} kg)` : '— Seleccionar filamento —';
+    return `<div class="print-line" data-idx="${idx}">
+      <div class="print-select-wrap"><button type="button" class="print-select-btn" aria-haspopup="listbox" aria-expanded="false">
+        <span class="sel-swatch" style="background:${selSwatch}"></span>
+        <span class="sel-label${selected ? '' : ' placeholder'}">${esc(selLabel)}</span>
+        <span class="sel-arrow">▾</span></button></div>
+      <div class="print-qty"><input type="number" class="print-grams" min="0.1" step="0.1" value="${line.grams || ''}" placeholder="g" inputmode="decimal"><span>g</span></div>
+      <button type="button" class="print-remove" title="Quitar">✕</button>
+    </div>`;
   }).join('');
 }
-
 function openPrintMenu(idx) {
   closeAllPrintMenus();
   const line = document.querySelector(`.print-line[data-idx="${idx}"]`);
   if (!line) return;
   const btn = line.querySelector('.print-select-btn');
-  if (!btn) return;
-
   const menu = $('#print-menu-shared');
   const available = colors.filter(c => c.grams > 0);
-  if (available.length === 0) return;
-
+  if (!available.length) return;
   const currentId = printLines[idx].filamentId || '';
-
   const optionsHTML = available.map(c => {
     const pal = fullPalette(c);
     const isSel = c.id === currentId ? ' selected' : '';
-    const searchText = normalizeText([
-      c.name,
-      c.brand,
-      c.material,
-      familySearchTerms(c.hex),
-      isMulti(c) ? ('multicolor ' + multiLabel(pal.length)) : ''
-    ].filter(Boolean).join(' '));
-    return `
-      <button type="button"
-              class="print-select-option${isSel}"
-              data-id="${c.id}"
-              data-search="${esc(searchText)}"
-              role="option"
-              aria-selected="${!!isSel}">
-        <span class="opt-swatch" style="background:${swatchCSS(pal)}"></span>
-        <span class="opt-text">
-          <span class="opt-name">${esc(c.name)}</span>
-          <span class="opt-meta">${esc(c.brand || 'Sin marca')} · ${fmtKg(c.grams)} kg</span>
-        </span>
-      </button>
-    `;
+    const searchText = normalizeText([c.name, c.brand, c.material].filter(Boolean).join(' '));
+    return `<button type="button" class="print-select-option${isSel}" data-id="${c.id}" data-search="${esc(searchText)}" role="option" aria-selected="${!!isSel}">
+      <span class="opt-swatch" style="background:${swatchCSS(pal)}"></span>
+      <span class="opt-text"><span class="opt-name">${esc(c.name)}</span><span class="opt-meta">${esc(c.brand || 'Sin marca')} · ${fmtKg(c.grams)} kg</span></span>
+    </button>`;
   }).join('');
-
-  menu.innerHTML = `
-    <div class="print-select-search-wrap">
-      <input type="text"
-             class="print-select-search"
-             placeholder="🔎 Buscar por nombre, marca, color o material…"
-             autocomplete="off"
-             spellcheck="false">
-    </div>
-    <div class="print-select-options" id="print-menu-options">
-      ${optionsHTML}
-      <div class="print-select-empty" id="print-menu-empty" hidden>Sin coincidencias</div>
-    </div>
-  `;
-
+  menu.innerHTML = `<div class="print-select-search-wrap"><input type="text" class="print-select-search" placeholder="🔎 Buscar…" autocomplete="off"></div>
+    <div class="print-select-options" id="print-menu-options">${optionsHTML}<div class="print-select-empty" id="print-menu-empty" hidden>Sin coincidencias</div></div>`;
   const rect = btn.getBoundingClientRect();
-  const estimatedH = 360;
   const spaceBelow = window.innerHeight - rect.bottom - 8;
-  const openAbove = spaceBelow < estimatedH && rect.top > estimatedH;
-
+  const openAbove = spaceBelow < 360 && rect.top > 360;
   menu.style.position = 'fixed';
   menu.style.left = rect.left + 'px';
   menu.style.width = rect.width + 'px';
   menu.style.zIndex = '200';
-  if (openAbove) {
-    menu.style.bottom = (window.innerHeight - rect.top + 4) + 'px';
-    menu.style.top = 'auto';
-  } else {
-    menu.style.top = (rect.bottom + 4) + 'px';
-    menu.style.bottom = 'auto';
-  }
+  if (openAbove) { menu.style.bottom = (window.innerHeight - rect.top + 4) + 'px'; menu.style.top = 'auto'; }
+  else { menu.style.top = (rect.bottom + 4) + 'px'; menu.style.bottom = 'auto'; }
   menu.hidden = false;
   btn.setAttribute('aria-expanded', 'true');
   openPrintMenuIdx = idx;
-
-  const searchInput = menu.querySelector('.print-select-search');
-  if (searchInput) {
-    setTimeout(() => searchInput.focus(), 0);
-    searchInput.addEventListener('input', () => filterPrintOptions(searchInput.value));
-    searchInput.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        e.stopPropagation();
-        if (searchInput.value) {
-          searchInput.value = '';
-          filterPrintOptions('');
-        } else {
-          closeAllPrintMenus();
-        }
-      }
-    });
+  const search = menu.querySelector('.print-select-search');
+  if (search) {
+    setTimeout(() => search.focus(), 0);
+    search.addEventListener('input', () => filterPrintOptions(search.value));
   }
 }
-
 function filterPrintOptions(query) {
   const container = $('#print-menu-options');
   if (!container) return;
-  const options = container.querySelectorAll('.print-select-option');
-  const emptyEl = container.querySelector('#print-menu-empty');
+  const opts = container.querySelectorAll('.print-select-option');
+  const empty = container.querySelector('#print-menu-empty');
   const q = normalizeText(query).trim();
   let visible = 0;
-
-  options.forEach(opt => {
-    const text = opt.dataset.search || '';
-    const match = !q || text.includes(q);
-    opt.style.display = match ? '' : 'none';
-    if (match) visible++;
-  });
-
-  if (emptyEl) emptyEl.hidden = visible > 0;
+  opts.forEach(o => { const match = !q || o.dataset.search.includes(q); o.style.display = match ? '' : 'none'; if (match) visible++; });
+  if (empty) empty.hidden = visible > 0;
 }
-
 function closeAllPrintMenus() {
   const menu = $('#print-menu-shared');
-  if (menu && !menu.hidden) {
-    menu.hidden = true;
-    menu.removeAttribute('style');
-    menu.innerHTML = '';
-  }
+  if (menu && !menu.hidden) { menu.hidden = true; menu.removeAttribute('style'); menu.innerHTML = ''; }
   document.querySelectorAll('.print-select-btn').forEach(b => b.setAttribute('aria-expanded', 'false'));
   openPrintMenuIdx = null;
 }
-
 async function applyPrint() {
-  if (printLines.length === 0) return;
-
+  if (!printLines.length) return;
   const totals = {};
   for (const line of printLines) {
-    if (!line.filamentId) {
-      alert('Selecciona un filamento en todas las líneas.');
-      return;
-    }
-    if (!line.grams || line.grams <= 0) {
-      alert('Ingresa una cantidad de gramos mayor que 0 en todas las líneas.');
-      return;
-    }
+    if (!line.filamentId) { alert('Selecciona un filamento en todas las líneas.'); return; }
+    if (!line.grams || line.grams <= 0) { alert('Ingresa gramos mayores que 0.'); return; }
     totals[line.filamentId] = (totals[line.filamentId] || 0) + line.grams;
   }
-
   for (const id in totals) {
     const c = colors.find(x => x.id === id);
-    if (!c) {
-      alert('Uno de los filamentos ya no existe.');
-      return;
-    }
-    if (totals[id] > c.grams) {
-      alert(`No hay suficiente "${c.name}".\nDisponible: ${fmtKg(c.grams)} kg — Solicitado: ${fmtKg(totals[id])} kg`);
-      return;
-    }
+    if (!c) { alert('Un filamento ya no existe.'); return; }
+    if (totals[id] > c.grams) { alert(`No hay suficiente "${c.name}".`); return; }
   }
-
   const updates = [];
   for (const id in totals) {
     const c = colors.find(x => x.id === id);
     c.grams = Math.max(0, c.grams - totals[id]);
     updates.push(c);
   }
-
   closePrintModal();
   render();
   setCloudState('syncing', 'Guardando…');
-
   try {
     for (const c of updates) {
-      await upsertColor({
-        id: c.id, name: c.name, brand: c.brand, material: c.material,
-        hex: c.hex, palette: c.palette || [], grams: c.grams,
-        notes: c.notes || '', created: c.created
-      });
+      await upsertColor({ id:c.id, name:c.name, brand:c.brand, material:c.material, hex:c.hex, palette:c.palette||[], grams:c.grams, notes:c.notes||'', created:c.created });
     }
     setCloudState('ok', 'Stock actualizado');
   } catch (err) {
-    console.error('Error al actualizar impresión:', err);
+    console.error(err);
     setCloudState('error', 'Error al guardar');
-    alert('No se pudo sincronizar con la nube.\n' + (err.message || ''));
-    try {
-      colors = await fetchColors();
-      render();
-    } catch (_) {}
+    alert('No se pudo sincronizar.\n' + (err.message || ''));
+  }
+}
+
+/* =========================================================
+   Cotizador
+   ========================================================= */
+const QUOTE_MATERIALS = {
+  'PLA': 20, 'PLA+': 20, 'PLA PRO': 20, 'PLA Silk': 25, 'PLA Wood': 30, 'PLA Flex': 25, 'PLA Glow': 28,
+  'PETG': 22, 'PETG-CF': 28, 'ABS': 25, 'ABS+': 25, 'ASA': 30,
+  'TPU 95A': 25, 'TPU 85A': 25, 'Nylon (PA)': 35, 'Nylon-CF': 35, 'PAHT-CF': 35,
+  'PC': 32, 'PC-ABS': 35, 'Otro': 20
+};
+const QUOTE_DEFAULTS = { kWh24: 2737.15, designPerHour: 1000, taxPct: 0, depPct: 8, marginPct: 20 };
+let quoteExtras = [];
+let quoteImageData = null;
+let currentCurrency = 'USD';
+
+function openQuoteModal() {
+  const sel = $('#q-material');
+  sel.innerHTML = Object.keys(QUOTE_MATERIALS).map(m => `<option value="${esc(m)}">${esc(m)}</option>`).join('');
+  sel.value = 'PLA';
+  $('#q-currency').value = currentCurrency;
+  $('#q-cost-gram').value = QUOTE_MATERIALS['PLA'];
+  $('#q-kwh').value = QUOTE_DEFAULTS.kWh24;
+  $('#q-design-cost').value = QUOTE_DEFAULTS.designPerHour;
+  $('#q-tax').value = QUOTE_DEFAULTS.taxPct;
+  $('#q-dep').value = QUOTE_DEFAULTS.depPct;
+  $('#q-margin').value = QUOTE_DEFAULTS.marginPct;
+  $('#q-client').value = '';
+  $('#q-project').value = '';
+  $('#q-notes').value = '';
+  $('#q-weight').value = 10;
+  $('#q-qty').value = 1;
+  $('#q-hours').value = 1;
+  $('#q-design-hours').value = 0;
+  quoteExtras = [];
+  quoteImageData = null;
+  resetQuoteImageUI();
+  renderQuoteExtras();
+  updateQuote();
+  $('#quote-overlay').classList.add('open');
+  $('#quote-modal').classList.add('open');
+  $('#quote-modal').setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+function closeQuoteModal() {
+  $('#quote-overlay').classList.remove('open');
+  $('#quote-modal').classList.remove('open');
+  $('#quote-modal').setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+function resetQuoteImageUI() {
+  $('#q-image-preview').hidden = true;
+  $('#q-image-thumb').src = '';
+  $('#q-image-btn').style.display = '';
+  $('#q-image-input').value = '';
+}
+async function handleQuoteImageUpload(file) {
+  if (!file) return;
+  if (!file.type.startsWith('image/')) { alert('El archivo debe ser una imagen.'); return; }
+  try {
+    quoteImageData = await compressImage(file, 600, 0.78);
+    $('#q-image-thumb').src = quoteImageData;
+    $('#q-image-preview').hidden = false;
+    $('#q-image-btn').style.display = 'none';
+    updateQuote();
+  } catch (e) {
+    alert('No se pudo procesar la imagen.');
+    console.error(e);
+  }
+}
+function renderQuoteExtras() {
+  const box = $('#q-extras');
+  if (quoteExtras.length === 0) {
+    box.innerHTML = `<div style="font-size:12px;color:var(--muted);padding:4px 0">Sin materiales adicionales</div>`;
+    return;
+  }
+  box.innerHTML = quoteExtras.map((e, i) => `
+    <div class="quote-extra-row">
+      <input type="text" data-idx="${i}" data-field="name" value="${esc(e.name)}" placeholder="Ej: LED, cadena, imán…">
+      <input type="number" data-idx="${i}" data-field="cost" value="${e.cost || ''}" placeholder="Costo/u" step="1">
+      <button type="button" class="print-remove" data-idx="${i}" title="Quitar">✕</button>
+    </div>`).join('');
+}
+function readQuoteInputs() {
+  return {
+    client: $('#q-client').value.trim(),
+    project: $('#q-project').value.trim(),
+    currency: $('#q-currency').value || 'USD',
+    material: $('#q-material').value,
+    costPerGram: parseFloat($('#q-cost-gram').value) || 0,
+    weight: parseFloat($('#q-weight').value) || 0,
+    qty: Math.max(1, parseInt($('#q-qty').value) || 1),
+    printHours: parseFloat($('#q-hours').value) || 0,
+    designHours: parseFloat($('#q-design-hours').value) || 0,
+    designPerHour: parseFloat($('#q-design-cost').value) || 0,
+    kWh24: parseFloat($('#q-kwh').value) || 0,
+    taxPct: parseFloat($('#q-tax').value) || 0,
+    depPct: parseFloat($('#q-dep').value) || 0,
+    marginPct: parseFloat($('#q-margin').value) || 0,
+    extras: quoteExtras.map(e => ({ name: e.name, cost: parseFloat(e.cost) || 0 })),
+    image: quoteImageData || null,
+    notes: $('#q-notes').value.trim()
+  };
+}
+function updateQuote() {
+  const d = readQuoteInputs();
+  currentCurrency = d.currency;
+  const materialCost = d.weight * d.costPerGram * d.qty;
+  const energyCost = (d.printHours / 24) * d.kWh24 * d.qty;
+  const designCost = d.designHours * d.designPerHour * d.qty;
+  const extrasCost = d.extras.reduce((s,e) => s + e.cost, 0) * d.qty;
+
+  // Base para calcular dep / margen / impuestos (como antes)
+  const subtotalBase = materialCost + energyCost + designCost + extrasCost;
+  const dep = subtotalBase * (d.depPct / 100);
+  const margin = subtotalBase * (d.marginPct / 100);
+  const tax = subtotalBase * (d.taxPct / 100);
+
+  // NUEVO: Modelo = material + depreciación + margen (integrados)
+  const modeloCost = materialCost + dep + margin;
+
+  // Subtotal mostrado = modelo + energía + diseño + extras
+  const subtotalMostrado = modeloCost + energyCost + designCost + extrasCost;
+
+  // Total = subtotalMostrado + impuestos (mismo total que antes)
+  const total = subtotalMostrado + tax;
+
+  const cur = d.currency;
+  const hasTax = d.taxPct > 0;
+
+  // Preview en el modal
+  $('#quote-result').innerHTML = `
+    <div class="qr-row"><span>Modelo (${d.weight}g)</span><span>${fmtMoney(modeloCost, cur)}</span></div>
+    <div class="qr-row"><span>Energía (${d.printHours}h)</span><span>${fmtMoney(energyCost, cur)}</span></div>
+    <div class="qr-row"><span>Diseño (${d.designHours}h)</span><span>${fmtMoney(designCost, cur)}</span></div>
+    <div class="qr-row"><span>Otros materiales</span><span>${fmtMoney(extrasCost, cur)}</span></div>
+    ${hasTax ? `<div class="qr-row qr-subtotal"><span>Subtotal</span><span>${fmtMoney(subtotalMostrado, cur)}</span></div>
+    <div class="qr-row"><span>Impuestos (${d.taxPct}%)</span><span>${fmtMoney(tax, cur)}</span></div>` : ''}
+    <div class="qr-row qr-total"><span>TOTAL</span><span>${fmtMoney(total, cur)}</span></div>`;
+
+  window._quoteCurrent = {
+    ...d,
+    materialCost, energyCost, designCost, extrasCost,
+    subtotalBase, modeloCost, subtotalMostrado,
+    subtotal: subtotalMostrado, // compatibilidad
+    tax, dep, margin, total
+  };
+}
+function showQuoteToast(msg) {
+  const t = $('#quote-toast');
+  t.textContent = '✓ ' + msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+/* =========================================================
+   Historial de cotizaciones
+   ========================================================= */
+function loadQuoteHistory() {
+  try { return JSON.parse(localStorage.getItem(QUOTE_HISTORY_KEY) || '[]'); }
+  catch { return []; }
+}
+function saveQuoteHistoryToStorage(history) {
+  try {
+    localStorage.setItem(QUOTE_HISTORY_KEY, JSON.stringify(history.slice(0, MAX_QUOTES)));
+  } catch (e) {
+    if (e.name === 'QuotaExceededError' || e.code === 22) {
+      throw new Error('No hay espacio en el almacenamiento. Elimina cotizaciones antiguas para liberar espacio.');
+    }
+    throw e;
+  }
+}
+function generateQuoteNumber(history) {
+  const year = new Date().getFullYear();
+  const prefix = `COT-${year}-`;
+  const thisYear = history.filter(q => q.quoteNumber && q.quoteNumber.startsWith(prefix));
+  return prefix + String(thisYear.length + 1).padStart(3, '0');
+}
+function refreshHistoryBadge() {
+  const hist = loadQuoteHistory();
+  const badge = $('#history-badge');
+  if (hist.length > 0) { badge.textContent = hist.length; badge.hidden = false; }
+  else badge.hidden = true;
+}
+function saveQuoteToHistory() {
+  const q = window._quoteCurrent;
+  if (!q) return;
+  const history = loadQuoteHistory();
+  const record = {
+    ...q,
+    image: quoteImageData || q.image || null,
+    id: uid(),
+    quoteNumber: generateQuoteNumber(history),
+    createdAt: Date.now()
+  };
+  history.unshift(record);
+  try {
+    saveQuoteHistoryToStorage(history);
+  } catch (e) {
+    alert(e.message);
+    return;
+  }
+  refreshHistoryBadge();
+  showQuoteToast(`Guardada como ${record.quoteNumber}`);
+  closeQuoteModal();
+  setTimeout(() => openHistoryModal(record.id), 320);
+}
+
+function renderHistoryList(highlightId) {
+  const body = $('#history-body');
+  const history = loadQuoteHistory();
+  $('#history-count').textContent = `${history.length} cotizacion${history.length === 1 ? '' : 'es'}`;
+  if (history.length === 0) {
+    body.innerHTML = `<div class="history-empty"><div style="font-size:36px;margin-bottom:8px">📭</div><strong>Sin cotizaciones aún</strong><br>Usa el botón «💰 Cotizar» para crear tu primera cotización.</div>`;
+    return;
+  }
+  body.innerHTML = history.map(q => {
+    const dateStr = new Date(q.createdAt).toLocaleDateString('es-CO', { day: '2-digit', month: 'short', year: 'numeric' });
+    const cur = q.currency || 'USD';
+    const subParts = [];
+    if (q.material) subParts.push(q.material);
+    subParts.push(`${q.weight}g × ${q.qty} ud`);
+    if (q.printHours) subParts.push(`${q.printHours}h impresión`);
+    subParts.push(currencyLabel(cur));
+    const thumbHTML = q.image
+      ? `<div class="hi-thumb"><img src="${q.image}" alt=""></div>`
+      : `<div class="hi-thumb">📄</div>`;
+
+    // Detalles expandidos
+    const extrasList = (q.extras || []).filter(e => e.name || e.cost > 0);
+    const extrasHTML = extrasList.map(e =>
+      `<div class="hi-detail-row"><span>${esc(e.name || 'Material extra')}</span><span>${fmtMoney(e.cost * q.qty, cur)}</span></div>`
+    ).join('');
+    const notesHTML = q.notes ? `<div class="hi-details-notes"><strong>Notas</strong>${esc(q.notes)}</div>` : '';
+
+    const details = `
+      <div class="hi-details">
+        <div class="hi-details-grid">
+          <div class="hi-details-section-title">Datos del proyecto</div>
+          <div class="hi-detail-row"><span>Cliente</span><span>${esc(q.client || 'Cliente general')}</span></div>
+          <div class="hi-detail-row"><span>Proyecto</span><span>${esc(q.project || 'Impresión 3D')}</span></div>
+          <div class="hi-detail-row"><span>Moneda</span><span>${currencyLabel(cur)}</span></div>
+
+          <div class="hi-details-section-title">Material y geometría</div>
+          <div class="hi-detail-row"><span>Material</span><span>${esc(q.material || '—')}</span></div>
+          <div class="hi-detail-row"><span>Costo/g</span><span>${fmtMoney(q.costPerGram || 0, cur)}</span></div>
+          <div class="hi-detail-row"><span>Peso × Cantidad</span><span>${q.weight}g × ${q.qty}</span></div>
+
+          <div class="hi-details-section-title">Tiempo y diseño</div>
+          <div class="hi-detail-row"><span>Tiempo impresión</span><span>${q.printHours}h</span></div>
+          <div class="hi-detail-row"><span>Horas diseño</span><span>${q.designHours}h</span></div>
+          <div class="hi-detail-row"><span>Costo diseño/h</span><span>${fmtMoney(q.designPerHour || 0, cur)}</span></div>
+
+          <div class="hi-details-section-title">Parámetros</div>
+          <div class="hi-detail-row"><span>kWh (24h)</span><span>${q.kWh24}</span></div>
+          <div class="hi-detail-row"><span>% Impuestos</span><span>${q.taxPct}%</span></div>
+          <div class="hi-detail-row"><span>% Depreciación</span><span>${q.depPct}%</span></div>
+          <div class="hi-detail-row"><span>% Margen</span><span>${q.marginPct}%</span></div>
+
+          <div class="hi-details-section-title">Desglose de cálculo</div>
+          <div class="hi-detail-row"><span>Material filamento</span><span>${fmtMoney(q.materialCost || 0, cur)}</span></div>
+          <div class="hi-detail-row"><span>Energía</span><span>${fmtMoney(q.energyCost || 0, cur)}</span></div>
+          <div class="hi-detail-row"><span>Diseño</span><span>${fmtMoney(q.designCost || 0, cur)}</span></div>
+          ${extrasHTML}
+          <div class="hi-detail-row"><span>Depreciación (${q.depPct}%)</span><span>${fmtMoney(q.dep || 0, cur)}</span></div>
+          <div class="hi-detail-row"><span>Margen (${q.marginPct}%)</span><span>${fmtMoney(q.margin || 0, cur)}</span></div>
+          <div class="hi-detail-row"><span>Modelo (integrado)</span><span>${fmtMoney(q.modeloCost || ((q.materialCost||0) + (q.dep||0) + (q.margin||0)), cur)}</span></div>
+          ${q.taxPct > 0 ? `<div class="hi-detail-row"><span>Subtotal</span><span>${fmtMoney(q.subtotalMostrado || q.subtotal || 0, cur)}</span></div>
+          <div class="hi-detail-row"><span>Impuestos (${q.taxPct}%)</span><span>${fmtMoney(q.tax || 0, cur)}</span></div>` : ''}
+          <div class="hi-detail-row total"><span>TOTAL</span><span>${fmtMoney(q.total, cur)}</span></div>
+        </div>
+        ${notesHTML}
+      </div>`;
+
+    return `<div class="history-item${q.id === highlightId ? ' highlight' : ''}" data-id="${q.id}">
+      <div class="hi-main">
+        <span class="hi-chevron">▶</span>
+        ${thumbHTML}
+        <div class="hi-info">
+          <div class="hi-title"><span class="hi-code">${esc(q.quoteNumber)}</span> ${esc(q.client || 'Cliente general')}</div>
+          <div class="hi-sub">${subParts.map(p => `<span>${esc(p)}</span>`).join('<span class="dot">·</span>')}<span class="dot">·</span><span>${dateStr}</span></div>
+        </div>
+      </div>
+      <div class="hi-total">${fmtMoney(q.total, cur)}</div>
+      ${details}
+      <div class="hi-actions">
+        <button type="button" class="btn small pdf" data-action="pdf" data-id="${q.id}">📄 PDF</button>
+        <button type="button" class="btn small png" data-action="png" data-id="${q.id}">🖼️ PNG</button>
+        <button type="button" class="btn small danger" data-action="delete" data-id="${q.id}">🗑️ Eliminar</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openHistoryModal(highlightId) {
+  renderHistoryList(highlightId);
+  $('#history-overlay').classList.add('open');
+  $('#history-modal').classList.add('open');
+  $('#history-modal').setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+function closeHistoryModal() {
+  $('#history-overlay').classList.remove('open');
+  $('#history-modal').classList.remove('open');
+  $('#history-modal').setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+function deleteQuoteById(id) {
+  const hist = loadQuoteHistory();
+  const idx = hist.findIndex(q => q.id === id);
+  if (idx < 0) return;
+  if (!confirm(`¿Eliminar la cotización ${hist[idx].quoteNumber}?`)) return;
+  hist.splice(idx, 1);
+  saveQuoteHistoryToStorage(hist);
+  refreshHistoryBadge();
+  renderHistoryList();
+}
+
+/* =========================================================
+   Documento cuadrado 900x900 + PDF/PNG
+   ========================================================= */
+async function renderQuoteDoc(quote) {
+  const logo = await getQuoteLogo();
+  const d = quote;
+  const cur = d.currency || 'USD';
+  const dateStr = new Date(d.createdAt).toLocaleDateString('es-CO', { day: '2-digit', month: 'long', year: 'numeric' });
+  const hasTax = (d.taxPct || 0) > 0;
+  const notes = (d.notes || '').trim();
+  const hasNotes = notes.length > 0;
+
+  // Recalcular por si acaso (compatibilidad con registros viejos)
+  const materialCost = d.materialCost ?? (d.weight * d.costPerGram * d.qty);
+  const energyCost = d.energyCost ?? ((d.printHours / 24) * d.kWh24 * d.qty);
+  const designCost = d.designCost ?? (d.designHours * d.designPerHour * d.qty);
+  const extrasCost = d.extrasCost ?? ((d.extras || []).reduce((s,e) => s + e.cost, 0) * d.qty);
+  const dep = d.dep ?? 0;
+  const margin = d.margin ?? 0;
+  const modeloCost = d.modeloCost ?? (materialCost + dep + margin);
+  const subtotalMostrado = d.subtotalMostrado ?? d.subtotal ?? (modeloCost + energyCost + designCost + extrasCost);
+  const tax = d.tax ?? 0;
+
+  const extrasRows = (d.extras || []).filter(e => e.name || e.cost > 0).map(e =>
+    `<tr><td>${esc(e.name || 'Material extra')}</td><td>${fmtMoney(e.cost * d.qty, cur)}</td></tr>`
+  ).join('');
+
+  const logoHTML = logo
+    ? `<img src="${logo}" class="quote-doc-logo" alt="Logo">`
+    : '';
+
+  const metaHTML = `
+    <div class="quote-doc-meta-item"><strong>Cliente</strong>${esc(d.client || 'Cliente general')}</div>
+    <div class="quote-doc-meta-item"><strong>Proyecto</strong>${esc(d.project || 'Impresión 3D')}</div>
+    <div class="quote-doc-meta-item"><strong>Material</strong>${esc(d.material)}</div>
+    <div class="quote-doc-meta-item"><strong>Peso / Cantidad</strong>${d.weight}g × ${d.qty} ud</div>
+    <div class="quote-doc-meta-item"><strong>Tiempo de impresión</strong>${d.printHours} h</div>
+    <div class="quote-doc-meta-item"><strong>Horas de diseño</strong>${d.designHours} h</div>`;
+
+  const imageHTML = d.image
+    ? `<img src="${d.image}" alt="Modelo de referencia">`
+    : `<div class="quote-doc-image-placeholder">Sin imagen<br>de referencia</div>`;
+
+  // Bloque totales: subtotal solo si hay impuestos
+  const totalsHTML = `
+    ${hasTax ? `<div class="row"><span>Subtotal</span><span>${fmtMoney(subtotalMostrado, cur)}</span></div>` : ''}
+    ${hasTax ? `<div class="row"><span>Impuestos (${d.taxPct}%)</span><span>${fmtMoney(tax, cur)}</span></div>` : ''}
+    <div class="row total${hasTax ? '' : ' no-tax'}"><span>TOTAL</span><span>${fmtMoney(d.total, cur)}</span></div>`;
+
+  // Bloque notas (solo si hay notas)
+  const notesHTML = hasNotes
+    ? `<div class="quote-doc-notes-col"><strong>Notas</strong>${esc(notes)}</div>`
+    : `<div class="quote-doc-notes-col is-empty"></div>`;
+
+  const html = `
+    <div class="quote-doc-header">
+      ${logoHTML}
+      <div class="quote-doc-title">
+        <h1>COTIZACIÓN</h1>
+        <p><strong>${esc(d.quoteNumber)}</strong> · ${dateStr}<span class="quote-doc-currency-badge">${currencyLabel(cur)}</span></p>
+      </div>
+    </div>
+    <div class="quote-doc-two-col">
+      <div class="quote-doc-meta-col">${metaHTML}</div>
+      <div class="quote-doc-image-col">${imageHTML}</div>
+    </div>
+    <div class="quote-doc-table-wrap">
+      <table class="quote-doc-table">
+        <thead><tr><th>Concepto</th><th>Valor</th></tr></thead>
+        <tbody>
+          <tr><td>Modelo (${d.weight}g)</td><td>${fmtMoney(modeloCost, cur)}</td></tr>
+          <tr><td>Energía (${d.printHours}h)</td><td>${fmtMoney(energyCost, cur)}</td></tr>
+          <tr><td>Diseño (${d.designHours}h)</td><td>${fmtMoney(designCost, cur)}</td></tr>
+          ${extrasRows}
+        </tbody>
+      </table>
+    </div>
+    <div class="quote-doc-spacer"></div>
+    <div class="quote-doc-totals-row${hasNotes ? '' : ' no-notes'}">
+      ${notesHTML}
+      <div class="quote-doc-totals">${totalsHTML}</div>
+    </div>
+    <div class="quote-doc-footer">
+      Gracias por su preferencia · Cotización válida por 15 días<br>
+      Generada el ${dateStr}
+    </div>`;
+
+  let doc = document.getElementById('quote-render');
+  if (!doc) {
+    doc = document.createElement('div');
+    doc.id = 'quote-render';
+    doc.className = 'quote-doc';
+    document.body.appendChild(doc);
+  }
+  doc.innerHTML = html;
+  return doc;
+}
+
+async function renderQuoteCanvas(quote) {
+  const doc = await renderQuoteDoc(quote);
+  void doc.offsetHeight;
+
+  const imgs = doc.querySelectorAll('img');
+  await Promise.all(Array.from(imgs).map(async img => {
+    if (!img.complete) {
+      await new Promise(res => { img.onload = img.onerror = res; });
+    }
+    try { await img.decode(); } catch(e) {}
+  }));
+
+  await new Promise(r => setTimeout(r, 120));
+
+  return await html2canvas(doc, {
+    backgroundColor: '#ffffff',
+    scale: 2,
+    useCORS: true,
+    allowTaint: false,
+    logging: false,
+    width: 900,
+    height: 900,
+    windowWidth: 900,
+    windowHeight: 900
+  });
+}
+
+async function downloadQuotePDF(quote) {
+  if (!window.html2canvas || !window.jspdf) { alert('Recursos no cargados. Revisa tu conexión.'); return; }
+  try {
+    showQuoteToast('Generando PDF…');
+    const canvas = await renderQuoteCanvas(quote);
+    const imgData = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: [210, 210] });
+    const margin = 8;
+    const size = 210 - margin * 2;
+    pdf.addImage(imgData, 'PNG', margin, margin, size, size);
+    pdf.save(`cotizacion-${quote.quoteNumber}.pdf`);
+    showQuoteToast('PDF descargado');
+  } catch (err) {
+    console.error(err);
+    alert('Error generando PDF: ' + err.message);
+  }
+}
+
+async function downloadQuotePNG(quote) {
+  if (!window.html2canvas) { alert('Recursos no cargados.'); return; }
+  try {
+    showQuoteToast('Generando PNG…');
+    const canvas = await renderQuoteCanvas(quote);
+    canvas.toBlob(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `cotizacion-${quote.quoteNumber}.png`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+      showQuoteToast('PNG descargado');
+    }, 'image/png');
+  } catch (err) {
+    console.error(err);
+    alert('Error generando PNG: ' + err.message);
   }
 }
 
@@ -1754,6 +1943,8 @@ async function applyPrint() {
    ========================================================= */
 $('#btn-add').addEventListener('click', () => openDrawer());
 $('#btn-print').addEventListener('click', openPrintModal);
+$('#btn-quote').addEventListener('click', openQuoteModal);
+$('#btn-history').addEventListener('click', () => openHistoryModal());
 $('#btn-close').addEventListener('click', closeDrawer);
 $('#btn-cancel').addEventListener('click', closeDrawer);
 
@@ -1774,11 +1965,7 @@ grid.addEventListener('keydown', e => {
 });
 
 $('#shelf-box').addEventListener('click', e => {
-  if (e.target.closest('.info-clear')) {
-    filter.filamentId = null;
-    render();
-    return;
-  }
+  if (e.target.closest('.info-clear')) { filter.filamentId = null; render(); return; }
   const slot = e.target.closest('.slot.occupied');
   if (!slot) return;
   const id = slot.dataset.id;
@@ -1802,14 +1989,8 @@ $('#chips').addEventListener('click', e => {
   render();
 });
 
-$('#f-similar').addEventListener('input', e => {
-  filter.similar = normalizeHex(e.target.value) || null;
-  render();
-});
-$('#btn-similar-clear').addEventListener('click', () => {
-  filter.similar = null;
-  render();
-});
+$('#f-similar').addEventListener('input', e => { filter.similar = normalizeHex(e.target.value) || null; render(); });
+$('#btn-similar-clear').addEventListener('click', () => { filter.similar = null; render(); });
 
 $('#palette-editor').addEventListener('input', e => {
   const row = e.target.closest('.palette-row');
@@ -1821,14 +2002,9 @@ $('#palette-editor').addEventListener('input', e => {
     updatePreview();
   } else if (e.target.classList.contains('pal-hex')) {
     const h = normalizeHex(e.target.value);
-    if (h) {
-      draftPalette[idx] = h;
-      row.querySelector('.pal-color').value = h;
-      updatePreview();
-    }
+    if (h) { draftPalette[idx] = h; row.querySelector('.pal-color').value = h; updatePreview(); }
   }
 });
-
 $('#palette-editor').addEventListener('blur', e => {
   if (!e.target.classList.contains('pal-hex')) return;
   const row = e.target.closest('.palette-row');
@@ -1836,7 +2012,6 @@ $('#palette-editor').addEventListener('blur', e => {
   const h = normalizeHex(e.target.value);
   e.target.value = h || draftPalette[idx];
 }, true);
-
 $('#palette-editor').addEventListener('click', e => {
   const btn = e.target.closest('.pal-remove');
   if (!btn) return;
@@ -1847,26 +2022,22 @@ $('#palette-editor').addEventListener('click', e => {
   renderPaletteEditor();
   updatePreview();
 });
-
 $('#btn-add-color').addEventListener('click', () => {
   if (draftPalette.length >= 10) return;
   draftPalette.push(pickNextColor(draftPalette));
   renderPaletteEditor();
   updatePreview();
-  $('#palette-editor').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 });
 
 document.querySelectorAll('.step-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const input = $('#f-kg');
     const delta = parseFloat(btn.dataset.delta) || 0;
-    const current = parseFloat(input.value) || 0;
-    const next = Math.max(0, Math.min(999, current + delta));
+    const next = Math.max(0, Math.min(999, (parseFloat(input.value) || 0) + delta));
     input.value = parseFloat(next.toFixed(2));
     updatePreview();
   });
 });
-
 $('#f-kg').addEventListener('input', updatePreview);
 
 form.addEventListener('submit', async (e) => {
@@ -1875,22 +2046,18 @@ form.addEventListener('submit', async (e) => {
   const hex = draftPalette[0] || '#888888';
   const palette = draftPalette.slice(1);
   const existing = editingId ? colors.find(c => c.id === editingId) : null;
-
   const data = {
     id: existing ? existing.id : uid(),
-    name:     $('#f-name').value.trim() || 'Sin nombre',
-    brand:    $('#f-brand').value.trim(),
+    name: $('#f-name').value.trim() || 'Sin nombre',
+    brand: $('#f-brand').value.trim(),
     material: $('#f-material').value.trim().slice(0, 40),
-    hex,
-    palette,
-    notes:    $('#f-notes').value.trim(),
+    hex, palette,
+    notes: $('#f-notes').value.trim(),
     grams,
-    created:  existing ? existing.created : Date.now()
+    created: existing ? existing.created : Date.now()
   };
-
   if (existing) Object.assign(existing, data);
   else colors.unshift(fixColor(data));
-
   closeDrawer();
   render();
   setCloudState('syncing', 'Guardando…');
@@ -1898,9 +2065,9 @@ form.addEventListener('submit', async (e) => {
     await upsertColor(data);
     setCloudState('ok', 'Guardado');
   } catch (err) {
-    console.error('Error guardando:', err);
+    console.error(err);
     setCloudState('error', 'Error al guardar');
-    alert('No se pudo guardar en la nube.\n' + (err.message || ''));
+    alert('No se pudo guardar.\n' + (err.message || ''));
   }
 });
 
@@ -1908,22 +2075,20 @@ $('#btn-delete').addEventListener('click', async () => {
   if (!editingId) return;
   const c = colors.find(x => x.id === editingId);
   if (!c) return;
-  if (!confirm(`¿Eliminar «${c.name}» del inventario?`)) return;
-
+  if (!confirm(`¿Eliminar «${c.name}»?`)) return;
   const id = editingId;
   if (filter.filamentId === id) filter.filamentId = null;
   colors = colors.filter(x => x.id !== id);
   closeDrawer();
   render();
-
   setCloudState('syncing', 'Eliminando…');
   try {
     await deleteColor(id);
     setCloudState('ok', 'Eliminado');
   } catch (err) {
-    console.error('Error eliminando:', err);
-    setCloudState('error', 'Error al eliminar');
-    alert('No se pudo eliminar en la nube.\n' + (err.message || ''));
+    console.error(err);
+    setCloudState('error', 'Error');
+    alert('No se pudo eliminar.\n' + (err.message || ''));
     try { colors = await fetchColors(); render(); } catch (_) {}
   }
 });
@@ -1939,28 +2104,17 @@ $('#sort').addEventListener('change', e => { filter.sort = e.target.value; rende
 
 $('#btn-print-close').addEventListener('click', closePrintModal);
 $('#btn-print-cancel').addEventListener('click', closePrintModal);
-
 $('#btn-print-add').addEventListener('click', () => {
-  const available = colors.filter(c => c.grams > 0);
-  if (available.length === 0) return;
+  if (!colors.filter(c => c.grams > 0).length) return;
   printLines.push({ filamentId: '', grams: 0 });
   renderPrintLines();
-  const lines = document.querySelectorAll('.print-line');
-  const last = lines[lines.length - 1];
-  if (last) {
-    const btn = last.querySelector('.print-select-btn');
-    if (btn) btn.focus();
-  }
 });
-
 $('#print-lines').addEventListener('input', e => {
   if (!e.target.classList.contains('print-grams')) return;
   const line = e.target.closest('.print-line');
   if (!line) return;
-  const idx = parseInt(line.dataset.idx, 10);
-  printLines[idx].grams = parseFloat(e.target.value) || 0;
+  printLines[parseInt(line.dataset.idx, 10)].grams = parseFloat(e.target.value) || 0;
 });
-
 $('#print-lines').addEventListener('click', e => {
   const toggle = e.target.closest('.print-select-btn');
   if (toggle) {
@@ -1968,14 +2122,10 @@ $('#print-lines').addEventListener('click', e => {
     const line = toggle.closest('.print-line');
     const idx = parseInt(line.dataset.idx, 10);
     const menu = $('#print-menu-shared');
-    if (!menu.hidden && openPrintMenuIdx === idx) {
-      closeAllPrintMenus();
-    } else {
-      openPrintMenu(idx);
-    }
+    if (!menu.hidden && openPrintMenuIdx === idx) closeAllPrintMenus();
+    else openPrintMenu(idx);
     return;
   }
-
   if (e.target.closest('.print-remove')) {
     const line = e.target.closest('.print-line');
     const idx = parseInt(line.dataset.idx, 10);
@@ -1984,7 +2134,6 @@ $('#print-lines').addEventListener('click', e => {
     renderPrintLines();
   }
 });
-
 $('#print-menu-shared').addEventListener('click', e => {
   e.stopPropagation();
   const opt = e.target.closest('.print-select-option');
@@ -1992,9 +2141,7 @@ $('#print-menu-shared').addEventListener('click', e => {
   const id = opt.dataset.id;
   const idx = openPrintMenuIdx;
   if (idx === null) return;
-
   printLines[idx].filamentId = id;
-
   const selected = colors.find(c => c.id === id);
   const line = document.querySelector(`.print-line[data-idx="${idx}"]`);
   if (line && selected) {
@@ -2005,32 +2152,142 @@ $('#print-menu-shared').addEventListener('click', e => {
     label.textContent = `${selected.name} — ${selected.brand || 'Sin marca'} (${fmtKg(selected.grams)} kg)`;
     label.classList.remove('placeholder');
   }
-
   closeAllPrintMenus();
 });
-
 document.addEventListener('click', () => {
   const menu = $('#print-menu-shared');
   if (menu && !menu.hidden) closeAllPrintMenus();
 });
-
 document.addEventListener('scroll', e => {
   const menu = $('#print-menu-shared');
   if (!menu || menu.hidden) return;
   if (e.target === menu || menu.contains(e.target)) return;
   closeAllPrintMenus();
 }, true);
-
 window.addEventListener('resize', () => {
   const menu = $('#print-menu-shared');
   if (menu && !menu.hidden) closeAllPrintMenus();
 });
-
 $('#btn-print-submit').addEventListener('click', applyPrint);
 
+$('#btn-quote-close').addEventListener('click', closeQuoteModal);
+$('#btn-quote-cancel').addEventListener('click', closeQuoteModal);
+$('#quote-overlay').addEventListener('click', closeQuoteModal);
+$('#btn-q-add-extra').addEventListener('click', () => {
+  quoteExtras.push({ name: '', cost: 0 });
+  renderQuoteExtras();
+});
+$('#q-material').addEventListener('change', e => {
+  const m = e.target.value;
+  if (QUOTE_MATERIALS[m] !== undefined) {
+    $('#q-cost-gram').value = QUOTE_MATERIALS[m];
+    updateQuote();
+  }
+});
+$('#q-currency').addEventListener('change', e => {
+  currentCurrency = e.target.value;
+  updateQuote();
+});
+['#q-cost-gram','#q-weight','#q-qty','#q-hours','#q-design-hours','#q-design-cost','#q-kwh','#q-tax','#q-dep','#q-margin'].forEach(s => {
+  $(s).addEventListener('input', updateQuote);
+});
+$('#q-notes').addEventListener('input', () => { /* las notas no afectan cálculos, pero mantenemos _quoteCurrent actualizado */ updateQuote(); });
+$('#q-extras').addEventListener('input', e => {
+  const inp = e.target;
+  if (!inp.dataset.idx) return;
+  const idx = parseInt(inp.dataset.idx, 10);
+  if (inp.dataset.field === 'name') quoteExtras[idx].name = inp.value;
+  else if (inp.dataset.field === 'cost') quoteExtras[idx].cost = parseFloat(inp.value) || 0;
+  updateQuote();
+});
+$('#q-extras').addEventListener('click', e => {
+  const btn = e.target.closest('.print-remove');
+  if (!btn) return;
+  quoteExtras.splice(parseInt(btn.dataset.idx, 10), 1);
+  renderQuoteExtras();
+  updateQuote();
+});
+
+$('#q-image-btn').addEventListener('click', () => $('#q-image-input').click());
+$('#q-image-input').addEventListener('change', e => {
+  const file = e.target.files && e.target.files[0];
+  if (file) handleQuoteImageUpload(file);
+});
+$('#q-image-remove').addEventListener('click', () => {
+  quoteImageData = null;
+  resetQuoteImageUI();
+  updateQuote();
+});
+
+$('#btn-quote-save').addEventListener('click', saveQuoteToHistory);
+
+$('#btn-history-close').addEventListener('click', closeHistoryModal);
+$('#btn-history-close2').addEventListener('click', closeHistoryModal);
+$('#history-overlay').addEventListener('click', closeHistoryModal);
+
+// Click en historial: expandir/colapsar o acciones
+$('#history-body').addEventListener('click', e => {
+  // Acciones (PDF/PNG/Eliminar)
+  const actionBtn = e.target.closest('[data-action]');
+  if (actionBtn) {
+    e.stopPropagation();
+    const action = actionBtn.dataset.action;
+    const id = actionBtn.dataset.id;
+    const hist = loadQuoteHistory();
+    const quote = hist.find(q => q.id === id);
+    if (!quote) return;
+    if (action === 'pdf') downloadQuotePDF(quote);
+    else if (action === 'png') downloadQuotePNG(quote);
+    else if (action === 'delete') deleteQuoteById(id);
+    return;
+  }
+
+  // Click en header o total → expandir/colapsar
+  const headerClick = e.target.closest('.hi-main, .hi-total, .hi-chevron');
+  if (headerClick) {
+    const item = headerClick.closest('.history-item');
+    if (item) item.classList.toggle('expanded');
+  }
+});
+
+$('#btn-history-clear').addEventListener('click', () => {
+  const hist = loadQuoteHistory();
+  if (hist.length === 0) return;
+  if (!confirm(`¿Borrar las ${hist.length} cotizaciones del historial? Esta acción no se puede deshacer.`)) return;
+  localStorage.removeItem(QUOTE_HISTORY_KEY);
+  refreshHistoryBadge();
+  renderHistoryList();
+});
+
 /* =========================================================
-   PDF
+   PDF del inventario
    ========================================================= */
+const LOGO_URL = 'https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/120x120/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png';
+let logoDataUrl = null, logoPromise = null;
+function loadLogoDataURL() {
+  if (logoPromise) return logoPromise;
+  logoPromise = (async () => {
+    try {
+      const resp = await fetch(LOGO_URL, { mode: 'cors', cache: 'force-cache' });
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      const blob = await resp.blob();
+      const url = URL.createObjectURL(blob);
+      const img = await new Promise((res, rej) => {
+        const im = new Image();
+        im.onload = () => res(im);
+        im.onerror = () => rej(new Error('Error img'));
+        im.src = url;
+      });
+      const canvas = document.createElement('canvas');
+      canvas.width = 200; canvas.height = 200;
+      canvas.getContext('2d').drawImage(img, 0, 0, 200, 200);
+      URL.revokeObjectURL(url);
+      logoDataUrl = canvas.toDataURL('image/png');
+      return logoDataUrl;
+    } catch { return null; }
+  })();
+  return logoPromise;
+}
 function truncateText(doc, text, maxWidth) {
   if (!text) return '';
   if (doc.getTextWidth(text) <= maxWidth) return text;
@@ -2038,7 +2295,6 @@ function truncateText(doc, text, maxWidth) {
   while (t.length > 0 && doc.getTextWidth(t + '…') > maxWidth) t = t.slice(0, -1);
   return (t || '…') + '…';
 }
-
 function drawSwatch(doc, x, y, w, h, pal) {
   if (pal.length === 1) {
     const { r, g, b } = hexToRgb(pal[0]);
@@ -2056,29 +2312,20 @@ function drawSwatch(doc, x, y, w, h, pal) {
   doc.setLineWidth(0.2);
   doc.roundedRect(x, y, w, h, 1.5, 1.5, 'S');
 }
-
 function generatePDF() {
-  if (!window.jspdf || !window.jspdf.jsPDF) {
-    alert('La librería PDF no se ha cargado. Revisa tu conexión.');
-    return;
-  }
+  if (!window.jspdf) { alert('Librería PDF no disponible'); return; }
   const list = getList();
-  if (list.length === 0) {
-    alert('No hay colores para exportar con los filtros actuales.');
-    return;
-  }
-
+  if (!list.length) { alert('No hay colores para exportar'); return; }
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit: 'mm', format: 'a4' });
   const pageW = doc.internal.pageSize.getWidth();
   const pageH = doc.internal.pageSize.getHeight();
   const margin = 16;
   const contentW = pageW - margin * 2;
-  const totalG = list.reduce((s, c) => s + c.grams, 0);
-  const totalAllG = colors.reduce((s, c) => s + c.grams, 0);
+  const totalG = list.reduce((s,c) => s + c.grams, 0);
+  const totalAllG = colors.reduce((s,c) => s + c.grams, 0);
   const dateStr = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
   let y = margin;
-
   function drawHeader() {
     doc.setFillColor(79, 156, 249);
     doc.rect(margin, y, contentW, 1.4, 'F');
@@ -2086,120 +2333,67 @@ function generatePDF() {
     const logoSize = 14;
     let textX = margin;
     if (logoDataUrl) {
-      try {
-        doc.addImage(logoDataUrl, 'PNG', margin, y, logoSize, logoSize);
-        textX = margin + logoSize + 5;
-      } catch (_) {}
+      try { doc.addImage(logoDataUrl, 'PNG', margin, y, logoSize, logoSize); textX = margin + logoSize + 5; } catch {}
     }
-    doc.setFontSize(20);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(20, 25, 35);
+    doc.setFontSize(20); doc.setFont('helvetica', 'bold'); doc.setTextColor(20, 25, 35);
     doc.text('Inventario de Filamento', textX, y + 7);
-    doc.setFontSize(9.5);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(120, 128, 140);
+    doc.setFontSize(9.5); doc.setFont('helvetica', 'normal'); doc.setTextColor(120, 128, 140);
     doc.text(`${dateStr}  ·  ${list.length} color${list.length === 1 ? '' : 'es'}  ·  ${fmtKg(totalG)} kg`, textX, y + 13);
     y += Math.max(logoSize, 16) + 4;
   }
-
   const swatchSize = 9, gap = 5;
   const nameX = margin + swatchSize + gap;
   const qtyRight = pageW - margin;
   const nameMaxW = contentW - swatchSize - gap - 36 - 4;
-
   function drawTableHeader() {
     doc.setFillColor(240, 244, 250);
     doc.rect(margin, y, contentW, 8, 'F');
-    doc.setFontSize(8);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(100, 110, 125);
+    doc.setFontSize(8); doc.setFont('helvetica', 'bold'); doc.setTextColor(100, 110, 125);
     doc.text('COLOR', nameX, y + 5.2);
     doc.text('CANTIDAD', qtyRight, y + 5.2, { align: 'right' });
     y += 8;
   }
-
   function drawFooter(pn, total) {
-    doc.setFontSize(8);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(150, 155, 165);
+    doc.setFontSize(8); doc.setFont('helvetica', 'normal'); doc.setTextColor(150, 155, 165);
     doc.text(`Página ${pn} de ${total}`, pageW / 2, pageH - 8, { align: 'center' });
   }
-
-  drawHeader();
-  drawTableHeader();
-
+  drawHeader(); drawTableHeader();
   const rowH = 13, bottomLimit = pageH - 20;
   list.forEach((c, i) => {
-    if (y + rowH > bottomLimit) {
-      doc.addPage();
-      y = margin;
-      drawHeader();
-      drawTableHeader();
-    }
-    if (i % 2 === 0) {
-      doc.setFillColor(250, 251, 253);
-      doc.rect(margin, y, contentW, rowH, 'F');
-    }
+    if (y + rowH > bottomLimit) { doc.addPage(); y = margin; drawHeader(); drawTableHeader(); }
+    if (i % 2 === 0) { doc.setFillColor(250, 251, 253); doc.rect(margin, y, contentW, rowH, 'F'); }
     const pal = fullPalette(c);
     const multi = pal.length >= 2;
     drawSwatch(doc, margin, y + 2, swatchSize, swatchSize, pal);
-
-    doc.setFontSize(10.5);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(25, 30, 40);
+    doc.setFontSize(10.5); doc.setFont('helvetica', 'bold'); doc.setTextColor(25, 30, 40);
     doc.text(truncateText(doc, c.name, nameMaxW), nameX, y + 6);
-
     const parts = [c.brand || 'Sin marca'];
     if (c.material) parts.push(c.material);
     if (multi) parts.push(multiLabel(pal.length));
-    doc.setFontSize(8);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(120, 128, 140);
+    doc.setFontSize(8); doc.setFont('helvetica', 'normal'); doc.setTextColor(120, 128, 140);
     doc.text(truncateText(doc, parts.join('  ·  '), nameMaxW), nameX, y + 10.5);
-
-    doc.setFontSize(10.5);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(25, 30, 40);
+    doc.setFontSize(10.5); doc.setFont('helvetica', 'bold'); doc.setTextColor(25, 30, 40);
     doc.text(`${fmtKg(c.grams)} kg`, qtyRight, y + 6, { align: 'right' });
-
-    const totalPct = Math.round(c.grams / 10);
-    doc.setFontSize(8);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(120, 128, 140);
-    doc.text(`${totalPct}% (base 1 kg)`, qtyRight, y + 10.5, { align: 'right' });
-
+    const pct = Math.round(c.grams / 10);
+    doc.setFontSize(8); doc.setFont('helvetica', 'normal'); doc.setTextColor(120, 128, 140);
+    doc.text(`${pct}% (base 1 kg)`, qtyRight, y + 10.5, { align: 'right' });
     y += rowH;
   });
-
   y += 4;
-  doc.setDrawColor(220, 226, 235);
-  doc.setLineWidth(0.3);
+  doc.setDrawColor(220, 226, 235); doc.setLineWidth(0.3);
   doc.line(margin, y, pageW - margin, y);
   y += 6;
-
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(25, 30, 40);
+  doc.setFontSize(10); doc.setFont('helvetica', 'bold'); doc.setTextColor(25, 30, 40);
   doc.text(`Total: ${list.length} color${list.length === 1 ? '' : 'es'}`, margin, y);
   doc.text(`${fmtKg(totalG)} kg`, pageW - margin, y, { align: 'right' });
-
   if (list.length !== colors.length) {
-    y += 5;
-    doc.setFontSize(8);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(140, 148, 160);
-    doc.text(`Mostrando una selección del inventario completo (${colors.length} colores · ${fmtKg(totalAllG)} kg).`, margin, y);
+    y += 5; doc.setFontSize(8); doc.setFont('helvetica', 'normal'); doc.setTextColor(140, 148, 160);
+    doc.text(`Mostrando selección del inventario completo (${colors.length} colores · ${fmtKg(totalAllG)} kg).`, margin, y);
   }
-
   const totalPages = doc.internal.getNumberOfPages();
-  for (let p = 1; p <= totalPages; p++) {
-    doc.setPage(p);
-    drawFooter(p, totalPages);
-  }
-
+  for (let p = 1; p <= totalPages; p++) { doc.setPage(p); drawFooter(p, totalPages); }
   doc.save(`catalogo-filamento-${new Date().toISOString().slice(0, 10)}.pdf`);
 }
-
 $('#btn-pdf').addEventListener('click', async () => {
   const btn = $('#btn-pdf');
   const original = btn.innerHTML;
@@ -2210,7 +2404,7 @@ $('#btn-pdf').addEventListener('click', async () => {
     generatePDF();
   } catch (err) {
     console.error(err);
-    alert('Ocurrió un error al generar el PDF: ' + err.message);
+    alert('Error: ' + err.message);
   } finally {
     btn.disabled = false;
     btn.innerHTML = original;
@@ -2220,22 +2414,15 @@ $('#btn-pdf').addEventListener('click', async () => {
 /* =========================================================
    Realtime
    ========================================================= */
-let realtimeChannel = null;
 function startRealtime() {
-  realtimeChannel = sb
-    .channel('filamentos-realtime')
-    .on('postgres_changes',
-      { event: '*', schema: 'public', table: 'filamentos' },
-      async () => {
-        try {
-          colors = await fetchColors();
-          render();
-          setCloudState('ok', 'Sincronizado');
-        } catch (e) {
-          console.warn('Realtime refrescar:', e);
-        }
-      }
-    )
+  sb.channel('filamentos-realtime')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'filamentos' }, async () => {
+      try {
+        colors = await fetchColors();
+        render();
+        setCloudState('ok', 'Sincronizado');
+      } catch (e) { console.warn(e); }
+    })
     .subscribe((status) => {
       if (status === 'SUBSCRIBED') setCloudState('ok', 'Sincronizado');
       if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') setCloudState('error', 'Realtime caído');
@@ -2248,6 +2435,8 @@ function startRealtime() {
 (async function init() {
   showLoading();
   setCloudState('syncing', 'Conectando…');
+  refreshHistoryBadge();
+  getQuoteLogo();
   try {
     await migrateFromLocalStorage();
     colors = await fetchColors();
@@ -2257,7 +2446,7 @@ function startRealtime() {
     loadLogoDataURL();
   } catch (err) {
     console.error('Error inicial:', err);
-    showError('No se pudo conectar con Supabase. Verifica tu conexión y que el SQL de la tabla se haya ejecutado.');
+    showError('No se pudo conectar con Supabase. Verifica tu conexión y el SQL de la tabla.');
   }
 })();
 </script>
