@@ -50,38 +50,18 @@
   .btn.history-btn{position:relative}
   .btn.history-btn .badge{position:absolute;top:-6px;right:-6px;background:var(--accent);color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;padding:0 5px;border-radius:99px;display:grid;place-items:center;border:2px solid var(--bg)}
 
-  /* FIX MÓVIL: minmax(0, ...) permite encoger el item */
   .dashboard{display:grid;grid-template-columns:minmax(190px, 1fr) minmax(0, 1.55fr);gap:14px;margin-bottom:18px}
   .stats-left{display:grid;grid-template-rows:repeat(3, 1fr);gap:12px;min-width:0}
   .stats-left .stat{padding:16px 20px;justify-content:center}
   .stats-left .stat-value{font-size:28px}
-
-  /* FIX MÓVIL: min-width + overflow para que no desborde */
   .stats-right{
     background:linear-gradient(145deg, #fef9c3 0%, #fde68a 40%, #fbbf24 100%);
-    border-radius:var(--radius);
-    border:1px solid #eab308;
-    padding:12px;
-    position:relative;
-    display:flex;
-    flex-direction:column;
-    min-height:340px;
-    min-width:0;
-    overflow:hidden;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.3);
+    border-radius:var(--radius);border:1px solid #eab308;padding:12px;
+    position:relative;display:flex;flex-direction:column;min-height:340px;
+    min-width:0;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.3);
   }
 
-  .shelf-title{
-    font-size:11px;
-    text-transform:uppercase;
-    letter-spacing:.09em;
-    color:#78350f;
-    font-weight:800;
-    text-align:center;
-    padding:0 0 8px;
-    flex-shrink:0;
-    text-shadow:0 1px 0 rgba(255,255,255,.4);
-  }
+  .shelf-title{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:#78350f;font-weight:800;text-align:center;padding:0 0 8px;flex-shrink:0;text-shadow:0 1px 0 rgba(255,255,255,.4)}
 
   .shelf-info{display:flex;align-items:center;gap:10px;padding:8px 10px;margin-bottom:8px;background:rgba(255,255,255,0.92);border-radius:10px;border:1px solid rgba(71,85,105,0.18);box-shadow:0 2px 8px rgba(0,0,0,0.12);position:relative;z-index:2;animation:infoIn .2s ease;flex-shrink:0}
   @keyframes infoIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
@@ -96,41 +76,8 @@
   .shelf-view{display:flex;flex-direction:column;gap:9px;flex:1;padding:2px 0;min-height:0;min-width:0}
   .shelf{position:relative;height:52px;border-radius:4px;background:linear-gradient(180deg, #eef2f7 0%, #dfe6ee 55%, #c5cfda 100%);box-shadow:inset 0 1px 0 #ffffff,inset 0 -2px 0 #94a3b8,0 4px 8px rgba(120,53,15,0.18),0 2px 3px rgba(120,53,15,0.10);overflow:hidden;min-width:0}
 
-  /* FIX MÓVIL: grid con minmax(0, 1fr) es más robusto que flex con aspect-ratio */
-  .shelf-slots{
-    position:relative;
-    z-index:1;
-    display:grid;
-    grid-template-columns:repeat(20, minmax(0, 1fr));
-    align-items:center;
-    justify-items:center;
-    gap:2px;
-    height:100%;
-    padding:4px 6px;
-    box-sizing:border-box;
-    min-width:0;
-  }
-  .slot{
-    width:100%;
-    max-width:36px;
-    aspect-ratio:1/1;
-    padding:0;
-    margin:0;
-    border:none;
-    background:transparent;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    box-sizing:border-box;
-    position:relative;
-    border-radius:50%;
-    transition:transform .15s ease;
-    line-height:0;
-    justify-self:center;
-    align-self:center;
-    min-width:0;
-    min-height:0;
-  }
+  .shelf-slots{position:relative;z-index:1;display:grid;grid-template-columns:repeat(20, minmax(0, 1fr));align-items:center;justify-items:center;gap:2px;height:100%;padding:4px 6px;box-sizing:border-box;min-width:0}
+  .slot{width:100%;max-width:36px;aspect-ratio:1/1;padding:0;margin:0;border:none;background:transparent;display:flex;align-items:center;justify-content:center;box-sizing:border-box;position:relative;border-radius:50%;transition:transform .15s ease;line-height:0;justify-self:center;align-self:center;min-width:0;min-height:0}
   .slot > svg{width:100%;height:100%;display:block;overflow:visible}
   .slot.occupied > svg{filter:drop-shadow(0 1.5px 1.2px rgba(0,0,0,0.40));transition:filter .15s ease}
   .slot.empty{cursor:default}
@@ -235,6 +182,7 @@
   input[type=text],input[type=number],input[type=search],textarea,select{font-family:inherit}
   .field input[type=text],.field input[type=number],.field textarea,.field select{background:#0e141c;border:1px solid var(--border);color:var(--text);border-radius:11px;padding:11px 13px;font-size:14px;width:100%;outline:none;transition:.15s;resize:vertical}
   .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,156,249,.16)}
+  .field input[readonly]{background:#0a0f16;color:var(--accent);font-weight:800;cursor:not-allowed;opacity:.95;border-style:dashed}
   .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .field-hint{font-size:11.5px;color:var(--muted);line-height:1.4}
 
@@ -319,6 +267,51 @@
   .quote-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .quote-grid-3{grid-template-columns:repeat(3,1fr)}
   .quote-grid-5{grid-template-columns:repeat(5,1fr)}
+
+  /* NUEVO: Partes del modelo */
+  .quote-parts{
+    display:flex;flex-direction:column;gap:8px;
+    background:#0e141c;border:1px solid var(--border);
+    border-radius:12px;padding:10px 12px;
+  }
+  .quote-parts-head{
+    display:flex;align-items:center;justify-content:space-between;
+    font-size:11px;text-transform:uppercase;letter-spacing:.09em;
+    color:var(--muted);font-weight:700;
+  }
+  .quote-parts-empty{
+    font-size:12px;color:var(--muted);padding:4px 0;
+    font-style:italic;
+  }
+  .quote-part-row{
+    display:grid;grid-template-columns:minmax(0,1fr) 90px 32px;
+    gap:8px;align-items:center;
+  }
+  .quote-part-row input{
+    background:#0a0f16;border:1px solid var(--border);
+    color:var(--text);border-radius:10px;padding:8px 10px;
+    font:inherit;font-size:13px;outline:none;transition:.15s;
+    min-width:0;
+  }
+  .quote-part-row input:focus{
+    border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,156,249,.16);
+  }
+  .quote-part-row input[type=number]{
+    text-align:right;font-variant-numeric:tabular-nums;
+  }
+  .quote-part-row input[type=number]::-webkit-outer-spin-button,
+  .quote-part-row input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .quote-parts-total{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:8px;border-top:1px dashed var(--border);
+    font-size:12px;color:var(--muted);font-weight:700;
+    text-transform:uppercase;letter-spacing:.06em;
+  }
+  .quote-parts-total strong{
+    color:var(--accent);font-size:14px;font-weight:800;
+    font-variant-numeric:tabular-nums;text-transform:none;letter-spacing:0;
+  }
+
   .quote-extras{display:flex;flex-direction:column;gap:8px}
   .quote-extras-head{display:flex;align-items:center;justify-content:space-between;font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:700}
   .quote-extra-row{display:grid;grid-template-columns:1fr 120px 32px;gap:8px;align-items:center}
@@ -433,6 +426,7 @@
   .quote-doc-table th:last-child,.quote-doc-table td:last-child{text-align:right;font-variant-numeric:tabular-nums}
   .quote-doc-table td{padding:7px 10px;border-bottom:1px solid #e2e8f0;color:#1e293b}
   .quote-doc-table tr:last-child td{border-bottom:none}
+  .quote-doc-parts-line{font-size:9.5px;color:#64748b;margin-top:3px;font-weight:500;line-height:1.35}
 
   .quote-doc-spacer{flex:1;min-height:4px}
 
@@ -454,7 +448,6 @@
 
   @media (max-width:900px){.slot{max-width:30px}}
   @media (max-width:760px){
-    /* FIX MÓVIL: minmax(0, 1fr) permite encoger y evita overflow */
     .dashboard{grid-template-columns:minmax(0, 1fr)}
     .stats-left{grid-template-rows:none;grid-template-columns:repeat(3,1fr)}
     .stats-left .stat{padding:12px 14px}
@@ -491,6 +484,7 @@
     .print-select-btn{font-size:12.5px;padding:7px 9px;min-height:38px}
     .print-qty{min-height:38px}
     .quote-extra-row{grid-template-columns:1fr 80px 32px}
+    .quote-part-row{grid-template-columns:minmax(0,1fr) 80px 32px}
     .quote-body,.print-body{padding:14px 16px}
     .quote-foot,.print-foot{padding:12px 16px;flex-wrap:wrap}
     .hi-total{font-size:16px}
@@ -651,8 +645,21 @@
       <label class="field"><span>Material</span><select id="q-material"></select></label>
       <label class="field"><span>Costo/g</span><input type="number" id="q-cost-gram" step="0.1" min="0"></label>
     </div>
+
+    <!-- NUEVO: Partes / Elementos de impresión -->
+    <div class="field">
+      <span>Partes / Elementos de impresión (opcional)</span>
+      <div class="quote-parts">
+        <div class="quote-parts-head">
+          <span>Partes del modelo</span>
+          <button type="button" class="btn small" id="btn-q-add-part">+ Añadir parte</button>
+        </div>
+        <div id="q-parts"></div>
+      </div>
+    </div>
+
     <div class="quote-grid quote-grid-3">
-      <label class="field"><span>Peso (g)</span><input type="number" id="q-weight" min="0" step="0.1" value="10"></label>
+      <label class="field"><span>Peso (g)</span><input type="number" id="q-weight" min="0" step="0.1" value="10"><div class="field-hint" id="q-weight-hint" style="font-size:10.5px;color:var(--muted);display:none">Suma de partes</div></label>
       <label class="field"><span>Cantidad</span><input type="number" id="q-qty" min="1" step="1" value="1"></label>
       <label class="field"><span>T. impresión (h)</span><input type="number" id="q-hours" min="0" step="0.1" value="1"></label>
     </div>
@@ -742,7 +749,7 @@ const SUPABASE_ANON_KEY = 'sb_publishable_YO4mEeGuPDA32yEuf86Izw_g--ggMkU';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { auth: { persistSession: false } });
 
 const KEY = 'filamento-stock-v1';
-const QUOTE_HISTORY_KEY = 'filamento-quotes-v1';  // legacy local
+const QUOTE_HISTORY_KEY = 'filamento-quotes-v1';
 const MAX_QUOTES = 100;
 const $  = (s, r = document) => r.querySelector(s);
 const clamp = (n, a, b) => Math.min(b, Math.max(a, n));
@@ -1027,7 +1034,7 @@ const FAMILIES = [
 ];
 
 let colors = [];
-let quotesCache = [];  // NUEVO: cache en memoria de cotizaciones (de Supabase)
+let quotesCache = [];
 let filter = { text:'', brand:'all', sort:'spectrum', family:'all', similar:null, filamentId:null };
 let editingId = null;
 let draftPalette = ['#4f9cf9'];
@@ -1078,9 +1085,7 @@ async function migrateFromLocalStorage() {
   } catch (e) { console.warn('Migración de filamentos omitida:', e); }
 }
 
-/* =========================================================
-   COTIZACIONES — Ahora en Supabase
-   ========================================================= */
+/* Cotizaciones */
 function fixQuoteRow(r) {
   return {
     id: r.id,
@@ -1100,6 +1105,7 @@ function fixQuoteRow(r) {
     depPct: Number(r.dep_pct) || 0,
     marginPct: Number(r.margin_pct) || 0,
     extras: Array.isArray(r.extras) ? r.extras : [],
+    parts: Array.isArray(r.parts) ? r.parts : [],
     image: r.image || null,
     notes: r.notes || '',
     dimensions: (r.dimensions && typeof r.dimensions === 'object') ? r.dimensions : {},
@@ -1137,6 +1143,7 @@ function quoteToRow(q) {
     dep_pct: q.depPct || 0,
     margin_pct: q.marginPct || 0,
     extras: q.extras || [],
+    parts: q.parts || [],
     image: q.image || null,
     notes: q.notes || '',
     dimensions: q.dimensions || {},
@@ -1154,7 +1161,6 @@ function quoteToRow(q) {
     created: q.createdAt || Date.now()
   };
 }
-
 async function fetchQuotes() {
   const { data, error } = await sb
     .from('cotizaciones')
@@ -1178,8 +1184,6 @@ async function deleteAllQuotesRemote(ids) {
   const { error } = await sb.from('cotizaciones').delete().in('id', ids);
   if (error) throw error;
 }
-
-// Migración puntual de cotizaciones locales → Supabase
 async function migrateQuotesFromLocalStorage() {
   try {
     const raw = localStorage.getItem(QUOTE_HISTORY_KEY);
@@ -1188,20 +1192,14 @@ async function migrateQuotesFromLocalStorage() {
     if (!Array.isArray(local) || local.length === 0) return;
     const { data: existing, error } = await sb.from('cotizaciones').select('id').limit(1);
     if (error) throw error;
-    if (existing && existing.length > 0) {
-      console.log('Cotizaciones ya en Supabase — omitiendo migración local.');
-      return;
-    }
+    if (existing && existing.length > 0) return;
     const rows = local.map(quoteToRow);
     const { error: insErr } = await sb.from('cotizaciones').upsert(rows, { onConflict: 'id' });
     if (insErr) throw insErr;
-    console.log(`✅ Migradas ${rows.length} cotizaciones locales a Supabase.`);
-    // Guardamos copia de seguridad con sufijo para no perderla
     localStorage.setItem(QUOTE_HISTORY_KEY + '-backup', raw);
     localStorage.removeItem(QUOTE_HISTORY_KEY);
   } catch (e) { console.warn('Migración de cotizaciones omitida:', e); }
 }
-
 function generateQuoteNumber() {
   const year = new Date().getFullYear();
   const prefix = `COT-${year}-`;
@@ -1531,8 +1529,71 @@ const QUOTE_MATERIALS = {
 };
 const QUOTE_DEFAULTS = { kWh24: 2737.15, designPerHour: 1000, taxPct: 0, depPct: 8, marginPct: 20 };
 let quoteExtras = [];
+let quoteParts = [];
 let quoteImageData = null;
 let currentCurrency = 'CRC';
+
+/* NUEVO: Suma de pesos de las partes */
+function getPartsWeight() {
+  return quoteParts.reduce((s, p) => s + (parseFloat(p.weight) || 0), 0);
+}
+
+function renderQuoteParts() {
+  const box = $('#q-parts');
+  if (!box) return;
+  const hasParts = quoteParts.length > 0;
+
+  // Sincronizar el campo Peso
+  const weightInput = $('#q-weight');
+  const weightHint = $('#q-weight-hint');
+  if (hasParts) {
+    const total = getPartsWeight();
+    weightInput.readOnly = true;
+    weightInput.value = total;
+    if (weightHint) weightHint.style.display = 'block';
+  } else {
+    weightInput.readOnly = false;
+    if (weightHint) weightHint.style.display = 'none';
+  }
+
+  if (!hasParts) {
+    box.innerHTML = `<div class="quote-parts-empty">Sin partes — el peso se ingresa manualmente</div>`;
+    return;
+  }
+
+  const total = getPartsWeight();
+  box.innerHTML = quoteParts.map((p, i) => `
+    <div class="quote-part-row">
+      <input type="text" data-idx="${i}" data-field="name" value="${esc(p.name)}" placeholder="Ej: Base, Cuerpo, Tapa…" autocomplete="off">
+      <input type="number" data-idx="${i}" data-field="weight" value="${p.weight || ''}" placeholder="g" step="0.1" min="0" inputmode="decimal">
+      <button type="button" class="print-remove" data-idx="${i}" title="Quitar parte">✕</button>
+    </div>
+  `).join('') + `
+    <div class="quote-parts-total">
+      <span>Total de partes</span>
+      <strong>${total}g</strong>
+    </div>
+  `;
+}
+
+/* Al escribir en partes: solo actualizar la parte, la sumatoria y el campo Peso (SIN re-renderizar) */
+function updatePartsOnInput(target) {
+  if (!target || !target.dataset.idx) return;
+  const idx = parseInt(target.dataset.idx, 10);
+  if (target.dataset.field === 'name') {
+    quoteParts[idx].name = target.value;
+  } else if (target.dataset.field === 'weight') {
+    quoteParts[idx].weight = parseFloat(target.value) || 0;
+    const total = getPartsWeight();
+    // Actualizar el "Total de partes" en pantalla
+    const totalEl = document.querySelector('#q-parts .quote-parts-total strong');
+    if (totalEl) totalEl.textContent = total + 'g';
+    // Actualizar el campo Peso (readonly)
+    const weightInput = $('#q-weight');
+    if (weightInput && weightInput.readOnly) weightInput.value = total;
+  }
+  updateQuote();
+}
 
 function openQuoteModal() {
   const sel = $('#q-material');
@@ -1558,9 +1619,11 @@ function openQuoteModal() {
   $('#q-hours').value = 1;
   $('#q-design-hours').value = 0;
   quoteExtras = [];
+  quoteParts = [];
   quoteImageData = null;
   resetQuoteImageUI();
   renderQuoteExtras();
+  renderQuoteParts();
   updateQuote();
   $('#quote-overlay').classList.add('open');
   $('#quote-modal').classList.add('open');
@@ -1607,13 +1670,15 @@ function renderQuoteExtras() {
     </div>`).join('');
 }
 function readQuoteInputs() {
+  const partsWeight = getPartsWeight();
+  const hasParts = quoteParts.length > 0;
   return {
     client: $('#q-client').value.trim(),
     project: $('#q-project').value.trim(),
     currency: $('#q-currency').value || 'CRC',
     material: $('#q-material').value,
     costPerGram: parseFloat($('#q-cost-gram').value) || 0,
-    weight: parseFloat($('#q-weight').value) || 0,
+    weight: hasParts ? partsWeight : (parseFloat($('#q-weight').value) || 0),
     qty: Math.max(1, parseInt($('#q-qty').value) || 1),
     printHours: parseFloat($('#q-hours').value) || 0,
     designHours: parseFloat($('#q-design-hours').value) || 0,
@@ -1623,6 +1688,7 @@ function readQuoteInputs() {
     depPct: parseFloat($('#q-dep').value) || 0,
     marginPct: parseFloat($('#q-margin').value) || 0,
     extras: quoteExtras.map(e => ({ name: e.name, cost: parseFloat(e.cost) || 0 })),
+    parts: quoteParts.map(p => ({ name: p.name || '', weight: parseFloat(p.weight) || 0 })),
     image: quoteImageData || null,
     notes: $('#q-notes').value.trim(),
     dimensions: {
@@ -1712,7 +1778,7 @@ async function saveQuoteToHistory() {
     console.error('Error guardando cotización:', err);
     setCloudState('error', 'Error al guardar');
     alert('No se pudo guardar la cotización en la nube.\n\n' + (err.message || '') +
-      '\n\n⚠️ ¿Ejecutaste el SQL de la tabla "cotizaciones" en Supabase?');
+      '\n\n⚠️ ¿Ejecutaste el SQL de la tabla "cotizaciones" y el ALTER TABLE para añadir la columna "parts"?');
   } finally {
     btn.disabled = false;
     btn.innerHTML = original;
@@ -1749,6 +1815,13 @@ function renderHistoryList(highlightId) {
         dimEntries.map(([label, val]) => `<div class="hi-detail-row"><span>${label}</span><span>${esc(val)}</span></div>`).join('')
       : '';
 
+    // NUEVO: partes del modelo en el historial
+    const partsList = (q.parts || []).filter(p => p.name || p.weight > 0);
+    const partsHTML = partsList.length
+      ? `<div class="hi-details-section-title">Partes del modelo</div>` +
+        partsList.map(p => `<div class="hi-detail-row"><span>${esc(p.name || 'Parte')}</span><span>${p.weight || 0}g</span></div>`).join('')
+      : '';
+
     const details = `
       <div class="hi-details">
         <div class="hi-details-grid">
@@ -1760,6 +1833,7 @@ function renderHistoryList(highlightId) {
           <div class="hi-detail-row"><span>Material</span><span>${esc(q.material || '—')}</span></div>
           <div class="hi-detail-row"><span>Costo/g</span><span>${fmtMoney(q.costPerGram || 0, cur)}</span></div>
           <div class="hi-detail-row"><span>Peso × Cantidad</span><span>${q.weight}g × ${q.qty}</span></div>
+          ${partsHTML}
           ${dimsHTML}
           <div class="hi-details-section-title">Tiempo y diseño</div>
           <div class="hi-detail-row"><span>Tiempo impresión</span><span>${q.printHours}h</span></div>
@@ -1806,7 +1880,6 @@ function renderHistoryList(highlightId) {
 }
 
 async function openHistoryModal(highlightId) {
-  // Refrescamos desde Supabase antes de abrir
   try {
     await fetchQuotes();
   } catch (e) {
@@ -1898,6 +1971,13 @@ async function renderQuoteDoc(quote) {
            `<span class="quote-doc-dimension-chip"><strong>${label}</strong> ${esc(val)}</span>`
          ).join('')}
        </div>` : '';
+
+  // NUEVO: partes bajo el Modelo
+  const partsList = (d.parts || []).filter(p => p.name || p.weight > 0);
+  const partsInlineHTML = partsList.length
+    ? `<div class="quote-doc-parts-line">${partsList.map(p => `${esc(p.name || 'Parte')} (${p.weight || 0}g)`).join(' · ')}</div>`
+    : '';
+
   const totalsHTML = `
     ${hasTax ? `<div class="row"><span>Subtotal</span><span>${fmtMoney(subtotalMostrado, cur)}</span></div>` : ''}
     ${hasTax ? `<div class="row"><span>Impuestos (${d.taxPct}%)</span><span>${fmtMoney(tax, cur)}</span></div>` : ''}
@@ -1923,7 +2003,7 @@ async function renderQuoteDoc(quote) {
       <table class="quote-doc-table">
         <thead><tr><th>Concepto</th><th>Valor</th></tr></thead>
         <tbody>
-          <tr><td>Modelo (${d.weight}g)</td><td>${fmtMoney(modeloCost, cur)}</td></tr>
+          <tr><td>Modelo (${d.weight}g)${partsInlineHTML}</td><td>${fmtMoney(modeloCost, cur)}</td></tr>
           <tr><td>Energía (${d.printHours}h)</td><td>${fmtMoney(energyCost, cur)}</td></tr>
           <tr><td>Diseño (${d.designHours}h)</td><td>${fmtMoney(designCost, cur)}</td></tr>
           ${extrasRows}
@@ -2233,6 +2313,42 @@ $('#btn-quote-close').addEventListener('click', closeQuoteModal);
 $('#btn-quote-cancel').addEventListener('click', closeQuoteModal);
 $('#quote-overlay').addEventListener('click', closeQuoteModal);
 $('#btn-q-add-extra').addEventListener('click', () => { quoteExtras.push({ name: '', cost: 0 }); renderQuoteExtras(); });
+
+/* NUEVO: Añadir parte */
+$('#btn-q-add-part').addEventListener('click', () => {
+  const currentWeight = parseFloat($('#q-weight').value) || 0;
+  const isFirst = quoteParts.length === 0;
+  quoteParts.push({
+    name: '',
+    weight: isFirst ? currentWeight : 0
+  });
+  renderQuoteParts();
+  updateQuote();
+  // Enfocar el nombre de la nueva parte
+  setTimeout(() => {
+    const rows = document.querySelectorAll('#q-parts .quote-part-row');
+    const last = rows[rows.length - 1];
+    if (last) {
+      const nameInput = last.querySelector('input[data-field="name"]');
+      if (nameInput) nameInput.focus();
+    }
+  }, 30);
+});
+
+/* NUEVO: Inputs de partes (solo actualización sin re-render) */
+$('#q-parts').addEventListener('input', e => {
+  updatePartsOnInput(e.target);
+});
+
+/* NUEVO: Eliminar parte */
+$('#q-parts').addEventListener('click', e => {
+  const btn = e.target.closest('.print-remove');
+  if (!btn) return;
+  quoteParts.splice(parseInt(btn.dataset.idx, 10), 1);
+  renderQuoteParts();
+  updateQuote();
+});
+
 $('#q-material').addEventListener('change', e => {
   const m = e.target.value;
   if (QUOTE_MATERIALS[m] !== undefined) {
@@ -2242,7 +2358,8 @@ $('#q-material').addEventListener('change', e => {
 });
 $('#q-currency').addEventListener('change', e => { currentCurrency = e.target.value; updateQuote(); });
 ['#q-cost-gram','#q-weight','#q-qty','#q-hours','#q-design-hours','#q-design-cost','#q-kwh','#q-tax','#q-dep','#q-margin','#q-dim-alto','#q-dim-ancho','#q-dim-largo','#q-dim-fondo','#q-dim-espesor'].forEach(s => {
-  $(s).addEventListener('input', updateQuote);
+  const el = $(s);
+  if (el) el.addEventListener('input', updateQuote);
 });
 $('#q-notes').addEventListener('input', () => { updateQuote(); });
 $('#q-extras').addEventListener('input', e => {
@@ -2484,7 +2601,6 @@ function startRealtime() {
     showError('No se pudo conectar con Supabase. Verifica tu conexión y el SQL de la tabla.');
     return;
   }
-  // Cotizaciones — bloque independiente
   try {
     await migrateQuotesFromLocalStorage();
     await fetchQuotes();
