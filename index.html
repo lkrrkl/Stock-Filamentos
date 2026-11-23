@@ -12,10 +12,10 @@
 <meta name="apple-mobile-web-app-title" content="ito 3D">
 <meta name="application-name" content="GESTIÓN ito 3D">
 <link rel="icon" type="image/png" href="https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/120x120/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png">
-<link rel="apple-touch-icon" href="https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/192x192/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png">
+<link rel="apple-touch-icon" id="apple-touch-icon" href="https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/192x192/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png">
 <link rel="apple-touch-icon" sizes="192x192" href="https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/192x192/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png">
 <link rel="apple-touch-icon" sizes="512x512" href="https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/512x512/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png">
-<link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22GESTI%C3%93N%20ito%203D%22%2C%22short_name%22%3A%22ito%203D%22%2C%22description%22%3A%22Inventario%20de%20filamentos%2C%20cotizaciones%20e%20informe%20de%20ventas%22%2C%22start_url%22%3A%22.%22%2C%22scope%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22orientation%22%3A%22any%22%2C%22background_color%22%3A%22%230d1117%22%2C%22theme_color%22%3A%22%230d1117%22%2C%22lang%22%3A%22es%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/192x192/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22any%20maskable%22%7D%2C%7B%22src%22%3A%22https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/512x512/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
+<link rel="manifest" id="app-manifest" href="#">
 <title>GESTIÓN ito 3D · Registro de colores</title>
 <style>
   :root{
@@ -3367,6 +3367,165 @@ function startRealtime() {
 
 
 /* ================= PWA: instalar como app / acceso directo ================= */
+/* Iconos embebidos: el navegador no puede usar iconos externos (CORS) y pone la letra "G" */
+async function loadImageDataUrl(url) {
+  try {
+    const resp = await fetch(url, { mode: 'cors', cache: 'force-cache' });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const blob = await resp.blob();
+    if (!blob.type.startsWith('image/')) throw new Error('no image');
+    return await new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload = () => res(r.result);
+      r.onerror = () => rej(r.error);
+      r.readAsDataURL(blob);
+    });
+  } catch (e) {
+    return await new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        try {
+          const c = document.createElement('canvas');
+          c.width = img.naturalWidth || 512;
+          c.height = img.naturalHeight || 512;
+          c.getContext('2d').drawImage(img, 0, 0);
+          resolve(c.toDataURL('image/png'));
+        } catch (err) { reject(err); }
+      };
+      img.onerror = () => reject(new Error('img fail'));
+      img.src = url;
+    }).catch(() => null);
+  }
+}
+
+function makeAppIconDataUrl(srcDataUrl, size, maskable) {
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  // Fondo oscuro (tema app) — necesario también para iconos maskable
+  ctx.fillStyle = '#0d1117';
+  ctx.fillRect(0, 0, size, size);
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      // Safe zone ~80% para maskable; un poco más grande si no lo es
+      const pad = maskable ? size * 0.12 : size * 0.06;
+      const box = size - pad * 2;
+      const scale = Math.min(box / img.naturalWidth, box / img.naturalHeight);
+      const w = img.naturalWidth * scale;
+      const h = img.naturalHeight * scale;
+      const x = (size - w) / 2;
+      const y = (size - h) / 2;
+      // esquinas suaves tipo app
+      const r = size * 0.18;
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(pad + r, pad);
+      ctx.arcTo(size - pad, pad, size - pad, size - pad, r);
+      ctx.arcTo(size - pad, size - pad, pad, size - pad, r);
+      ctx.arcTo(pad, size - pad, pad, pad, r);
+      ctx.arcTo(pad, pad, size - pad, pad, r);
+      ctx.closePath();
+      ctx.clip();
+      ctx.fillStyle = '#0d1117';
+      ctx.fillRect(0, 0, size, size);
+      ctx.drawImage(img, x, y, w, h);
+      ctx.restore();
+      resolve(canvas.toDataURL('image/png'));
+    };
+    img.onerror = () => {
+      // Fallback: monograma ito sobre fondo
+      ctx.fillStyle = '#0d1117';
+      ctx.fillRect(0, 0, size, size);
+      ctx.fillStyle = '#4f9cf9';
+      ctx.beginPath();
+      const rr = size * 0.2;
+      ctx.moveTo(rr, 0); ctx.arcTo(size, 0, size, size, rr); ctx.arcTo(size, size, 0, size, rr); ctx.arcTo(0, size, 0, 0, rr); ctx.arcTo(0, 0, size, 0, rr);
+      ctx.fill();
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold ' + Math.round(size * 0.28) + 'px system-ui,sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('ito', size / 2, size / 2);
+      resolve(canvas.toDataURL('image/png'));
+    };
+    img.src = srcDataUrl;
+  });
+}
+
+async function setupPwaIconsAndManifest() {
+  const candidates = (typeof LOGO_CANDIDATES !== 'undefined' && LOGO_CANDIDATES.length)
+    ? LOGO_CANDIDATES
+    : [
+      'https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/240x240/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png',
+      'https://images.cults3d.com/w2DE_2iQLGsmHnB1xYhebQF2k5A=/120x120/filters:format(webp)/https://fbi.cults3d.com/uploads/user/avatar/41002456/Mesa_de_trabajo_10_3x.png'
+    ];
+  let src = null;
+  // Prefer logo ya cargado para cotizaciones
+  if (typeof quoteLogoDataUrl === 'string' && quoteLogoDataUrl.startsWith('data:')) src = quoteLogoDataUrl;
+  if (!src && typeof getQuoteLogo === 'function') {
+    try { src = await getQuoteLogo(); } catch (_) {}
+  }
+  if (!src) {
+    for (const url of candidates) {
+      src = await loadImageDataUrl(url);
+      if (src) break;
+    }
+  }
+  if (!src) {
+    // último recurso: canvas con texto
+    src = await makeAppIconDataUrl('data:,', 512, false);
+  }
+  const [icon192, icon512, iconMask192, iconMask512] = await Promise.all([
+    makeAppIconDataUrl(src, 192, false),
+    makeAppIconDataUrl(src, 512, false),
+    makeAppIconDataUrl(src, 192, true),
+    makeAppIconDataUrl(src, 512, true)
+  ]);
+
+  // Apple / favicon
+  const icon180 = await makeAppIconDataUrl(src, 180, false);
+  document.querySelectorAll('link[rel="apple-touch-icon"]').forEach(l => { l.href = icon180; });
+  const fav = document.querySelector('link[rel="icon"]');
+  if (fav) fav.href = icon192;
+
+  const manifest = {
+    name: 'GESTIÓN ito 3D',
+    short_name: 'ito 3D',
+    description: 'Inventario de filamentos, cotizaciones e informe de ventas',
+    start_url: './',
+    scope: './',
+    display: 'standalone',
+    orientation: 'any',
+    background_color: '#0d1117',
+    theme_color: '#0d1117',
+    lang: 'es',
+    icons: [
+      { src: icon192, sizes: '192x192', type: 'image/png', purpose: 'any' },
+      { src: icon512, sizes: '512x512', type: 'image/png', purpose: 'any' },
+      { src: iconMask192, sizes: '192x192', type: 'image/png', purpose: 'maskable' },
+      { src: iconMask512, sizes: '512x512', type: 'image/png', purpose: 'maskable' }
+    ]
+  };
+  const blob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
+  const manifestUrl = URL.createObjectURL(blob);
+  const link = document.getElementById('app-manifest') || document.querySelector('link[rel="manifest"]');
+  if (link) {
+    if (link.href && link.href.startsWith('blob:')) {
+      try { URL.revokeObjectURL(link.href); } catch (_) {}
+    }
+    link.href = manifestUrl;
+  }
+  return { icon192, icon512 };
+}
+
+// Arrancar carga de iconos lo antes posible
+const pwaIconsReady = setupPwaIconsAndManifest().catch(err => {
+  console.warn('No se pudieron preparar iconos PWA:', err);
+});
+
 let deferredInstallPrompt = null;
 const btnInstall = document.getElementById('btn-install');
 
