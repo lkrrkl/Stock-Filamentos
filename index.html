@@ -61,9 +61,14 @@
   .btn.sales-btn{background:linear-gradient(180deg,#22c55e,#16a34a);border-color:#16a34a;color:#fff;box-shadow:0 8px 24px -8px rgba(34,197,94,.5)}
   .btn.sales-btn:hover{background:linear-gradient(180deg,#4ade80,#22c55e);border-color:#22c55e}
   .btn.history-btn{position:relative}
-  .btn.install-btn{background:linear-gradient(180deg,#6366f1,#4f46e5);border-color:#4f46e5;color:#fff;box-shadow:0 8px 24px -8px rgba(99,102,241,.55);display:none}
+  .btn.install-btn{background:linear-gradient(180deg,#6366f1,#4f46e5);border-color:#4f46e5;color:#fff;box-shadow:0 8px 24px -8px rgba(99,102,241,.55);display:none;align-items:center;gap:6px}
   .btn.install-btn:hover{background:linear-gradient(180deg,#818cf8,#6366f1);border-color:#6366f1}
-  .btn.install-btn.show{display:inline-flex;align-items:center;gap:6px}
+  .btn.install-btn.show{display:inline-flex}
+  /* En móvil el botón de instalar se muestra siempre (JS lo oculta si ya está instalada) */
+  @media (max-width:900px){
+    .btn.install-btn{display:inline-flex}
+    .btn.install-btn.installed{display:none !important}
+  }
   .action-group{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
   .btn.prelim-btn{background:linear-gradient(180deg,#334155,#1e293b);border-color:#475569;color:#e2e8f0}
   .btn.prelim-btn:hover{background:linear-gradient(180deg,#3f4e63,#273244)}
@@ -98,18 +103,44 @@
 
   .shelf-view-wrap{position:relative;z-index:1;display:flex;flex-direction:column;flex:1;min-height:0;min-width:0}
   .shelf-view{display:flex;flex-direction:column;gap:8px;flex:1;min-height:0;min-width:0;justify-content:space-between}
-  .shelf{position:relative;flex:1;min-height:46px;display:flex;align-items:flex-end;min-width:0}
-  .shelf::after{content:"";position:absolute;left:-4px;right:-4px;bottom:0;height:7px;border-radius:3px;background:linear-gradient(180deg,#c9965d 0%,#a06f3d 55%,#6e4723 100%);box-shadow:0 6px 10px -3px rgba(0,0,0,.75),inset 0 1px 0 rgba(255,255,255,.28)}
-  .shelf-slots{position:relative;z-index:1;display:grid;grid-template-columns:repeat(var(--per,20),minmax(0,1fr));align-items:end;justify-items:center;gap:2px;width:100%;padding:0 2px 5px;box-sizing:border-box;min-width:0}
-  .slot{width:100%;max-width:42px;aspect-ratio:1/1;padding:0;margin:0;border:none;background:transparent;display:flex;align-items:center;justify-content:center;box-sizing:border-box;position:relative;border-radius:50%;transition:transform .15s ease,opacity .2s ease;line-height:0;justify-self:center;min-width:0;min-height:0}
-  .slot > svg{width:100%;height:100%;display:block;overflow:visible}
-  .slot.occupied > svg{filter:drop-shadow(0 3px 2px rgba(0,0,0,.6));transition:filter .15s ease}
-  .slot.empty{cursor:default;opacity:.9}
-  .slot.occupied{cursor:pointer;outline:none}
-  .slot.occupied:hover,.slot.occupied:focus-visible,.slot.occupied.active{transform:translateY(-4px) scale(1.12);z-index:3}
-  .slot.occupied:hover > svg,.slot.occupied:focus-visible > svg,.slot.occupied.active > svg{filter:drop-shadow(0 6px 5px rgba(0,0,0,.65))}
-  .slot.occupied.active::before{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid #60a5fa;pointer-events:none;animation:activePulse 1.6s ease-in-out infinite}
+  .shelf{position:relative;flex:1;min-height:58px;display:flex;align-items:flex-end;min-width:0}
+  .shelf::after{content:"";position:absolute;left:-4px;right:-4px;bottom:0;height:7px;border-radius:3px;background:linear-gradient(180deg,#c9965d 0%,#a06f3d 55%,#6e4723 100%);box-shadow:0 6px 10px -3px rgba(0,0,0,.75),inset 0 1px 0 rgba(255,255,255,.28);z-index:0}
+  .shelf-slots{position:relative;z-index:1;display:grid;grid-template-columns:repeat(var(--per,20),minmax(0,1fr));align-items:end;justify-items:center;gap:2px;width:100%;padding:0 2px 0;box-sizing:border-box;min-width:0}
+  .slot{width:100%;max-width:42px;padding:0;margin:0;border:none;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;box-sizing:border-box;position:relative;border-radius:0;transition:transform .15s ease,opacity .2s ease;line-height:0;justify-self:center;min-width:0;min-height:0}
+  .slot.empty{aspect-ratio:1/1;border-radius:50%;justify-content:center;cursor:default;opacity:.9;margin-bottom:7px}
+  .slot.empty > svg{width:100%;height:100%;display:block;overflow:visible}
+  .slot.occupied{cursor:pointer;outline:none;gap:0;z-index:2}
+  .slot-spool{position:relative;width:100%;aspect-ratio:1/1;display:block;line-height:0;flex:0 0 auto;z-index:1;margin-bottom:0}
+  .slot-spool > svg{width:100%;height:100%;display:block;overflow:visible;filter:drop-shadow(0 2px 2px rgba(0,0,0,.5));transition:filter .15s ease}
+  .slot.occupied:hover,.slot.occupied:focus-visible,.slot.occupied.active{transform:translateY(-4px) scale(1.12);z-index:4}
+  .slot.occupied:hover .slot-spool > svg,.slot.occupied:focus-visible .slot-spool > svg,.slot.occupied.active .slot-spool > svg{filter:drop-shadow(0 6px 5px rgba(0,0,0,.65))}
+  .slot.occupied.active .slot-spool::before{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid #60a5fa;pointer-events:none;animation:activePulse 1.6s ease-in-out infinite;z-index:1}
+  /* Placa acero inox: borde superior alineado con el borde superior del listón café (7px) */
+  .slot-mat{
+    display:flex;align-items:center;justify-content:center;
+    width:auto;max-width:calc(100% + 2px);min-width:0;height:7px;box-sizing:border-box;
+    font-size:6.5px;font-weight:800;line-height:1;letter-spacing:.01em;
+    color:#1c2430;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    padding:0 3px;margin:0;pointer-events:none;user-select:none;flex:0 0 auto;
+    background:
+      linear-gradient(180deg,
+        #f7f8fa 0%,
+        #d7dbe0 18%,
+        #aeb4bb 42%,
+        #8e959e 52%,
+        #c4c9cf 72%,
+        #eef0f3 100%);
+    border:1px solid #6b7280;
+    border-bottom-color:#4b5563;
+    border-radius:2px 2px 1px 1px;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.75),
+      inset 0 -1px 0 rgba(0,0,0,.22),
+      0 1px 2px rgba(0,0,0,.28);
+    position:relative;z-index:3;
+  }
   .slot.dim{opacity:.28}
+  .slot.dim .slot-mat{opacity:.9}
   @keyframes activePulse{0%,100%{opacity:1}50%{opacity:.5}}
   .shelf-overflow{margin-top:8px;text-align:center;font-size:11px;font-weight:700;color:#e8c76a;padding:4px 10px;background:rgba(245,183,1,.1);border-radius:99px;align-self:center;border:1px solid rgba(245,183,1,.3);flex-shrink:0}
 
@@ -560,7 +591,7 @@
   .sale-info b{color:var(--text)}
   .quote-foot .btn[hidden]{display:none}
 
-  @media (max-width:900px){.slot{max-width:30px}}
+  @media (max-width:900px){.slot{max-width:30px}.slot-mat{font-size:6px;padding:0 2px;height:7px}.slot.empty{margin-bottom:7px}}
   @media (max-width:760px){
     .dashboard{grid-template-columns:minmax(0, 1fr)}
     .stats-left{grid-template-rows:none;grid-template-columns:repeat(2,1fr)}
@@ -570,6 +601,10 @@
     .stats-left .stat-value{font-size:20px}
     .stats-right{min-height:320px}
     .slot{max-width:28px}
+    .slot-mat{font-size:5.5px;padding:0 2px;height:7px}
+    .shelf{min-height:52px}
+    .shelf-slots{padding-bottom:0}
+    .slot.empty{margin-bottom:7px}
     .hi-details-grid{grid-template-columns:repeat(2,1fr)}
   }
   @media (max-width:560px){
@@ -581,13 +616,15 @@
     .head-actions .btn{width:100%}
     .stats-left{grid-template-columns:1fr 1fr}
     .stats-right{min-height:300px;padding:10px}
-    .shelf{min-height:40px}
+    .shelf{min-height:50px}
     .shelf-legend{display:none}
+    .slot-mat{font-size:5px;letter-spacing:-.02em;padding:0 1px;height:7px}
+    .slot.empty{margin-bottom:7px}
     .sv-controls{padding:10px 14px}
     .sv-body{padding:14px 14px 20px}
     .sv-kpi strong{font-size:17px}
     .history-tools{padding:10px 14px}
-    .shelf-slots{padding:3px 4px;gap:1px}
+    .shelf-slots{padding:3px 4px 0;gap:1px}
     .slot{max-width:30px}
     .shelf-view{gap:6px}
     .shelf-title{font-size:10px;padding-bottom:6px}
@@ -1211,7 +1248,11 @@ function renderShelfView() {
         const dim = filter.filamentId && filter.filamentId !== c.id ? ' dim' : '';
         const low = c.grams < LOW_G;
         const label = [c.name, c.brand, c.material, `${fmtKg(c.grams)} kg`].filter(Boolean).join(' · ');
-        shelvesHTML += `<button type="button" class="slot occupied${isActive}${dim}" data-id="${esc(c.id)}" data-fill="${spool.fill}" aria-label="${esc(label)}">${shelfSpoolSVG(spool.pal, spool.fill, low)}</button>`;
+        const matLabel = (c.material || '').trim();
+        const matHTML = matLabel
+          ? `<span class="slot-mat" title="${esc(matLabel)}">${esc(matLabel)}</span>`
+          : `<span class="slot-mat" aria-hidden="true">&nbsp;</span>`;
+        shelvesHTML += `<button type="button" class="slot occupied${isActive}${dim}" data-id="${esc(c.id)}" data-fill="${spool.fill}" aria-label="${esc(label)}"><span class="slot-spool">${shelfSpoolSVG(spool.pal, spool.fill, low)}</span>${matHTML}</button>`;
       } else {
         shelvesHTML += `<div class="slot empty" aria-hidden="true">${slotEmptySVG()}</div>`;
       }
@@ -3331,20 +3372,49 @@ const btnInstall = document.getElementById('btn-install');
 
 function isStandalone() {
   return window.matchMedia('(display-mode: standalone)').matches
+    || window.matchMedia('(display-mode: fullscreen)').matches
     || window.navigator.standalone === true
     || document.referrer.includes('android-app://');
 }
 
+function isMobileLike() {
+  const ua = navigator.userAgent || '';
+  const touch = navigator.maxTouchPoints > 0 || 'ontouchstart' in window;
+  const narrow = window.matchMedia('(max-width: 900px)').matches;
+  const mobileUA = /Android|iPhone|iPad|iPod|Mobile|IEMobile|Opera Mini/i.test(ua)
+    || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  return mobileUA || (touch && narrow);
+}
+
 function showInstallButton(show) {
   if (!btnInstall) return;
-  if (show && !isStandalone()) btnInstall.classList.add('show');
+  if (isStandalone()) {
+    btnInstall.classList.remove('show');
+    btnInstall.classList.add('installed');
+    btnInstall.hidden = true;
+    return;
+  }
+  btnInstall.hidden = false;
+  btnInstall.classList.remove('installed');
+  if (show) btnInstall.classList.add('show');
   else btnInstall.classList.remove('show');
+}
+
+function refreshInstallVisibility() {
+  if (isStandalone()) {
+    showInstallButton(false);
+    return;
+  }
+  // Móvil: siempre visible (instrucciones o prompt nativo)
+  // Escritorio: solo si el navegador ofrece instalación
+  if (isMobileLike() || deferredInstallPrompt) showInstallButton(true);
+  else showInstallButton(false);
 }
 
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredInstallPrompt = e;
-  showInstallButton(true);
+  refreshInstallVisibility();
 });
 
 window.addEventListener('appinstalled', () => {
@@ -3356,41 +3426,50 @@ window.addEventListener('appinstalled', () => {
 if (btnInstall) {
   btnInstall.addEventListener('click', async () => {
     if (deferredInstallPrompt) {
-      deferredInstallPrompt.prompt();
-      const { outcome } = await deferredInstallPrompt.userChoice;
-      deferredInstallPrompt = null;
-      showInstallButton(false);
-      if (outcome === 'accepted') {
-        try { showQuoteToast('App instalada en el inicio'); } catch (_) {}
+      try {
+        deferredInstallPrompt.prompt();
+        const choice = await deferredInstallPrompt.userChoice;
+        deferredInstallPrompt = null;
+        if (choice && choice.outcome === 'accepted') {
+          showInstallButton(false);
+          try { showQuoteToast('App instalada en el inicio'); } catch (_) {}
+        } else {
+          refreshInstallVisibility();
+        }
+      } catch (err) {
+        console.warn(err);
+        deferredInstallPrompt = null;
+        refreshInstallVisibility();
       }
       return;
     }
-    // Fallback: instrucciones según plataforma
     const ua = navigator.userAgent || '';
     const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     const isAndroid = /Android/i.test(ua);
     if (isIOS) {
-      alert('Para instalar en iPhone/iPad:\\n\\n1. Toca el botón Compartir (□↑) en Safari\\n2. Elige «Añadir a pantalla de inicio»\\n3. Confirma el nombre y toca Añadir');
+      alert('Para instalar en iPhone/iPad:\n\n1. Toca el botón Compartir (□↑) abajo en Safari\n2. Desplázate y elige «Añadir a pantalla de inicio»\n3. Confirma el nombre y toca «Añadir»\n\nLuego ábrela desde el icono en tu pantalla de inicio.');
     } else if (isAndroid) {
-      alert('Para instalar en Android:\\n\\n1. Abre el menú ⋮ del navegador\\n2. Elige «Instalar aplicación» o «Añadir a la pantalla de inicio»\\n3. Confirma');
+      alert('Para instalar en Android:\n\n1. Toca el menú ⋮ (arriba a la derecha)\n2. Elige «Instalar aplicación» o «Añadir a la pantalla de inicio»\n3. Confirma\n\nSi no ves esa opción, abre esta página en Chrome y espera unos segundos.');
     } else {
-      alert('En este dispositivo usa el menú del navegador → «Instalar aplicación» o «Añadir a la pantalla de inicio».');
+      alert('Para instalar como app:\n\n• Chrome / Edge: menú ⋮ → «Instalar aplicación» o el icono ⊕ en la barra de direcciones.\n• Safari (Mac): Archivo → «Añadir al Dock» (si está disponible).');
     }
   });
 }
 
-// Mostrar botón en iOS (no dispara beforeinstallprompt)
-if (/iPad|iPhone|iPod/.test(navigator.userAgent || '') || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
-  if (!isStandalone()) showInstallButton(true);
-}
+// Estado inicial + al rotar / redimensionar
+refreshInstallVisibility();
+window.addEventListener('resize', () => {
+  clearTimeout(window.__pwaResizeT);
+  window.__pwaResizeT = setTimeout(refreshInstallVisibility, 200);
+});
 
-// Service Worker mínimo (caché de la propia página para uso offline básico)
+// Service Worker (mejora criterios de instalación en Chrome; puede fallar en file://)
 if ('serviceWorker' in navigator) {
   const swCode = `
-    const CACHE = 'ito3d-v1';
+    const CACHE = 'ito3d-v2';
     self.addEventListener('install', (e) => {
-      e.waitUntil(caches.open(CACHE).then((c) => c.addAll(['./']).catch(() => {})));
       self.skipWaiting();
+      e.waitUntil(caches.open(CACHE).then((c) => c.addAll(['./']).catch(() => {})));
     });
     self.addEventListener('activate', (e) => {
       e.waitUntil(
@@ -3404,22 +3483,24 @@ if ('serviceWorker' in navigator) {
       e.respondWith(
         caches.match(req).then((cached) => {
           const net = fetch(req).then((res) => {
-            if (res && res.ok && (req.url.startsWith(self.location.origin) || req.mode === 'navigate')) {
-              const copy = res.clone();
-              caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => {});
-            }
+            try {
+              if (res && res.ok && req.url.startsWith(self.location.origin)) {
+                const copy = res.clone();
+                caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => {});
+              }
+            } catch (_) {}
             return res;
-          }).catch(() => cached);
+          }).catch(() => cached || Response.error());
           return cached || net;
         })
       );
     });
   `;
   try {
-    const blob = new Blob([swCode], { type: 'application/javascript' });
+    const blob = new Blob([swCode], { type: 'text/javascript' });
     const swUrl = URL.createObjectURL(blob);
     navigator.serviceWorker.register(swUrl, { scope: './' }).catch((err) => {
-      console.warn('SW no registrado (normal en file:// o algunos hosts):', err.message);
+      console.warn('SW no registrado (normal en file:// o sin HTTPS):', err && err.message);
     });
   } catch (err) {
     console.warn('SW no disponible:', err);
