@@ -337,6 +337,7 @@
   .quote-body{padding:18px 22px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:14px;min-height:0}
   .quote-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .quote-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .quote-grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
   .quote-grid-6{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
   .quote-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:10px;align-items:stretch}
 
@@ -346,7 +347,7 @@
   #quote-modal .quote-head h2{font-size:16px}
   #quote-modal .quote-body{padding:12px 18px;gap:10px}
   #quote-modal .quote-foot{padding:10px 18px}
-  #quote-modal .quote-grid,#quote-modal .quote-grid-3{gap:8px}
+  #quote-modal .quote-grid,#quote-modal .quote-grid-3,#quote-modal .quote-grid-4{gap:8px}
   #quote-modal .field{gap:4px}
   #quote-modal .field > span{font-size:10px;letter-spacing:.07em}
   #quote-modal .field input[type=text],#quote-modal .field input[type=number],#quote-modal .field textarea,#quote-modal .field select{padding:8px 10px;font-size:13px;border-radius:9px}
@@ -641,7 +642,7 @@
     .chip{width:24px;height:24px}
     .btn{padding:9px 12px;font-size:13px}
     .field-row{grid-template-columns:1fr}
-    .quote-grid,.quote-grid-3{grid-template-columns:1fr 1fr}
+    .quote-grid,.quote-grid-3,.quote-grid-4{grid-template-columns:1fr 1fr}
     .quote-grid-6{grid-template-columns:repeat(3,1fr)}
     .quote-split{grid-template-columns:1fr}
     .cloud-status{display:none}
@@ -828,10 +829,11 @@
       <div id="q-parts"></div>
     </div>
 
-    <div class="quote-grid-3">
+    <div class="quote-grid-4">
       <label class="field"><span>Peso (g)</span><input type="number" id="q-weight" min="0" step="0.1" value="10"><div class="field-hint" id="q-weight-hint" style="font-size:10.5px;color:var(--muted);display:none">Suma de partes</div></label>
       <label class="field"><span>Cantidad</span><input type="number" id="q-qty" min="1" step="1" value="1"></label>
       <label class="field"><span>T. impresión (h)</span><input type="number" id="q-hours" min="0" step="0.1" value="1"></label>
+      <label class="field" title="Costo de 24 h de impresión (kWh). Alimenta el costo de Energía: T. impresión ÷ 24 × este valor."><span>Costo kWh (24h)</span><input type="number" id="q-kwh" step="0.01" min="0" value="2737.15"></label>
     </div>
     <div class="quote-grid-3">
       <label class="field"><span>Horas diseño</span><input type="number" id="q-design-hours" min="0" step="0.1" value="0"></label>
@@ -879,7 +881,6 @@
     <details class="quote-advanced">
       <summary>Parámetros avanzados</summary>
       <div class="quote-grid">
-        <label class="field"><span>Costo kWh (24h)</span><input type="number" id="q-kwh" step="0.01" min="0" value="2737.15"></label>
         <label class="field"><span>% Impuestos</span><input type="number" id="q-tax" step="0.1" min="0" value="0"></label>
         <label class="field"><span>% Depreciación</span><input type="number" id="q-dep" step="0.1" min="0" value="8"></label>
         <label class="field"><span>% Margen</span><input type="number" id="q-margin" step="0.1" min="0" value="20"></label>
