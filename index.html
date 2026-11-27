@@ -411,6 +411,10 @@
   .qr-subtotal{border-top:1px dashed var(--border);padding-top:8px;margin-top:4px;color:var(--text);font-weight:700}
   .qr-total{border-top:2px solid #f59e0b;padding-top:10px;margin-top:6px;font-size:16px;color:var(--text);font-weight:800}
   .qr-total span{color:#f59e0b;font-size:18px}
+  .qr-unit{color:var(--text)}
+  .qr-unit span:first-child{color:var(--muted)}
+  .quote-opts{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .quote-opts .qx-toggle{position:relative}
   .quote-foot{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:10px;align-items:center;background:#131922;border-radius:0 0 20px 20px;flex:0 0 auto}
   .quote-foot .spacer{flex:1}
   .quote-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#22c55e;color:#fff;padding:10px 20px;border-radius:99px;font-size:13px;font-weight:700;z-index:300;box-shadow:0 12px 30px rgba(0,0,0,.4);transition:transform .3s cubic-bezier(.4,0,.2,1);pointer-events:none}
@@ -485,7 +489,7 @@
   .quote-doc-meta-item strong{display:block;color:#64748b;font-size:calc(9px*var(--k));text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px;font-weight:700}
 
   .quote-doc-image-col{position:relative;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;overflow:hidden;min-height:0}
-  .quote-doc-image-col img{position:absolute;left:8px;top:8px;width:calc(100% - 16px);height:calc(100% - 16px);object-fit:contain;border-radius:6px;display:block;background:#ffffff}
+  .quote-doc-image-col img{position:absolute;left:8px;top:8px;width:calc(100% - 16px);height:calc(100% - 16px);object-fit:contain;border-radius:6px;display:block;background:#ffffff;max-width:none;max-height:none}
 
   .quote-doc-dimensions{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;padding:calc(8px*var(--k)) 14px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;flex:0 0 auto}
   .quote-doc-dimensions-title{font-size:calc(9px*var(--k));text-transform:uppercase;letter-spacing:.6px;color:#1e40af;font-weight:800;margin-right:4px}
@@ -512,6 +516,8 @@
   .quote-doc-totals .row.total{border-top:2px solid #eab308;margin-top:6px;padding-top:10px;font-size:calc(17px*var(--k));font-weight:800;color:#a16207}
   .quote-doc-totals .row.total span:last-child{color:#a16207;font-size:calc(20px*var(--k))}
   .quote-doc-totals .row.total.no-tax{border-top:none;margin-top:0;padding-top:0}
+  .quote-doc-totals .row.unit-row span:first-child{color:#475569}
+  .quote-doc.only-total .quote-doc-totals{width:calc(300px*var(--k))}
 
   .quote-doc-footer{padding-top:9px;border-top:2px solid #eab308;font-size:10px;color:#94a3b8;text-align:center;line-height:1.6;flex:0 0 auto}
 
@@ -879,6 +885,10 @@
         <label class="field"><span>% Margen</span><input type="number" id="q-margin" step="0.1" min="0" value="20"></label>
       </div>
     </details>
+    <div class="quote-opts">
+      <label class="qx-toggle" title="Activado: se muestra el desglose de subtotales. Desactivado: solo se muestra el total."><input type="checkbox" id="q-show-breakdown" checked><span>Mostrar desglose</span></label>
+      <label class="qx-toggle" title="Activado: se muestra la cantidad y el costo unitario (total ÷ cantidad) arriba del total."><input type="checkbox" id="q-show-unit"><span>Cantidad y costo unitario</span></label>
+    </div>
     <div class="quote-result" id="quote-result"></div>
   </div>
   <div class="quote-foot">
@@ -1431,6 +1441,8 @@ function fixQuoteRow(r) {
     imprevistoPct: Number(meta.imprevistoPct) || 0,
     imprevistoCost: Number(meta.imprevistoCost) || 0,
     extrasModelCost: Number(meta.extrasModelCost) || 0,
+    showBreakdown: meta.showBreakdown !== false,
+    showUnit: !!meta.showUnit,
     materialCost: Number(r.material_cost) || 0,
     energyCost: Number(r.energy_cost) || 0,
     designCost: Number(r.design_cost) || 0,
@@ -1474,7 +1486,9 @@ function quoteToRow(q) {
       sale: q.sale || null,
       imprevistoPct: q.imprevistoPct || 0,
       imprevistoCost: q.imprevistoCost || 0,
-      extrasModelCost: q.extrasModelCost || 0
+      extrasModelCost: q.extrasModelCost || 0,
+      showBreakdown: q.showBreakdown !== false,
+      showUnit: !!q.showUnit
     } },
     material_cost: q.materialCost || 0,
     energy_cost: q.energyCost || 0,
@@ -1963,6 +1977,8 @@ function openQuoteModal(q) {
   $('#q-qty').value = q ? q.qty : 1;
   $('#q-hours').value = q ? q.printHours : 1;
   $('#q-design-hours').value = q ? q.designHours : 0;
+  $('#q-show-breakdown').checked = q ? q.showBreakdown !== false : true;
+  $('#q-show-unit').checked = q ? !!q.showUnit : false;
   quoteExtras = q ? (q.extras || []).map(e => ({ name: e.name || '', cost: e.cost || 0, inModel: !!e.inModel })) : [];
   quoteParts = q ? (q.parts || []).map(x => ({ name: x.name || '', weight: x.weight || 0 })) : [];
   quoteImageData = q ? (q.image || null) : null;
@@ -2046,6 +2062,8 @@ function readQuoteInputs() {
     parts: quoteParts.map(p => ({ name: p.name || '', weight: parseFloat(p.weight) || 0 })),
     image: quoteImageData || null,
     notes: $('#q-notes').value.trim(),
+    showBreakdown: $('#q-show-breakdown').checked,
+    showUnit: $('#q-show-unit').checked,
     dimensions: {
       alto: $('#q-dim-alto').value.trim(),
       ancho: $('#q-dim-ancho').value.trim(),
@@ -2091,13 +2109,19 @@ function updateQuote() {
   const hasTax = d.taxPct > 0;
   const modeloLabel = `Modelo (${d.weight}g${d.imprevistoPct > 0 ? ` · +${d.imprevistoPct}% imprevisto` : ''})`;
 
-  $('#quote-result').innerHTML = `
+  const unitCost = d.qty > 0 ? total / d.qty : total;
+  const breakdownHTML = d.showBreakdown ? `
     <div class="qr-row"><span>${esc(modeloLabel)}</span><span>${fmtMoney(modeloCost, cur)}</span></div>
     <div class="qr-row"><span>Energía (${d.printHours}h)</span><span>${fmtMoney(energyCost, cur)}</span></div>
     <div class="qr-row"><span>Diseño (${d.designHours}h)</span><span>${fmtMoney(designCost, cur)}</span></div>
     <div class="qr-row"><span>Otros costos</span><span>${fmtMoney(extrasCost, cur)}</span></div>
     ${hasTax ? `<div class="qr-row qr-subtotal"><span>Subtotal</span><span>${fmtMoney(subtotalMostrado, cur)}</span></div>
-    <div class="qr-row"><span>Impuestos (${d.taxPct}%)</span><span>${fmtMoney(tax, cur)}</span></div>` : ''}
+    <div class="qr-row"><span>Impuestos (${d.taxPct}%)</span><span>${fmtMoney(tax, cur)}</span></div>` : ''}` : '';
+  const unitHTML = d.showUnit ? `
+    <div class="qr-row qr-unit"><span>Cantidad</span><span>${d.qty} ud</span></div>
+    <div class="qr-row qr-unit"><span>Costo unitario</span><span>${fmtMoney(unitCost, cur)}</span></div>` : '';
+
+  $('#quote-result').innerHTML = `${breakdownHTML}${unitHTML}
     <div class="qr-row qr-total"><span>TOTAL</span><span>${fmtMoney(total, cur)}</span></div>`;
 
   window._quoteCurrent = {
@@ -2363,6 +2387,27 @@ function fitQuoteDoc(doc, hasImage) {
   }
 }
 
+/* Imagen de referencia: conserva SIEMPRE su relación de aspecto original y ocupa el
+   máximo posible del recuadro (si es vertical toca arriba/abajo; si es horizontal, los lados).
+   Se calcula en píxeles exactos para no depender de object-fit dentro de html2canvas. */
+function fitQuoteImage(doc) {
+  const col = doc.querySelector('.quote-doc-image-col');
+  const img = col && col.querySelector('img');
+  if (!img || !img.naturalWidth || !img.naturalHeight) return;
+  const pad = 8;
+  const cw = col.clientWidth - pad * 2;
+  const ch = col.clientHeight - pad * 2;
+  if (cw <= 0 || ch <= 0) return;
+  const scale = Math.min(cw / img.naturalWidth, ch / img.naturalHeight);
+  const w = Math.max(1, Math.floor(img.naturalWidth * scale));
+  const h = Math.max(1, Math.floor(img.naturalHeight * scale));
+  img.style.objectFit = 'fill';
+  img.style.width = w + 'px';
+  img.style.height = h + 'px';
+  img.style.left = Math.round((col.clientWidth - w) / 2) + 'px';
+  img.style.top = Math.round((col.clientHeight - h) / 2) + 'px';
+}
+
 async function renderQuoteDoc(quote) {
   const logo = await getQuoteLogo();
   const d = quote;
@@ -2413,10 +2458,30 @@ async function renderQuoteDoc(quote) {
     ? `<div class="quote-doc-parts-line">${partsList.map(p => `${esc(p.name || 'Parte')} (${p.weight || 0}g)`).join(' · ')}</div>`
     : '';
 
+  const showBreakdown = d.showBreakdown !== false;
+  const showUnit = !!d.showUnit;
+  const qtyN = Math.max(1, parseInt(d.qty) || 1);
+  const unitCost = (d.total || 0) / qtyN;
+  const showTaxRows = showBreakdown && hasTax;
+  const hasRowsAbove = showTaxRows || showUnit;
   const totalsHTML = `
-    ${hasTax ? `<div class="row"><span>Subtotal</span><span>${fmtMoney(subtotalMostrado, cur)}</span></div>` : ''}
-    ${hasTax ? `<div class="row"><span>Impuestos (${d.taxPct}%)</span><span>${fmtMoney(tax, cur)}</span></div>` : ''}
-    <div class="row total${hasTax ? '' : ' no-tax'}"><span>TOTAL</span><span>${fmtMoney(d.total, cur)}</span></div>`;
+    ${showTaxRows ? `<div class="row"><span>Subtotal</span><span>${fmtMoney(subtotalMostrado, cur)}</span></div>` : ''}
+    ${showTaxRows ? `<div class="row"><span>Impuestos (${d.taxPct}%)</span><span>${fmtMoney(tax, cur)}</span></div>` : ''}
+    ${showUnit ? `<div class="row unit-row"><span>Cantidad</span><span>${qtyN} ud</span></div>
+    <div class="row unit-row"><span>Costo unitario</span><span>${fmtMoney(unitCost, cur)}</span></div>` : ''}
+    <div class="row total${hasRowsAbove ? '' : ' no-tax'}"><span>TOTAL</span><span>${fmtMoney(d.total, cur)}</span></div>`;
+  const tableHTML = showBreakdown ? `
+    <div class="quote-doc-table-wrap">
+      <table class="quote-doc-table">
+        <thead><tr><th>Concepto</th><th>Valor</th></tr></thead>
+        <tbody>
+          <tr><td>Modelo (${d.weight}g)${partsInlineHTML}</td><td>${fmtMoney(modeloCost, cur)}</td></tr>
+          <tr><td>Energía (${d.printHours}h)</td><td>${fmtMoney(energyCost, cur)}</td></tr>
+          <tr><td>Diseño (${d.designHours}h)</td><td>${fmtMoney(designCost, cur)}</td></tr>
+          ${extrasRows}
+        </tbody>
+      </table>
+    </div>` : '';
   const leftBoxHTML = hasNotes
     ? `<div class="quote-doc-notes-col"><strong>Notas</strong>${esc(notes)}</div>`
     : `<div class="quote-doc-notes-col terms"><strong>Validez</strong>Esta cotización es válida por 15 días desde su fecha de emisión. Valores expresados en ${currencyLabel(cur).toLowerCase()}.</div>`;
@@ -2434,17 +2499,7 @@ async function renderQuoteDoc(quote) {
       ${imageColHTML}
     </div>
     ${dimsHTML}
-    <div class="quote-doc-table-wrap">
-      <table class="quote-doc-table">
-        <thead><tr><th>Concepto</th><th>Valor</th></tr></thead>
-        <tbody>
-          <tr><td>Modelo (${d.weight}g)${partsInlineHTML}</td><td>${fmtMoney(modeloCost, cur)}</td></tr>
-          <tr><td>Energía (${d.printHours}h)</td><td>${fmtMoney(energyCost, cur)}</td></tr>
-          <tr><td>Diseño (${d.designHours}h)</td><td>${fmtMoney(designCost, cur)}</td></tr>
-          ${extrasRows}
-        </tbody>
-      </table>
-    </div>
+    ${tableHTML}
     <div class="quote-doc-totals-row">
       ${leftBoxHTML}
       <div class="quote-doc-totals">${totalsHTML}</div>
@@ -2462,9 +2517,11 @@ async function renderQuoteDoc(quote) {
     document.body.appendChild(doc);
   }
   doc.classList.toggle('no-image', !hasImage);
+  doc.classList.toggle('only-total', !hasRowsAbove);
   doc.innerHTML = html;
   void doc.offsetHeight;
   fitQuoteDoc(doc, hasImage);
+  fitQuoteImage(doc);
   return doc;
 }
 
@@ -2477,6 +2534,7 @@ async function renderQuoteCanvas(quote) {
     try { await img.decode(); } catch(e) {}
   }));
   fitQuoteDoc(doc, !!quote.image);
+  fitQuoteImage(doc);
   await new Promise(r => setTimeout(r, 120));
   return await html2canvas(doc, {
     backgroundColor: '#ffffff', scale: 2, useCORS: true, allowTaint: false, logging: false,
@@ -2813,6 +2871,8 @@ $('#q-currency').addEventListener('change', e => { currentCurrency = e.target.va
   if (el) el.addEventListener('input', updateQuote);
 });
 $('#q-notes').addEventListener('input', () => { updateQuote(); });
+$('#q-show-breakdown').addEventListener('change', updateQuote);
+$('#q-show-unit').addEventListener('change', updateQuote);
 $('#q-extras').addEventListener('input', e => {
   const inp = e.target;
   if (!inp.dataset.idx) return;
