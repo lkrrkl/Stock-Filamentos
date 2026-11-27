@@ -487,6 +487,8 @@
   .quote-doc-meta-col{display:grid;grid-template-columns:1fr 1fr;align-content:space-between;gap:calc(8px*var(--k)) 14px;padding:calc(12px*var(--k)) 16px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;overflow:hidden}
   .quote-doc.no-image .quote-doc-meta-col{grid-template-columns:repeat(3,1fr);align-content:start}
   .quote-doc-meta-item{font-size:calc(12.5px*var(--k));color:#0f172a;line-height:1.3;min-width:0;word-break:break-word}
+  .quote-doc-meta-item.wide{grid-column:1/-1}
+  .quote-doc-meta-note{display:block;margin-top:3px;font-size:calc(10px*var(--k));color:#64748b;font-style:italic;line-height:1.35}
   .quote-doc-meta-item strong{display:block;color:#64748b;font-size:calc(9px*var(--k));text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px;font-weight:700}
 
   .quote-doc-image-col{position:relative;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;overflow:hidden;min-height:0}
@@ -835,10 +837,11 @@
       <label class="field"><span>T. impresión (h)</span><input type="number" id="q-hours" min="0" step="0.1" value="1"></label>
       <label class="field" title="Costo de 24 h de impresión (kWh). Alimenta el costo de Energía: T. impresión ÷ 24 × este valor."><span>Costo kWh (24h)</span><input type="number" id="q-kwh" step="0.01" min="0" value="2737.15"></label>
     </div>
-    <div class="quote-grid-3">
+    <div class="quote-grid-4">
       <label class="field"><span>Horas diseño</span><input type="number" id="q-design-hours" min="0" step="0.1" value="0"></label>
       <label class="field"><span>Costo diseño/h</span><input type="number" id="q-design-cost" step="1" min="0" value="1000"></label>
       <label class="field" title="% extra de filamento sobre el Peso (g) para cubrir fallos y purgas. Se suma al Modelo."><span>Imprevisto (%)</span><input type="number" id="q-imprev" step="0.1" min="0" value="5"></label>
+      <label class="field" title="Días aproximados de fabricación. Aparece en el PDF/PNG de la cotización (el tiempo de impresión y las horas de diseño no)."><span>Días fabricación</span><input type="number" id="q-days" min="0" step="1" value="" placeholder="Ej: 5" inputmode="numeric"></label>
     </div>
     <div class="field">
       <span>Dimensiones (opcional — solo aparecen las que llenes)</span>
@@ -1444,6 +1447,7 @@ function fixQuoteRow(r) {
     extrasModelCost: Number(meta.extrasModelCost) || 0,
     showBreakdown: meta.showBreakdown !== false,
     showUnit: !!meta.showUnit,
+    leadDays: Number(meta.leadDays) || 0,
     materialCost: Number(r.material_cost) || 0,
     energyCost: Number(r.energy_cost) || 0,
     designCost: Number(r.design_cost) || 0,
@@ -1489,7 +1493,8 @@ function quoteToRow(q) {
       imprevistoCost: q.imprevistoCost || 0,
       extrasModelCost: q.extrasModelCost || 0,
       showBreakdown: q.showBreakdown !== false,
-      showUnit: !!q.showUnit
+      showUnit: !!q.showUnit,
+      leadDays: q.leadDays || 0
     } },
     material_cost: q.materialCost || 0,
     energy_cost: q.energyCost || 0,
@@ -1980,6 +1985,7 @@ function openQuoteModal(q) {
   $('#q-design-hours').value = q ? q.designHours : 0;
   $('#q-show-breakdown').checked = q ? q.showBreakdown !== false : true;
   $('#q-show-unit').checked = q ? !!q.showUnit : false;
+  $('#q-days').value = (q && q.leadDays) ? q.leadDays : '';
   quoteExtras = q ? (q.extras || []).map(e => ({ name: e.name || '', cost: e.cost || 0, inModel: !!e.inModel })) : [];
   quoteParts = q ? (q.parts || []).map(x => ({ name: x.name || '', weight: x.weight || 0 })) : [];
   quoteImageData = q ? (q.image || null) : null;
@@ -2065,6 +2071,7 @@ function readQuoteInputs() {
     notes: $('#q-notes').value.trim(),
     showBreakdown: $('#q-show-breakdown').checked,
     showUnit: $('#q-show-unit').checked,
+    leadDays: Math.max(0, parseInt($('#q-days').value) || 0),
     dimensions: {
       alto: $('#q-dim-alto').value.trim(),
       ancho: $('#q-dim-ancho').value.trim(),
@@ -2435,13 +2442,13 @@ async function renderQuoteDoc(quote) {
     `<tr><td>${esc(e.name || 'Otro costo')}</td><td>${fmtMoney(e.cost * d.qty, cur)}</td></tr>`
   ).join('');
   const logoHTML = logo ? `<img src="${logo}" class="quote-doc-logo" alt="Logo">` : '';
+  const leadDays = Math.max(0, parseInt(d.leadDays) || 0);
   const metaHTML = `
     <div class="quote-doc-meta-item"><strong>Cliente</strong>${esc(d.client || 'Cliente general')}</div>
     <div class="quote-doc-meta-item"><strong>Proyecto</strong>${esc(d.project || 'Impresión 3D')}</div>
     <div class="quote-doc-meta-item"><strong>Material</strong>${esc(d.material)}</div>
     <div class="quote-doc-meta-item"><strong>Peso / Cantidad</strong>${d.weight}g × ${d.qty} ud</div>
-    <div class="quote-doc-meta-item"><strong>Tiempo de impresión</strong>${d.printHours} h</div>
-    <div class="quote-doc-meta-item"><strong>Horas de diseño</strong>${d.designHours} h</div>`;
+    ${leadDays > 0 ? `<div class="quote-doc-meta-item wide"><strong>Cantidad de días aproximados para fabricación</strong>${leadDays} ${leadDays === 1 ? 'día' : 'días'}<span class="quote-doc-meta-note">Plazo estimado, ajustado a la carga de trabajo vigente al momento de emitir esta cotización.</span></div>` : ''}`;
   const imageColHTML = hasImage
     ? `<div class="quote-doc-image-col"><img src="${d.image}" alt="Modelo de referencia"></div>`
     : '';
@@ -2477,8 +2484,8 @@ async function renderQuoteDoc(quote) {
         <thead><tr><th>Concepto</th><th>Valor</th></tr></thead>
         <tbody>
           <tr><td>Modelo (${d.weight}g)${partsInlineHTML}</td><td>${fmtMoney(modeloCost, cur)}</td></tr>
-          <tr><td>Energía (${d.printHours}h)</td><td>${fmtMoney(energyCost, cur)}</td></tr>
-          <tr><td>Diseño (${d.designHours}h)</td><td>${fmtMoney(designCost, cur)}</td></tr>
+          <tr><td>Energía</td><td>${fmtMoney(energyCost, cur)}</td></tr>
+          <tr><td>Diseño</td><td>${fmtMoney(designCost, cur)}</td></tr>
           ${extrasRows}
         </tbody>
       </table>
@@ -2867,7 +2874,7 @@ $('#q-material').addEventListener('change', e => {
   }
 });
 $('#q-currency').addEventListener('change', e => { currentCurrency = e.target.value; updateQuote(); });
-['#q-cost-gram','#q-weight','#q-qty','#q-hours','#q-design-hours','#q-design-cost','#q-imprev','#q-kwh','#q-tax','#q-dep','#q-margin','#q-dim-alto','#q-dim-ancho','#q-dim-largo','#q-dim-fondo','#q-dim-diametro','#q-dim-espesor'].forEach(s => {
+['#q-cost-gram','#q-weight','#q-qty','#q-hours','#q-days','#q-design-hours','#q-design-cost','#q-imprev','#q-kwh','#q-tax','#q-dep','#q-margin','#q-dim-alto','#q-dim-ancho','#q-dim-largo','#q-dim-fondo','#q-dim-diametro','#q-dim-espesor'].forEach(s => {
   const el = $(s);
   if (el) el.addEventListener('input', updateQuote);
 });
